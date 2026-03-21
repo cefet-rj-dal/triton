@@ -3,7 +3,7 @@
 
 \section{Estrutura experimental}
 
-\warn{O presente capítulo apresenta a estrutura experimental efetivamente executada e os resultados preliminares da implementação computacional do modelo em \emph{R}. A análise foi aplicada à rota Santos--Roterdã e contempla tanto o cenário-base quanto análises complementares de sensibilidade econômica, ambiental, regulatória, operacional e específica para a rota de \gls{TCO}.}
+\warn{O presente capítulo apresenta a estrutura experimental efetivamente executada e os resultados preliminares da implementação computacional do modelo em \emph{R}. A análise foi aplicada à rota Santos--Roterdã e contempla tanto o cenário-base quanto análises complementares de sensibilidade econômica, ambiental, regulatória, operacional e específica para a rota de \gls{TCO}}. \warn{A interpretação dos resultados é realizada à luz do ambiente regulatório europeu, no qual o custo marginal de abatimento é comparado ao intervalo de referência $\gamma^{ref}$, permitindo avaliar a compatibilidade econômica dos cenários com o sinal de preço de carbono vigente.}}
 
 A avaliação experimental é estruturada em torno de um cenário-base e de conjuntos complementares de análise de sensibilidade. O cenário-base corresponde à rota Santos--Roterdã, previamente definida no capítulo de método, e representa o caso de referência para comparação entre o \emph{bunker fuel} convencional e os cenários de biobunker. Sobre esse cenário são construídas variações paramétricas da fração de mistura $\alpha$, da rota de produção do biodiesel $r$, dos parâmetros econômicos e, de forma complementar, das condições operacionais agregadas da viagem.
 
@@ -39,7 +39,7 @@ A fração de mistura é discretizada no conjunto:
 
 de modo a incluir misturas regularmente espaçadas e, adicionalmente, o ponto de interesse específico \gls{B24}, já utilizado no exemplo numérico do capítulo de método.
 
-\warn{Esse cenário-base constitui o núcleo da análise da dissertação, pois permite comparar, sob mesmas condições operacionais e mesma demanda útil da viagem, o efeito da origem do biodiesel e do aumento da fração renovável sobre consumo requerido, emissões, custo e custo marginal de abatimento.}
+\warn{Esse cenário-base constitui o núcleo da análise da dissertação, pois permite comparar, sob mesmas condições operacionais e mesma demanda útil da viagem, o efeito da origem do biodiesel e do aumento da fração renovável sobre consumo requerido, emissões, custo e custo marginal de abatimento}. \warn{Nesse contexto, o custo marginal de abatimento passa a ser interpretado como o preço implícito de carbono associado à substituição parcial do combustível fóssil, permitindo relacionar diretamente os resultados do modelo ao ambiente regulatório europeu.}}
 
 \subsection{Cenários complementares de sensibilidade}
 
@@ -107,7 +107,7 @@ No \textbf{Setup 4}, realiza-se a sensibilidade regulatória, por meio da varia�
 \warn{\parbox[t]{6.0cm}{permite quantificar o ganho ambiental associado à mistura}} \\
 \warn{\parbox[t]{2.6cm}{$MAC(\alpha,r)$}} &
 \warn{\parbox[t]{5.2cm}{custo marginal de abatimento de carbono}} &
-\warn{\parbox[t]{6.0cm}{relaciona custo incremental e redução de emissões, sendo central para a comparação econômico-regulatória}} \\
+\warn{\parbox[t]{6.0cm}{relaciona custo incremental e redução de emissões, podendo ser interpretado como preço implícito de carbono, sendo central para a comparação econômico-regulatória com o parâmetro $\gamma^{ref}$}} \\
 \warn{\parbox[t]{2.6cm}{$V(\alpha,r)$}} &
 \warn{\parbox[t]{5.2cm}{indicador binário de viabilidade econômico-ambiental}} &
 \warn{\parbox[t]{6.0cm}{classifica cada cenário conforme o atendimento simultâneo aos critérios $\delta$ e $\gamma^{ref}$}} \\
@@ -203,9 +203,9 @@ No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico
 
 \section{Resultados preliminares}
 
-\warn{A execução preliminar do modelo confirma que, no cenário-base com sinal regulatório compatível com a faixa recente do \gls{EUETS}, não emergem cenários viáveis para nenhuma das rotas avaliadas. Em termos qualitativos, o principal entrave permanece econômico: mesmo quando as emissões diminuem com o aumento de $\alpha$, o custo incremental da mistura supera o patamar de preço de carbono representado por $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$.}
+\warn{A execução preliminar do modelo confirma que, no cenário-base com sinal regulatório compatível com a faixa recente do \gls{EUETS}, não emergem cenários viáveis para nenhuma das rotas avaliadas}. \warn{Em termos analíticos, isso equivale a observar que, para todos os cenários considerados, o custo marginal de abatimento permanece acima do intervalo de referência $\gamma^{ref}$, indicando incompatibilidade econômica com o ambiente regulatório europeu nas condições atuais.} \warn{Em termos qualitativos, o principal entrave permanece econômico: mesmo quando as emissões diminuem com o aumento de $\alpha$, o custo incremental da mistura supera o patamar de preço de carbono representado por $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$.}
 
-\warn{A Figura~\ref{fig:break_even_alpha} apresenta o preço de carbono de equilíbrio por fração de mistura e rota. Como esse indicador coincide, no modelo, com a razão entre custo incremental e redução de emissões, ele pode ser interpretado como o preço de carbono necessário para igualar economicamente o cenário de biobunker ao cenário fóssil. Observa-se que soja permanece sistematicamente acima das demais rotas, enquanto \gls{UCO}, sebo bovino e \gls{TCO} se agrupam em faixa inferior, porém ainda distante do intervalo de referência do \gls{EUETS}.}
+\warn{A Figura~\ref{fig:break_even_alpha} apresenta o preço de carbono de equilíbrio por fração de mistura e rota. Como esse indicador coincide, no modelo, com a razão entre custo incremental e redução de emissões, ele pode ser interpretado como o preço de carbono necessário para igualar economicamente o cenário de biobunker ao cenário fóssil, sendo equivalente ao custo marginal de abatimento expresso em termos de preço de carbono de equilíbrio. Observa-se que soja permanece sistematicamente acima das demais rotas, enquanto \gls{UCO}, sebo bovino e \gls{TCO} se agrupam em faixa inferior, porém ainda distante do intervalo de referência do \gls{EUETS}.}
 
 \begin{figure}[!ht]
 \centering
@@ -214,7 +214,7 @@ No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico
 \label{fig:break_even_alpha}
 \end{figure}
 
-\warn{Os valores mínimos de preço de carbono de equilíbrio no cenário-base ocorrem em $\alpha = 0{,}30$ e são da ordem de $415,3\,\text{EUR}/tCO_2$ para \gls{UCO}, $427,4\,\text{EUR}/tCO_2$ para \gls{TCO}, $431,3\,\text{EUR}/tCO_2$ para sebo bovino e $641,1\,\text{EUR}/tCO_2$ para soja. Isso sugere que a atratividade relativa das rotas residuais ou de subprodutos industriais já se manifesta no modelo, mas ainda requer sinal regulatório mais forte do que o observado no mercado europeu de carbono.}
+\warn{Os valores mínimos de preço de carbono de equilíbrio no cenário-base ocorrem em $\alpha = 0{,}30$ e são da ordem de $415,3\,\text{EUR}/tCO_2$ para \gls{UCO}, $427,4\,\text{EUR}/tCO_2$ para \gls{TCO}, $431,3\,\text{EUR}/tCO_2$ para sebo bovino e $641,1\,\text{EUR}/tCO_2$ para soja. Isso sugere que a atratividade relativa das rotas residuais ou de subprodutos industriais já se manifesta no modelo, mas ainda requer sinal regulatório mais forte do que o observado no mercado europeu de carbono, isto é, valores de $\gamma^{ref}$ significativamente superiores à faixa atualmente praticada no \gls{EUETS}.}
 
 \warn{Em termos interpretativos, a Figura~\ref{fig:break_even_alpha} mostra mais do que uma simples ordenação entre rotas. Ela evidencia que o aumento de $\alpha$ melhora o desempenho relativo das alternativas renováveis no cenário-base, levando os menores preços de carbono de equilíbrio aos pontos de mistura mais altos testados. Isso indica que, na formulação atual, reduzir a fração renovável não é o caminho mais promissor para tornar o biobunker competitivo; ao contrário, as melhores condições econômicas relativas aparecem quando a mistura se aproxima do limite superior analisado.}
 
@@ -236,7 +236,7 @@ No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico
 
 \warn{A Figura~\ref{fig:frontier_viabilidade} mostra a fronteira de viabilidade regulatória. Quando $\gamma^{ref}$ e $\gamma^{comp}$ são ampliados conjuntamente, os primeiros cenários viáveis aparecem a partir de aproximadamente $300\,\text{EUR}/tCO_2$, com destaque para \gls{UCO}, sebo bovino e \gls{TCO}. Para essas três rotas, as primeiras combinações viáveis ocorrem em torno de $\alpha = 0{,}24$, ao passo que a soja não se torna viável nem mesmo nos cenários regulatórios mais fortes testados.}
 
-\warn{A utilidade desse gráfico está em transformar um resultado abstrato em fronteira observável de decisão. Em vez de afirmar apenas que determinados cenários ``não são viáveis'', a análise passa a mostrar em que patamar da família regulatória $\gamma$ a classificação muda. Isso permite interpretar a viabilidade como função conjunta de política climática, custo de \emph{compliance} e composição da mistura. No caso presente, a fronteira obtida indica que o \gls{EUETS} em níveis de mercado recentes é insuficiente, mas que regimes de indução mais fortes já colocam \gls{UCO}, sebo bovino e \gls{TCO} na região economicamente defensável.}
+\warn{A utilidade desse gráfico está em transformar um resultado abstrato em fronteira observável de decisão. Em vez de afirmar apenas que determinados cenários ``não são viáveis'', a análise passa a mostrar em que patamar da família regulatória $\gamma$ a classificação muda. Isso permite interpretar a viabilidade como função conjunta de política climática, custo de \emph{compliance}, composição da mistura e, sobretudo, do nível de preço de carbono necessário para que o custo marginal de abatimento se torne compatível com o ambiente regulatório. No caso presente, a fronteira obtida indica que o \gls{EUETS} em níveis de mercado recentes é insuficiente, mas que regimes de indução mais fortes já colocam \gls{UCO}, sebo bovino e \gls{TCO} na região economicamente defensável.}
 
 \begin{table}[!ht]
 \centering
@@ -274,4 +274,4 @@ No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico
 
 \warn{No caso específico de \gls{TCO}, a análise preliminar indica desempenho próximo ao de \gls{UCO} e sebo bovino quando se utilizam os parâmetros-base. Entretanto, a sensibilidade específica dessa rota mostra que sua atratividade depende de forma relevante do fator de emissão \gls{WTW} e, sobretudo, do preço relativo do biodiesel produzido a partir desse subproduto. Essa evidência reforça a necessidade de tratar \gls{TCO} como rota promissora, porém mais sensível a escolhas metodológicas e econômicas do que as rotas residuais mais consolidadas.}
 
-\warn{Em síntese, os resultados preliminares apontam três conclusões centrais. Primeiro, a inviabilidade do biobunker sob sinal regulatório de carbono na faixa recente do \gls{EUETS}. Segundo, a emergência de cenários viáveis para \gls{UCO}, sebo bovino e \gls{TCO} quando se simulam regimes de indução regulatória mais fortes. Terceiro, a utilidade analítica do preço de carbono de equilíbrio como métrica-síntese para comparar rotas, frações de mistura e condições regulatórias em um mesmo quadro interpretativo.}
+\warn{Em síntese, os resultados preliminares apontam três conclusões centrais}. \warn{Primeiro, o custo marginal de abatimento dos cenários avaliados permanece acima do intervalo de referência $\gamma^{ref}$ sob condições atuais, caracterizando inviabilidade econômica-regulatória.} \warn{Primeiro, a inviabilidade do biobunker sob sinal regulatório de carbono na faixa recente do \gls{EUETS}. Segundo, a emergência de cenários viáveis para \gls{UCO}, sebo bovino e \gls{TCO} quando se simulam regimes de indução regulatória mais fortes. Terceiro, a utilidade analítica do preço de carbono de equilíbrio como métrica-síntese para comparar rotas, frações de mistura e condições regulatórias em um mesmo quadro interpretativo.}
