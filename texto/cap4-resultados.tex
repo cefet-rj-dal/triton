@@ -49,7 +49,7 @@ O primeiro conjunto corresponde à sensibilidade econômica, na qual se variam o
 
 O segundo conjunto corresponde à sensibilidade ambiental, na qual se analisam variações nos fatores de emissão \gls{WTW} associados às diferentes rotas de produção do biodiesel. Essa etapa busca verificar a robustez da ordenação dos cenários quando se consideram incertezas ou variações metodológicas na literatura de ciclo de vida.
 
-\warn{O terceiro conjunto corresponde à sensibilidade regulatória, na qual se avalia a resposta do modelo a diferentes valores do parâmetro $\gamma$, representativo do sinal econômico do carbono no ambiente regulatório europeu. Na implementação atual, esse parâmetro é convertido explicitamente para USD/tCO$_2$ antes da comparação com o custo marginal de abatimento. Essa análise permite identificar como a fronteira de viabilidade econômico-ambiental se desloca sob diferentes referências de preço do carbono.}
+\warn{O terceiro conjunto corresponde à sensibilidade regulatória, na qual se avalia a resposta do modelo a diferentes valores de $\gamma^{ref}$, componente da família regulatória $\gamma$ representativo do sinal econômico de referência do carbono no ambiente regulatório europeu. Na implementação atual, esse parâmetro é convertido explicitamente para USD/tCO$_2$ antes da comparação com o custo marginal de abatimento. Essa análise permite identificar como a fronteira de viabilidade econômico-ambiental se desloca sob diferentes referências de preço do carbono.}
 
 O quarto conjunto corresponde à sensibilidade operacional, na qual o vetor $\mathbf{X}$ é perturbado em torno do cenário-base. Nessa etapa, são avaliadas variações moderadas de distância total da rota, velocidade média e consumo médio agregado, com o objetivo de verificar se a hierarquia relativa entre os cenários de combustível se mantém sob mudanças plausíveis no perfil operacional.
 
@@ -63,11 +63,11 @@ No \textbf{Setup 2}, realiza-se a sensibilidade econômica, mantendo fixos os pa
 
 No \textbf{Setup 3}, realiza-se a sensibilidade ambiental, mantendo fixos os parâmetros operacionais e econômicos e variando os fatores $FE_{bio,r}^{WTW}$. Essa análise permite verificar a robustez dos ganhos ambientais estimados para cada rota de produção.
 
-No \textbf{Setup 4}, realiza-se a sensibilidade regulatória, por meio da variação do parâmetro $\gamma$ no intervalo de referência adotado no modelo. Essa etapa permite mapear o conjunto de cenários potencialmente viáveis sob diferentes sinais de preço do carbono.
+No \textbf{Setup 4}, realiza-se a sensibilidade regulatória, por meio da variação do componente $\gamma^{ref}$ no intervalo de referência adotado no modelo. Essa etapa permite mapear o conjunto de cenários potencialmente viáveis sob diferentes sinais de preço do carbono.
 
 \warn{No \textbf{Setup 5}, realiza-se a sensibilidade operacional, perturbando $\mathbf{X}$ em torno do cenário-base. O objetivo é avaliar o efeito de mudanças operacionais plausíveis sobre a demanda útil da viagem, o consumo total requerido da mistura, o custo total, as emissões totais e o custo marginal de abatimento.}
 
-\warn{No \textbf{Setup 6}, realizam-se caminhos de viabilidade regulatória com ampliação simultânea do sinal econômico de carbono e do custo de \emph{compliance} associado ao \gls{EUETS}, permitindo identificar em que patamares de indução regulatória surgem os primeiros cenários viáveis.}
+\warn{No \textbf{Setup 6}, realizam-se caminhos de viabilidade regulatória com ampliação simultânea de $\gamma^{ref}$ e $\gamma^{comp}$, permitindo identificar em que patamares de indução regulatória surgem os primeiros cenários viáveis.}
 
 \warn{No \textbf{Setup 7}, realiza-se sensibilidade específica para o biodiesel de \gls{TCO}, variando-se separadamente seu fator de emissão \gls{WTW} e seu preço relativo. Essa etapa busca verificar o quanto a atratividade dessa rota depende de premissas metodológicas e econômicas ainda mais incertas do que aquelas associadas às demais matérias-primas.}
 
@@ -110,7 +110,7 @@ No \textbf{Setup 4}, realiza-se a sensibilidade regulatória, por meio da varia�
 \warn{\parbox[t]{6.0cm}{relaciona custo incremental e redução de emissões, sendo central para a comparação econômico-regulatória}} \\
 \warn{\parbox[t]{2.6cm}{$V(\alpha,r)$}} &
 \warn{\parbox[t]{5.2cm}{indicador binário de viabilidade econômico-ambiental}} &
-\warn{\parbox[t]{6.0cm}{classifica cada cenário conforme o atendimento simultâneo aos critérios $\delta$ e $\gamma$}} \\
+\warn{\parbox[t]{6.0cm}{classifica cada cenário conforme o atendimento simultâneo aos critérios $\delta$ e $\gamma^{ref}$}} \\
 \hline
 \end{tabular}
 \end{table}
@@ -125,7 +125,7 @@ A primeira representação corresponde à curva de emissões totais $G(\alpha,r)
 
 A segunda representação corresponde à curva de custo total $C(\alpha,r)$ em função da fração de mistura, também desagregada por rota de produção. Esse gráfico permitirá verificar o custo incremental associado ao aumento da fração renovável e identificar cenários com menor penalidade econômica.
 
-\warn{A terceira representação corresponde à curva de custo marginal de abatimento $MAC(\alpha,r)$ em função de $\alpha$, acompanhada por linha horizontal ou faixa de referência associada ao parâmetro $\gamma$ convertido para USD/tCO$_2$. Esse gráfico permitirá visualizar diretamente os cenários que satisfazem, ou não, o critério econômico-regulatório do modelo.}
+\warn{A terceira representação corresponde à curva de custo marginal de abatimento $MAC(\alpha,r)$ em função de $\alpha$, acompanhada por linha horizontal ou faixa de referência associada ao parâmetro $\gamma^{ref}$ convertido para USD/tCO$_2$. Esse gráfico permitirá visualizar diretamente os cenários que satisfazem, ou não, o critério econômico-regulatório do modelo.}
 
 A quarta representação corresponde ao diagrama de dispersão entre $\Delta G(\alpha,r)$ e $\Delta C(\alpha,r)$, interpretado como espaço de \emph{trade-off} entre benefício ambiental e custo adicional. Essa visualização é particularmente útil para o artigo, pois sintetiza em um único plano a relação entre abatimento de emissões e incremento de custo.
 
@@ -169,7 +169,7 @@ E3 &
 
 E4 &
 \parbox[t]{3.0cm}{Sensibilidade regulatória} &
-\warn{\parbox[t]{5.1cm}{Cenário-base; variação de $\gamma \in [60,100]\,\text{EUR}/tCO_2$, convertido para USD/tCO$_2$}} &
+\warn{\parbox[t]{5.1cm}{Cenário-base; variação de $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$, convertido para USD/tCO$_2$}} &
 \warn{\parbox[t]{4.8cm}{$MAC(\alpha,r)$, $V(\alpha,r)$}} \\
 & \multicolumn{3}{l}{\warn{\parbox[t]{12.9cm}{\textit{Finalidade analítica:} Identificar como diferentes sinais de preço do carbono alteram a região de viabilidade econômico-ambiental.}}} \\
 
@@ -181,7 +181,7 @@ E5 &
 
 E6 &
 \warn{\parbox[t]{3.0cm}{Caminhos de viabilidade regulatória}} &
-\warn{\parbox[t]{5.1cm}{Cenário-base; variação conjunta do sinal regulatório de carbono e do custo de \emph{compliance} do \gls{EUETS} em faixas ampliadas}} &
+\warn{\parbox[t]{5.1cm}{Cenário-base; variação conjunta de $\gamma^{ref}$ e $\gamma^{comp}$ em faixas ampliadas}} &
 \warn{\parbox[t]{4.8cm}{$MAC(\alpha,r)$, preço de carbono de equilíbrio, $V(\alpha,r)$}} \\
 & \multicolumn{3}{l}{\warn{\parbox[t]{12.9cm}{\textit{Finalidade analítica:} Identificar em que patamares de indução regulatória surgem os primeiros cenários viáveis por rota e fração de mistura.}}} \\
 
@@ -203,7 +203,7 @@ No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico
 
 \section{Resultados preliminares}
 
-\warn{A execução preliminar do modelo confirma que, no cenário-base com sinal regulatório compatível com a faixa recente do \gls{EUETS}, não emergem cenários viáveis para nenhuma das rotas avaliadas. Em termos qualitativos, o principal entrave permanece econômico: mesmo quando as emissões diminuem com o aumento de $\alpha$, o custo incremental da mistura supera o patamar de preço de carbono representado por $\gamma \in [60,100]\,\text{EUR}/tCO_2$.}
+\warn{A execução preliminar do modelo confirma que, no cenário-base com sinal regulatório compatível com a faixa recente do \gls{EUETS}, não emergem cenários viáveis para nenhuma das rotas avaliadas. Em termos qualitativos, o principal entrave permanece econômico: mesmo quando as emissões diminuem com o aumento de $\alpha$, o custo incremental da mistura supera o patamar de preço de carbono representado por $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$.}
 
 \warn{A Figura~\ref{fig:break_even_alpha} apresenta o preço de carbono de equilíbrio por fração de mistura e rota. Como esse indicador coincide, no modelo, com a razão entre custo incremental e redução de emissões, ele pode ser interpretado como o preço de carbono necessário para igualar economicamente o cenário de biobunker ao cenário fóssil. Observa-se que soja permanece sistematicamente acima das demais rotas, enquanto \gls{UCO}, sebo bovino e \gls{TCO} se agrupam em faixa inferior, porém ainda distante do intervalo de referência do \gls{EUETS}.}
 
@@ -234,9 +234,9 @@ No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico
 \end{tabular}
 \end{table}
 
-\warn{A Figura~\ref{fig:frontier_viabilidade} mostra a fronteira de viabilidade regulatória. Quando o sinal regulatório e o custo de \emph{compliance} são ampliados conjuntamente, os primeiros cenários viáveis aparecem a partir de aproximadamente $300\,\text{EUR}/tCO_2$, com destaque para \gls{UCO}, sebo bovino e \gls{TCO}. Para essas três rotas, as primeiras combinações viáveis ocorrem em torno de $\alpha = 0{,}24$, ao passo que a soja não se torna viável nem mesmo nos cenários regulatórios mais fortes testados.}
+\warn{A Figura~\ref{fig:frontier_viabilidade} mostra a fronteira de viabilidade regulatória. Quando $\gamma^{ref}$ e $\gamma^{comp}$ são ampliados conjuntamente, os primeiros cenários viáveis aparecem a partir de aproximadamente $300\,\text{EUR}/tCO_2$, com destaque para \gls{UCO}, sebo bovino e \gls{TCO}. Para essas três rotas, as primeiras combinações viáveis ocorrem em torno de $\alpha = 0{,}24$, ao passo que a soja não se torna viável nem mesmo nos cenários regulatórios mais fortes testados.}
 
-\warn{A utilidade desse gráfico está em transformar um resultado abstrato em fronteira observável de decisão. Em vez de afirmar apenas que determinados cenários ``não são viáveis'', a análise passa a mostrar em que patamar de sinal regulatório a classificação muda. Isso permite interpretar a viabilidade como função conjunta de política climática, custo de \emph{compliance} e composição da mistura. No caso presente, a fronteira obtida indica que o \gls{EUETS} em níveis de mercado recentes é insuficiente, mas que regimes de indução mais fortes já colocam \gls{UCO}, sebo bovino e \gls{TCO} na região economicamente defensável.}
+\warn{A utilidade desse gráfico está em transformar um resultado abstrato em fronteira observável de decisão. Em vez de afirmar apenas que determinados cenários ``não são viáveis'', a análise passa a mostrar em que patamar da família regulatória $\gamma$ a classificação muda. Isso permite interpretar a viabilidade como função conjunta de política climática, custo de \emph{compliance} e composição da mistura. No caso presente, a fronteira obtida indica que o \gls{EUETS} em níveis de mercado recentes é insuficiente, mas que regimes de indução mais fortes já colocam \gls{UCO}, sebo bovino e \gls{TCO} na região economicamente defensável.}
 
 \begin{table}[!ht]
 \centering
@@ -244,7 +244,7 @@ No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico
 \label{tab:primeiros_viaveis}
 \begin{tabular}{lcccc}
 \hline
-\warn{Rota} & \warn{$\gamma$ (EUR/tCO$_2$)} & \warn{ETS (EUR/tCO$_2$)} & \warn{$\alpha$} & \warn{Redução (\%)} \\
+\warn{Rota} & \warn{$\gamma^{ref}$ (EUR/tCO$_2$)} & \warn{$\gamma^{comp}$ (EUR/tCO$_2$)} & \warn{$\alpha$} & \warn{Redução (\%)} \\
 \hline
 \warn{UCO} & \warn{300} & \warn{300} & \warn{0,24} & \warn{17,1} \\
 \warn{TCO} & \warn{300} & \warn{300} & \warn{0,24} & \warn{17,0} \\
@@ -261,9 +261,9 @@ No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico
 \label{fig:frontier_viabilidade}
 \end{figure}
 
-\warn{A leitura de custo também se altera quando o termo regulatório é explicitado. A Figura~\ref{fig:decomp_custo} decompõe o custo total entre combustível e \emph{compliance} do \gls{EUETS}. Essa visualização evidencia que o custo regulatório cresce com a parcela fóssil remanescente, mas ainda não compensa, por si só, o diferencial de preço do biodiesel nos níveis correntes de mercado. Em outras palavras, o \gls{EUETS} melhora a competitividade relativa do biobunker, mas não basta sozinho para torná-lo viável sob os parâmetros-base.}
+\warn{A leitura de custo também se altera quando o termo regulatório é explicitado. A Figura~\ref{fig:decomp_custo} decompõe o custo total entre combustível e a parcela de \emph{compliance} associada a $\gamma^{comp}$. Essa visualização evidencia que o custo regulatório cresce com a parcela fóssil remanescente, mas ainda não compensa, por si só, o diferencial de preço do biodiesel nos níveis correntes de mercado. Em outras palavras, o \gls{EUETS} melhora a competitividade relativa do biobunker, mas não basta sozinho para torná-lo viável sob os parâmetros-base.}
 
-\warn{Esse ponto é importante porque evita uma leitura simplificada do papel da regulação. O custo de \emph{compliance} atua como mecanismo de mitigação do diferencial econômico entre fóssil e biobunker, mas não elimina esse diferencial no nível atual de preços adotado na simulação. Assim, a análise preliminar sugere que a viabilidade depende menos de relaxar o critério ambiental e mais de combinar três alavancas: maior sinal regulatório de carbono, redução do preço relativo do biodiesel e escolha de rotas com menor intensidade de carbono, como \gls{UCO}, sebo bovino e \gls{TCO}.}
+\warn{Esse ponto é importante porque evita uma leitura simplificada do papel da regulação. O componente $\gamma^{comp}$ atua como mecanismo de mitigação do diferencial econômico entre fóssil e biobunker, mas não elimina esse diferencial no nível atual de preços adotado na simulação. Assim, a análise preliminar sugere que a viabilidade depende menos de relaxar o critério ambiental e mais de combinar três alavancas: maior $\gamma^{ref}$, maior $\gamma^{comp}$, redução do preço relativo do biodiesel e escolha de rotas com menor intensidade de carbono, como \gls{UCO}, sebo bovino e \gls{TCO}.}
 
 \begin{figure}[!ht]
 \centering

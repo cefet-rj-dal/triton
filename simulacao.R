@@ -45,26 +45,27 @@ rotas_bio <- c("soja", "sebo bovino", "UCO", "TCO")
 
 # Critérios de viabilidade
 delta_ref <- 0.15           # referência para critério ambiental
-gamma_ref_eur <- 80         # EUR/tCO2, referência regulatória
+gamma_ref_eur <- 80         # EUR/tCO2, referência para comparar com MAC
 
 # Faixas para sensibilidade
 delta_grid <- c(0.10, 0.15, 0.20, 0.25)
 gamma_grid_eur <- c(60, 80, 100)
 
-# Câmbio de referência para comparar MAC (USD/tCO2) com gamma regulatório (EUR/tCO2).
+# Câmbio de referência para comparar MAC (USD/tCO2) com gamma de referência (EUR/tCO2).
 # Fonte: ECB euro foreign exchange reference rates, USD = 1.1581 em 11/03/2026.
 # https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html
 eur_to_usd_ref <- 1.1581
 gamma_ref <- gamma_ref_eur * eur_to_usd_ref
 gamma_grid <- gamma_grid_eur * eur_to_usd_ref
 
-# EU ETS marítimo - modelagem simplificada para rota Santos -> Roterdã.
+# Componente gamma^comp associado ao custo explícito de compliance do EU ETS
+# na rota Santos -> Roterdã, em modelagem simplificada.
 # Regras-base:
 # - viagens extra-UE para UE: 50% das emissões elegíveis cobertas;
 # - phase-in: 100% para emissões de 2026 em diante;
 # - biomassa sustentável elegível: fator zero para surrender no EU ETS.
-ets_price_eur_ref <- 80
-ets_price_usd_ref <- ets_price_eur_ref * eur_to_usd_ref
+gamma_comp_eur_ref <- 80
+gamma_comp_usd_ref <- gamma_comp_eur_ref * eur_to_usd_ref
 ets_coverage_ref <- 0.50
 ets_phase_in_ref <- 1.00
 
@@ -164,9 +165,9 @@ calc_cenario <- function(alpha, rota,
                          PCI_b_val = PCI_b,
                          eta_b_val = eta_b,
                          delta_val = delta_ref,
-                         gamma_val_eur = gamma_ref_eur,
+                         gamma_ref_val_eur = gamma_ref_eur,
                          eur_to_usd_val = eur_to_usd_ref,
-                         ets_price_eur_val = ets_price_eur_ref,
+                         gamma_comp_val_eur = gamma_comp_eur_ref,
                          ets_coverage_val = ets_coverage_ref,
                          ets_phase_in_val = ets_phase_in_ref,
                          FE_b_ttw_ets_val = FE_b_ttw_ets,
@@ -180,8 +181,8 @@ calc_cenario <- function(alpha, rota,
 
   stopifnot(nrow(bio) == 1)
 
-  gamma_val_usd <- gamma_val_eur * eur_to_usd_val
-  ets_price_usd_val <- ets_price_eur_val * eur_to_usd_val
+  gamma_ref_val_usd <- gamma_ref_val_eur * eur_to_usd_val
+  gamma_comp_val_usd <- gamma_comp_val_eur * eur_to_usd_val
 
   # Mantém o mesmo serviço energético útil da viagem em todos os cenários.
   # Essa é a comparação operacionalmente mais consistente: mesma rota, mesma carga,
@@ -210,16 +211,16 @@ calc_cenario <- function(alpha, rota,
   G0_t  <- G0_kg / 1000
   C0_fuel <- op$F_kg * p_b_val
   ETS0_t <- op$F_kg * FE_b_ttw_ets_val / 1000 * ets_coverage_val * ets_phase_in_val
-  C0_ets <- ETS0_t * ets_price_usd_val
-  C0 <- C0_fuel + C0_ets
+  C0_comp <- ETS0_t * gamma_comp_val_usd
+  C0 <- C0_fuel + C0_comp
 
   # Cenário mistura
   G_kg <- F_mix_kg * FE_mix
   G_t  <- G_kg / 1000
   C_fuel <- F_mix_kg * p_mix
   ETS_t <- F_mix_kg * FE_mix_ets_ttw / 1000 * ets_coverage_val * ets_phase_in_val
-  C_ets <- ETS_t * ets_price_usd_val
-  C <- C_fuel + C_ets
+  C_comp <- ETS_t * gamma_comp_val_usd
+  C <- C_fuel + C_comp
 
   Delta_G_t <- G0_t - G_t
   Delta_C   <- C - C0
@@ -236,7 +237,7 @@ calc_cenario <- function(alpha, rota,
   eta_mix_eff <- ifelse(E_quim_GJ > 0, E_util_GJ / E_quim_GJ, NA_real_)
 
   # Critério de viabilidade
-  V <- ifelse((G_t <= (1 - delta_val) * G0_t) & (!is.na(MAC)) & (MAC <= gamma_val_usd), 1, 0)
+  V <- ifelse((G_t <= (1 - delta_val) * G0_t) & (!is.na(MAC)) & (MAC <= gamma_ref_val_usd), 1, 0)
 
   tibble(
     rota = rota,
@@ -261,12 +262,12 @@ calc_cenario <- function(alpha, rota,
     G_t = G_t,
     ETS_t = ETS_t,
     C_fuel_USD = C_fuel,
-    C_ETS_USD = C_ets,
+    C_comp_USD = C_comp,
     C_USD = C,
     G0_t = G0_t,
     ETS0_t = ETS0_t,
     C0_fuel_USD = C0_fuel,
-    C0_ETS_USD = C0_ets,
+    C0_comp_USD = C0_comp,
     C0_USD = C0,
     Delta_G_t = Delta_G_t,
     Delta_C_USD = Delta_C,
@@ -275,10 +276,10 @@ calc_cenario <- function(alpha, rota,
     break_even_USD_tCO2 = break_even_usd,
     break_even_EUR_tCO2 = break_even_eur,
     delta_ref = delta_val,
-    gamma_ref_eur = gamma_val_eur,
-    gamma_ref_usd = gamma_val_usd,
-    ets_price_eur = ets_price_eur_val,
-    ets_price_usd = ets_price_usd_val,
+    gamma_ref_eur = gamma_ref_val_eur,
+    gamma_ref_usd = gamma_ref_val_usd,
+    gamma_comp_eur = gamma_comp_val_eur,
+    gamma_comp_usd = gamma_comp_val_usd,
     ets_coverage = ets_coverage_val,
     ets_phase_in = ets_phase_in_val,
     eur_to_usd = eur_to_usd_val,
@@ -420,7 +421,7 @@ res_E4 <- expand_grid(
           alpha = alpha,
           rota = rota,
           delta_val = delta_ref,
-          gamma_val_eur = gamma_ref_eur
+          gamma_ref_val_eur = gamma_ref_eur
         )
       }
     )
@@ -485,8 +486,8 @@ policy_tbl <- tibble(
     "FuelEU implicito - baixo",
     "FuelEU implicito - alto"
   ),
-  gamma_signal_eur = c(80, 100, 150, 200, 300, 400, 500, 650, 770),
-  ets_signal_eur = c(80, 100, 150, 200, 300, 400, 500, 650, 770)
+  gamma_ref_signal_eur = c(80, 100, 150, 200, 300, 400, 500, 650, 770),
+  gamma_comp_signal_eur = c(80, 100, 150, 200, 300, 400, 500, 650, 770)
 )
 
 res_E6 <- expand_grid(
@@ -497,26 +498,26 @@ res_E6 <- expand_grid(
   left_join(policy_tbl, by = "policy_path") %>%
   mutate(
     data = pmap(
-      list(alpha, rota, gamma_signal_eur, ets_signal_eur),
-      \(alpha, rota, gamma_signal_eur, ets_signal_eur) {
+      list(alpha, rota, gamma_ref_signal_eur, gamma_comp_signal_eur),
+      \(alpha, rota, gamma_ref_signal_eur, gamma_comp_signal_eur) {
         calc_cenario(
           alpha = alpha,
           rota = rota,
-          gamma_val_eur = gamma_signal_eur,
-          ets_price_eur_val = ets_signal_eur
+          gamma_ref_val_eur = gamma_ref_signal_eur,
+          gamma_comp_val_eur = gamma_comp_signal_eur
         )
       }
     )
   ) %>%
   mutate(
     data = pmap(
-      list(data, policy_path, gamma_signal_eur, ets_signal_eur),
-      \(data, policy_path, gamma_signal_eur, ets_signal_eur) {
+      list(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur),
+      \(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur) {
         bind_cols(
           tibble(
             policy_path = policy_path,
-            gamma_signal_eur = gamma_signal_eur,
-            ets_signal_eur = ets_signal_eur
+            gamma_ref_signal_eur = gamma_ref_signal_eur,
+            gamma_comp_signal_eur = gamma_comp_signal_eur
           ),
           data
         )
@@ -700,9 +701,9 @@ save_plot(g5, "grafico_05_heatmap_viabilidade.png")
 # Gráfico 6 - Decomposição do custo total
 # -----------------------------
 cost_breakdown <- res_E1 %>%
-  select(rota, alpha, C_fuel_USD, C_ETS_USD) %>%
+  select(rota, alpha, C_fuel_USD, C_comp_USD) %>%
   pivot_longer(
-    cols = c(C_fuel_USD, C_ETS_USD),
+    cols = c(C_fuel_USD, C_comp_USD),
     names_to = "componente",
     values_to = "custo_usd"
   ) %>%
@@ -710,7 +711,7 @@ cost_breakdown <- res_E1 %>%
     componente = recode(
       componente,
       "C_fuel_USD" = "Combustivel",
-      "C_ETS_USD" = "Compliance ETS"
+      "C_comp_USD" = "Compliance ETS"
     )
   )
 
@@ -736,7 +737,7 @@ frontier_E6 <- res_E6 %>%
   mutate(
     rota = factor(rota, levels = c("soja", "sebo bovino", "UCO", "TCO")),
     alpha_f = factor(alpha),
-    policy_f = factor(gamma_signal_eur, levels = sort(unique(gamma_signal_eur)))
+    policy_f = factor(gamma_ref_signal_eur, levels = sort(unique(gamma_ref_signal_eur)))
   )
 
 g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = policy_f, fill = factor(V))) +

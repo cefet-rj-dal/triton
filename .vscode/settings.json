@@ -1,0 +1,8 @@
+{
+  "r.rpath.windows": "C:\\R\\R-4.5.0\\bin\\x64\\R.exe",
+  "r.rterm.windows": "C:\\R\\R-4.5.0\\bin\\x64\\Rterm.exe",
+  "r.alwaysUseActiveTerminal": true,
+  "terminal.integrated.env.windows": {
+    "PATH": "C:\\R\\R-4.5.0\\bin\\x64;C:\\R\\R-4.5.0\\bin;${env:PATH}"
+  }
+}
