@@ -236,9 +236,7 @@ Para o biodiesel proveniente da rota $r$, considera-se neutralidade do carbono b
 FE_{bio,r}^{TTW} \approx 0
 \]
 
-\warn{Essa hipótese é consistente com abordagens consolidadas de \gls{ACV} \emph{attributional}, nas quais as emissões biogênicas de CO$_2$ liberadas na combustão são compensadas pela absorção durante o crescimento da biomassa, sendo as emissões relevantes concentradas na parcela \emph{WTT}.}
-
-sendo as emissões concentradas na parcela $WTT$. \warn{A partir dessa estrutura, a mistura e as emissões compostas podem ser representadas diretamente em função da fração mássica de biodiesel.} Seja $\alpha$ a fração mássica de biodiesel na mistura. O fator de emissão composto do biobunker é definido como:
+\warn{Essa hipótese é consistente com abordagens consolidadas de \gls{ACV} \emph{attributional}, nas quais as emissões biogênicas de CO$_2$ liberadas na combustão são compensadas pela absorção durante o crescimento da biomassa, de modo que as emissões relevantes se concentram na parcela \emph{WTT}. A partir dessa estrutura, a mistura e as emissões compostas podem ser representadas diretamente em função da fração mássica de biodiesel.} Seja $\alpha$ a fração mássica de biodiesel na mistura. O fator de emissão composto do biobunker é definido como:
 
 \begin{equation}
 FE_{\alpha,r}^{WTW} = (1-\alpha)FE_b^{WTW} + \alpha FE_{bio,r}^{WTW}
@@ -344,11 +342,9 @@ A avaliação econômica, articulada às funções energética e ambiental previ
 
 O modelo desenvolvido constitui um sistema determinístico integrado que articula, de forma sequencial e coerente, as dimensões operacional, energética, ambiental e econômica previamente formalizadas.
 
-\warn{A estrutura do modelo parte do vetor de condições operacionais $\mathbf{X}$, a partir do qual se estima o consumo total de combustível por viagem no cenário convencional, $F_{kg}(0)$. Esse consumo é utilizado para inferir a demanda útil da travessia, $E_{\text{req}}$, que permanece constante ao longo de todos os cenários analisados, assegurando comparabilidade entre alternativas de combustível para um mesmo serviço de transporte.}
+\warn{A estrutura do modelo parte do vetor de condições operacionais $\mathbf{X}$, a partir do qual se estima o consumo total de combustível por viagem no cenário convencional, $F_{kg}(0)$, e se infere a demanda útil da travessia, $E_{\text{req}}$. Mantida constante essa demanda para um mesmo serviço de transporte, as propriedades físico-químicas da mistura $B_{\alpha}^{r}$ determinam o consumo requerido $F_{kg}(\alpha,r)$, as emissões totais $G(\alpha,r)$, no escopo \emph{well-to-wake}, e o custo total por viagem $C(\alpha,r)$. A partir dessas funções, obtêm-se as variações incrementais em relação ao cenário convencional e o custo marginal de abatimento de carbono $MAC(\alpha,r)$.}
 
-\warn{Com base nessa demanda e nas propriedades físico-químicas da mistura $B_{\alpha}^{r}$, determinam-se o consumo requerido $F_{kg}(\alpha,r)$, as emissões totais $G(\alpha,r)$, no escopo \emph{well-to-wake}, e o custo total por viagem $C(\alpha,r)$. A partir dessas funções, obtêm-se as variações incrementais de custo e de emissões em relação ao cenário convencional, bem como o custo marginal de abatimento de carbono $MAC(\alpha,r)$.}
-
-\warn{A estrutura do modelo permite, adicionalmente, interpretar os resultados sob diferentes perspectivas regulatórias. A decomposição das emissões entre componentes \emph{well-to-tank} e \emph{tank-to-wake} possibilita associar os resultados tanto a métricas globais de ciclo de vida quanto a instrumentos específicos de regulação, como o \gls{EUETS}, que incide diretamente sobre emissões \emph{TTW}. De forma complementar, o custo marginal de abatimento é comparado ao parâmetro regulatório $\gamma^{ref}$, permitindo avaliar a compatibilidade econômica dos cenários com o ambiente de precificação de carbono associado ao contexto europeu.}
+\warn{Essa estrutura também permite interpretar os resultados sob diferentes perspectivas regulatórias. A decomposição entre componentes \emph{well-to-tank} e \emph{tank-to-wake} aproxima a análise tanto de métricas globais de ciclo de vida quanto de instrumentos específicos, como o \gls{EUETS}, que incide diretamente sobre emissões \emph{TTW}. Em paralelo, a comparação entre $MAC(\alpha,r)$ e $\gamma^{ref}$ permite avaliar a compatibilidade econômica dos cenários com o ambiente europeu de precificação de carbono.}
 
 O encadeamento lógico do modelo pode ser representado de forma sintética pela Figura~\ref{fig:encadeamento_modelo}, que organiza a sequência de cálculo desde as condições operacionais da viagem até a classificação final de viabilidade.
 
@@ -399,7 +395,7 @@ O encadeamento lógico do modelo pode ser representado de forma sintética pela 
 
 em que $V(\alpha,r)$ representa a condição de viabilidade do cenário considerado.
 
-\warn{Define-se formalmente a viabilidade econômico-ambiental como a satisfação simultânea de dois critérios: um critério ambiental mínimo de redução de emissões e um critério econômico-regulatório baseado no custo marginal de abatimento de carbono.}
+\warn{Define-se formalmente a viabilidade econômico-ambiental como a satisfação simultânea de um critério ambiental mínimo de redução de emissões e de um critério econômico-regulatório baseado no custo marginal de abatimento de carbono.}
 
 A primeira condição corresponde ao critério ambiental:
 
@@ -429,7 +425,7 @@ com
 
 onde $\gamma^{ref}$ representa o intervalo de referência do preço do carbono associado ao ambiente regulatório europeu.
 
-\warn{Sob essa formulação, o custo marginal de abatimento pode ser interpretado como o preço implícito de carbono associado à substituição parcial do combustível fóssil por biocombustível. A comparação com $\gamma^{ref}$ permite avaliar se essa substituição é economicamente compatível com o sinal de preço do carbono vigente no contexto regulatório considerado.}
+\warn{Sob essa formulação, o custo marginal de abatimento pode ser interpretado como o preço implícito de carbono associado à substituição parcial do combustível fóssil por biocombustível. Sua comparação com $\gamma^{ref}$ indica se essa substituição é economicamente compatível com o sinal de preço do carbono vigente no contexto regulatório considerado.}
 
 Dessa forma, a viabilidade é definida como:
 
@@ -444,7 +440,7 @@ V(\alpha,r) =
 
 O cenário convencional, correspondente a $\alpha = 0$, constitui a referência comparativa para emissões e custo.
 
-\warn{Com base nessa definição, a viabilidade resulta da interação entre desempenho físico (consumo e eficiência), desempenho ambiental (intensidade de emissões) e condições econômicas e regulatórias. O modelo, portanto, não apenas compara combustíveis, mas avalia sua atratividade relativa sob um ambiente regulatório explicitamente parametrizado.}
+\warn{Assim, a viabilidade resulta da interação entre desempenho físico, desempenho ambiental e condições econômicas e regulatórias, permitindo avaliar a atratividade relativa dos combustíveis sob um ambiente regulatório explicitamente parametrizado.}
 
 Com base nessa definição, formula-se a seguinte hipótese operacional:
 
