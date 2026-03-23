@@ -197,15 +197,15 @@ E_{quim,j} = F_{kg}(\alpha,r) \cdot PCI_j
 Define-se a demanda útil da viagem a partir do cenário convencional como
 
 \begin{equation}
-\warn{E_{\text{req}} = F_{kg}(0)\cdot PCI_b \cdot \eta_b}
+E_{\text{req}} = F_{kg}(0)\cdot PCI_b \cdot \eta_b
 \end{equation}
 
-\warn{onde $\eta_b$ representa a eficiência energética associada ao uso do combustível convencional. Sob a hipótese de serviço útil constante, tem-se que $E_{\text{req}}$ permanece invariável entre cenários.}
+onde $\eta_b$ representa a eficiência energética associada ao uso do combustível convencional. Sob a hipótese de serviço útil constante, $E_{\text{req}}$ permanece invariável entre cenários.
 
 Para cada combinação $(\alpha,r)$, calcula-se a massa total requerida para entregar essa mesma energia útil:
 
 \begin{equation}
-\warn{F_{kg}(\alpha,r)=\frac{E_{\text{req}}}{PCI_{\alpha,r}\,\eta_{\alpha,r}}}
+F_{kg}(\alpha,r)=\frac{E_{\text{req}}}{PCI_{\alpha,r}\,\eta_{\alpha,r}}
 \end{equation}
 
 Essa formulação explicita que variações no consumo de combustível decorrem exclusivamente das propriedades energéticas da mistura e da eficiência associada, assegurando consistência física entre os cenários comparados.
@@ -342,7 +342,7 @@ A avaliação econômica, articulada às funções energética e ambiental previ
 
 O modelo desenvolvido constitui um sistema determinístico integrado que articula, de forma sequencial e coerente, as dimensões operacional, energética, ambiental e econômica previamente formalizadas.
 
-\warn{A estrutura do modelo parte do vetor de condições operacionais $\mathbf{X}$, a partir do qual se estima o consumo total de combustível por viagem no cenário convencional, $F_{kg}(0)$, e se infere a demanda útil da travessia, $E_{\text{req}}$. Mantida constante essa demanda para um mesmo serviço de transporte, as propriedades físico-químicas da mistura $B_{\alpha}^{r}$ determinam o consumo requerido $F_{kg}(\alpha,r)$, as emissões totais $G(\alpha,r)$, no escopo \emph{well-to-wake}, e o custo total por viagem $C(\alpha,r)$. A partir dessas funções, obtêm-se as variações incrementais em relação ao cenário convencional e o custo marginal de abatimento de carbono $MAC(\alpha,r)$.}
+A estrutura do modelo parte do vetor de condições operacionais $\mathbf{X}$, a partir do qual se estima o consumo total de combustível por viagem no cenário convencional, $F_{kg}(0)$, e se infere a demanda útil da travessia, $E_{\text{req}}$. Mantida constante essa demanda para um mesmo serviço de transporte, as propriedades físico-químicas da mistura $B_{\alpha}^{r}$ determinam o consumo requerido $F_{kg}(\alpha,r)$, as emissões totais $G(\alpha,r)$, no escopo \emph{well-to-wake}, e o custo total por viagem $C(\alpha,r)$. Dessas funções derivam as variações incrementais em relação ao cenário convencional e o custo marginal de abatimento de carbono $MAC(\alpha,r)$.
 
 Essa estrutura também permite interpretar os resultados sob diferentes perspectivas regulatórias. A decomposição entre componentes \emph{well-to-tank} e \emph{tank-to-wake} aproxima a análise tanto de métricas globais de ciclo de vida quanto de instrumentos específicos, como o \gls{EUETS}, que incide diretamente sobre emissões \emph{TTW}. Em paralelo, a comparação entre $MAC(\alpha,r)$ e $\gamma^{ref}$ permite avaliar a compatibilidade econômica dos cenários com o ambiente europeu de precificação de carbono.
 
@@ -376,7 +376,7 @@ O encadeamento lógico do modelo pode ser representado de forma sintética pela 
 ]
 \node[box] (x) {Condições operacionais\\ $\mathbf{X}$};
 \node[box, right=of x] (f0) {Consumo convencional\\ $F_{kg}(0)$};
-\node[box, right=of f0] (ereq) {Demanda útil\\ \warn{$E_{\text{req}}$}};
+\node[box, right=of f0] (ereq) {Demanda útil\\ $E_{\text{req}}$};
 \node[widebox, below=of ereq] (gc) {Resultados absolutos\\ $\{G(\alpha,r),\, C(\alpha,r)\}$};
 \node[box, left=of gc] (fmix) {Consumo requerido\\ $F_{kg}(\alpha,r)$};
 \node[widebox, below=of gc] (delta) {Resultados incrementais\\ $\{\Delta C(\alpha,r),\, \Delta G(\alpha,r),\, MAC(\alpha,r)\}$};
@@ -478,7 +478,7 @@ O procedimento é descrito formalmente no Algoritmo~\ref{alg:biobunker}.
 \Ensure Matriz de resultados $\mathcal{M}$ e subconjunto viável $\mathcal{V}$
 
 \State Calcular consumo convencional $F_{kg}(0)$ a partir de $\mathbf{X}$
-\State \warn{Inferir demanda útil $E_{\text{req}}$ a partir do cenário convencional}
+\State Inferir demanda útil $E_{\text{req}}$ a partir do cenário convencional
 \State Inicializar $\mathcal{M} \gets \emptyset$
 \State Inicializar $\mathcal{V} \gets \emptyset$
 
@@ -578,4 +578,4 @@ No plano econômico, a análise restringe-se ao custo do combustível por viagem
 
 Adicionalmente, o modelo não endogeneíza integralmente as variáveis regulatórias. Embora o custo de \emph{compliance} do \gls{EUETS} seja incorporado como parcela explícita do custo da viagem por meio de $\gamma^{comp}$, instrumentos como o regulamento \emph{FuelEU Maritime}, interações entre regimes regulatórios e políticas nacionais de biocombustíveis ainda são tratados de forma simplificada na interpretação dos resultados e no parâmetro regulatório $\gamma^{ref}$.
 
-Essas limitações decorrem da opção por um modelo determinístico orientado à comparação paramétrica entre cenários e delimitam o alcance inferencial dos resultados obtidos. O objetivo do modelo não é prever o comportamento futuro do mercado ou da frota marítima, mas oferecer estrutura analítica consistente para comparar cenários de combustível sob condições operacionais controladas.
+Essas limitações decorrem da opção por um modelo determinístico orientado à comparação paramétrica entre cenários e delimitam o alcance inferencial dos resultados. O objetivo do modelo não é prever o comportamento futuro do mercado ou da frota marítima, mas oferecer estrutura analítica consistente para comparar cenários de combustível sob condições operacionais controladas.

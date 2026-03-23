@@ -83,21 +83,21 @@ Para cada cenário simulado, o modelo gera um conjunto de variáveis de saída q
 \setlength{\tabcolsep}{5pt}
 \begin{tabular}{lll}
 \hline
-\warn{\parbox[t]{2.6cm}{\textbf{Variável}}} &
-\warn{\parbox[t]{5.2cm}{\textbf{Interpretação}}} &
-\warn{\parbox[t]{6.0cm}{\textbf{Papel analítico}}} \\
+\parbox[t]{2.6cm}{\textbf{Variável}} &
+\parbox[t]{5.2cm}{\textbf{Interpretação}} &
+\parbox[t]{6.0cm}{\textbf{Papel analítico}} \\
 \hline
-\warn{\parbox[t]{2.6cm}{$F_{kg}(0)$}} &
+\parbox[t]{2.6cm}{$F_{kg}(0)$} &
 \parbox[t]{5.2cm}{consumo convencional de referência por viagem} &
 \parbox[t]{6.0cm}{define a base operacional a partir da qual se infere a demanda útil da travessia} \\
-\warn{\parbox[t]{2.6cm}{$F_{kg}(\alpha,r)$}} &
+\parbox[t]{2.6cm}{$F_{kg}(\alpha,r)$} &
 \parbox[t]{5.2cm}{consumo total requerido da mistura por viagem} &
 \parbox[t]{6.0cm}{explicita o efeito combinado do poder calorífico, da eficiência efetiva e da fração de mistura sobre a massa de combustível necessária} \\
 \parbox[t]{2.6cm}{$G(\alpha,r)$} &
-\warn{\parbox[t]{5.2cm}{emissões totais de gases de efeito estufa no escopo \gls{WTW}}} &
+\parbox[t]{5.2cm}{emissões totais de gases de efeito estufa no escopo \gls{WTW}} &
 \parbox[t]{6.0cm}{mede o desempenho ambiental absoluto de cada cenário} \\
 \parbox[t]{2.6cm}{$C(\alpha,r)$} &
-\warn{\parbox[t]{5.2cm}{custo total por viagem, incluindo combustível e custo de \emph{compliance} do \gls{EUETS}}} &
+\parbox[t]{5.2cm}{custo total por viagem, incluindo combustível e custo de \emph{compliance} do \gls{EUETS}} &
 \parbox[t]{6.0cm}{mede o desempenho econômico absoluto de cada cenário} \\
 \parbox[t]{2.6cm}{$\Delta C(\alpha,r)$} &
 \parbox[t]{5.2cm}{custo incremental em relação ao cenário convencional} &
@@ -107,10 +107,10 @@ Para cada cenário simulado, o modelo gera um conjunto de variáveis de saída q
 \parbox[t]{6.0cm}{permite quantificar o ganho ambiental associado à mistura} \\
 \parbox[t]{2.6cm}{$MAC(\alpha,r)$} &
 \parbox[t]{5.2cm}{custo marginal de abatimento de carbono} &
-\warn{\parbox[t]{6.0cm}{relaciona custo incremental e redução de emissões, podendo ser interpretado como preço implícito de carbono, sendo central para a comparação econômico-regulatória com o parâmetro $\gamma^{ref}$}} \\
+\parbox[t]{6.0cm}{relaciona custo incremental e redução de emissões, podendo ser interpretado como preço implícito de carbono e sendo central para a comparação econômico-regulatória com o parâmetro $\gamma^{ref}$} \\
 \parbox[t]{2.6cm}{$V(\alpha,r)$} &
 \parbox[t]{5.2cm}{indicador binário de viabilidade econômico-ambiental} &
-\warn{\parbox[t]{6.0cm}{classifica cada cenário conforme o atendimento simultâneo aos critérios $\delta$ e $\gamma^{ref}$}} \\
+\parbox[t]{6.0cm}{classifica cada cenário conforme o atendimento simultâneo aos critérios $\delta$ e $\gamma^{ref}$} \\
 \hline
 \end{tabular}
 \end{table}
@@ -121,13 +121,13 @@ Os resultados foram organizados em três dimensões analíticas principais: dese
 
 As saídas do modelo foram organizadas de modo a permitir leitura complementar por tabelas e por figuras. Em termos gráficos, adotou-se um conjunto enxuto de visualizações diretamente alinhadas às funções centrais do modelo e às perguntas analíticas da dissertação.
 
-A primeira representação corresponde à curva de emissões totais $G(\alpha,r)$ em função da fração de mistura, com séries separadas por rota de produção do biodiesel. Esse gráfico permitirá observar a inclinação da redução de emissões e comparar o desempenho relativo entre soja, sebo bovino, \gls{UCO} e \gls{TCO}.
+A primeira representação corresponde à curva de emissões totais $G(\alpha,r)$ em função da fração de mistura, com séries separadas por rota de produção do biodiesel. Esse gráfico permite observar a inclinação da redução de emissões e comparar o desempenho relativo entre soja, sebo bovino, \gls{UCO} e \gls{TCO}.
 
-A segunda representação corresponde à curva de custo total $C(\alpha,r)$ em função da fração de mistura, também desagregada por rota de produção. Esse gráfico permitirá verificar o custo incremental associado ao aumento da fração renovável e identificar cenários com menor penalidade econômica.
+A segunda representação corresponde à curva de custo total $C(\alpha,r)$ em função da fração de mistura, também desagregada por rota de produção. Esse gráfico permite verificar o custo incremental associado ao aumento da fração renovável e identificar cenários com menor penalidade econômica.
 
-A terceira representação corresponde à curva de custo marginal de abatimento $MAC(\alpha,r)$ em função de $\alpha$, acompanhada por linha horizontal ou faixa de referência associada ao parâmetro $\gamma^{ref}$ convertido para USD/tCO$_2$. Esse gráfico permitirá visualizar diretamente os cenários que satisfazem, ou não, o critério econômico-regulatório do modelo.
+A terceira representação corresponde à curva de custo marginal de abatimento $MAC(\alpha,r)$ em função de $\alpha$, acompanhada por linha horizontal ou faixa de referência associada ao parâmetro $\gamma^{ref}$ convertido para USD/tCO$_2$. Esse gráfico permite visualizar diretamente os cenários que satisfazem, ou não, o critério econômico-regulatório do modelo.
 
-A quarta representação corresponde ao diagrama de dispersão entre $\Delta G(\alpha,r)$ e $\Delta C(\alpha,r)$, interpretado como espaço de \emph{trade-off} entre benefício ambiental e custo adicional. Essa visualização é particularmente útil para o artigo, pois sintetiza em um único plano a relação entre abatimento de emissões e incremento de custo.
+A quarta representação corresponde ao diagrama de dispersão entre $\Delta G(\alpha,r)$ e $\Delta C(\alpha,r)$, interpretado como espaço de \emph{trade-off} entre benefício ambiental e custo adicional. Essa visualização é particularmente útil, pois sintetiza em um único plano a relação entre abatimento de emissões e incremento de custo.
 
 A quinta representação corresponde a um mapa de viabilidade, no qual linhas de mistura e rotas de produção são classificadas segundo o valor de $V(\alpha,r)$. Essa representação pode assumir a forma de tabela sintética colorida ou de \emph{heatmap}, desde que preserve clareza e legibilidade.
 
@@ -169,27 +169,27 @@ E3 &
 
 E4 &
 \parbox[t]{3.0cm}{Sensibilidade regulatória} &
-\warn{\parbox[t]{5.1cm}{Cenário-base; variação de $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$, convertido para USD/tCO$_2$}} &
+\parbox[t]{5.1cm}{Cenário-base; variação de $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$, convertido para USD/tCO$_2$} &
 \parbox[t]{4.8cm}{$MAC(\alpha,r)$, $V(\alpha,r)$} \\
-& \multicolumn{3}{l}{\warn{\parbox[t]{12.9cm}{\textit{Finalidade analítica:} Identificar como diferentes sinais de preço do carbono alteram a região de viabilidade econômico-ambiental.}}} \\
+& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade analítica:} Identificar como diferentes sinais de preço do carbono alteram a região de viabilidade econômico-ambiental.}} \\
 
 E5 &
 \parbox[t]{3.0cm}{Sensibilidade operacional} &
-\warn{\parbox[t]{5.1cm}{Variações moderadas em $\mathbf{X}=(D,V,c)$ em torno do cenário-base}} &
-\warn{\parbox[t]{4.8cm}{$F_{kg}(0)$, $F_{kg}(\alpha,r)$,\\ $G(\alpha,r)$, $C(\alpha,r)$,\\ $MAC(\alpha,r)$}} \\
-& \multicolumn{3}{l}{\warn{\parbox[t]{12.9cm}{\textit{Finalidade analítica:} Avaliar a estabilidade dos resultados quando se alteram as condições operacionais agregadas da viagem e, por consequência, a demanda útil do serviço de transporte.}}} \\
+\parbox[t]{5.1cm}{Variações moderadas em $\mathbf{X}=(D,V,c)$ em torno do cenário-base} &
+\parbox[t]{4.8cm}{$F_{kg}(0)$, $F_{kg}(\alpha,r)$,\\ $G(\alpha,r)$, $C(\alpha,r)$,\\ $MAC(\alpha,r)$} \\
+& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade analítica:} Avaliar a estabilidade dos resultados quando se alteram as condições operacionais agregadas da viagem e, por consequência, a demanda útil do serviço de transporte.}} \\
 
 E6 &
 \parbox[t]{3.0cm}{Caminhos de viabilidade regulatória} &
-\warn{\parbox[t]{5.1cm}{Cenário-base; variação conjunta de $\gamma^{ref}$ e $\gamma^{comp}$ em faixas ampliadas}} &
+\parbox[t]{5.1cm}{Cenário-base; variação conjunta de $\gamma^{ref}$ e $\gamma^{comp}$ em faixas ampliadas} &
 \parbox[t]{4.8cm}{$MAC(\alpha,r)$, preço de carbono de equilíbrio, $V(\alpha,r)$} \\
-& \multicolumn{3}{l}{\warn{\parbox[t]{12.9cm}{\textit{Finalidade analítica:} Identificar em que patamares de indução regulatória surgem os primeiros cenários viáveis por rota e fração de mistura.}}} \\
+& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade analítica:} Identificar em que patamares de indução regulatória surgem os primeiros cenários viáveis por rota e fração de mistura.}} \\
 
 E7 &
-\warn{\parbox[t]{3.0cm}{Sensibilidade específica de \gls{TCO}}} &
-\warn{\parbox[t]{5.1cm}{Cenário-base; variação de $FE_{bio}^{TCO}$ e do preço relativo do biodiesel de \gls{TCO}}} &
-\warn{\parbox[t]{4.8cm}{$MAC(\alpha,\text{TCO})$, preço de carbono de equilíbrio, $V(\alpha,\text{TCO})$}} \\
-& \multicolumn{3}{l}{\warn{\parbox[t]{12.9cm}{\textit{Finalidade analítica:} Testar a robustez da atratividade do \gls{TCO} frente à incerteza metodológica e econômica própria dessa rota.}}} \\
+\parbox[t]{3.0cm}{Sensibilidade específica de \gls{TCO}} &
+\parbox[t]{5.1cm}{Cenário-base; variação de $FE_{bio}^{TCO}$ e do preço relativo do biodiesel de \gls{TCO}} &
+\parbox[t]{4.8cm}{$MAC(\alpha,\text{TCO})$, preço de carbono de equilíbrio, $V(\alpha,\text{TCO})$} \\
+& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade analítica:} Testar a robustez da atratividade do \gls{TCO} frente à incerteza metodológica e econômica própria dessa rota.}} \\
 
 \hline
 \end{tabular}
@@ -214,7 +214,7 @@ A Figura~\ref{fig:break_even_alpha} apresenta o preço de carbono de equilíbrio
 \label{fig:break_even_alpha}
 \end{figure}
 
-Os valores mínimos de preço de carbono de equilíbrio no cenário-base ocorrem em $\alpha = 0{,}30$ e são da ordem de $415,3\,\text{EUR}/tCO_2$ para \gls{UCO}, $427,4\,\text{EUR}/tCO_2$ para \gls{TCO}, $431,3\,\text{EUR}/tCO_2$ para sebo bovino e $641,1\,\text{EUR}/tCO_2$ para soja. Isso sugere que a atratividade relativa das rotas residuais ou de subprodutos industriais já se manifesta no modelo, mas ainda requer sinal regulatório mais forte do que o observado no mercado europeu de carbono, isto é, valores de $\gamma^{ref}$ significativamente superiores à faixa atualmente praticada no \gls{EUETS}.
+Os valores mínimos de preço de carbono de equilíbrio no cenário-base ocorrem em $\alpha = 0{,}30$ e são da ordem de $415,3\,\text{EUR}/tCO_2$ para \gls{UCO}, $427,4\,\text{EUR}/tCO_2$ para \gls{TCO}, $431,3\,\text{EUR}/tCO_2$ para sebo bovino e $641,1\,\text{EUR}/tCO_2$ para soja. Isso sugere que a atratividade relativa das rotas residuais ou de subprodutos industriais já se manifesta no modelo, mas ainda requer sinal regulatório mais forte do que o observado no mercado europeu de carbono, isto é, valores de $\gamma^{ref}$ significativamente superiores à faixa praticada no \gls{EUETS}.
 
 Em termos interpretativos, a Figura~\ref{fig:break_even_alpha} mostra mais do que uma simples ordenação entre rotas. Ela evidencia que o aumento de $\alpha$ melhora o desempenho relativo das alternativas renováveis no cenário-base, levando os menores preços de carbono de equilíbrio aos pontos de mistura mais altos testados. Isso indica que, na formulação atual, reduzir a fração renovável não é o caminho mais promissor para tornar o biobunker competitivo; ao contrário, as melhores condições econômicas relativas aparecem quando a mistura se aproxima do limite superior analisado.
 
