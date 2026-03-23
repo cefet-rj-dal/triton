@@ -124,7 +124,7 @@ Os cenários avaliados são representados por:
 \mathcal{S} = \{\text{Bunker}, B_{0{,}24}^{\text{soja}}, B_{0{,}24}^{\text{sebo}}, B_{0{,}24}^{\text{UCO}}, B_{0{,}24}^{\text{TCO}}\}
 \]
 
-\warn{Neste trabalho, a sigla \gls{TCO} refere-se exclusivamente a \emph{Technical Corn Oil} (óleo técnico de milho), subproduto da cadeia do milho e do etanol de milho, e não a \emph{Tall Oil Crude}, insumo florestal que também aparece abreviado como TCO em parte da literatura internacional.}
+Neste trabalho, a sigla \gls{TCO} refere-se exclusivamente a \emph{Technical Corn Oil} (óleo técnico de milho), subproduto da cadeia do milho e do etanol de milho, e não a \emph{Tall Oil Crude}, insumo florestal que também aparece abreviado como TCO em parte da literatura internacional.
 
 O sebo bovino é adotado como cenário-base entre os biocombustíveis, dada sua relevância na matriz brasileira de produção de biodiesel e seu desempenho ambiental reportado na literatura. As demais rotas são consideradas para fins comparativos, permitindo avaliar a sensibilidade dos resultados às características específicas da matéria-prima.
 
@@ -174,11 +174,11 @@ Para efeitos de balanço de massa e energia, o consumo total é convertido para 
 F_{kg} = 1000 \cdot F
 \]
 
-\warn{onde $F_{kg}$ representa a massa observada de combustível consumida no trecho marítimo analisado no cenário convencional de referência. No modelo comparativo, esse valor é utilizado para inferir a demanda útil da viagem, enquanto a massa efetivamente requerida em cada cenário de mistura passa a ser denotada por $F_{kg}(\alpha,r)$.}
+onde $F_{kg}$ representa a massa observada de combustível consumida no trecho marítimo analisado no cenário convencional de referência. No modelo comparativo, esse valor é utilizado para inferir a demanda útil da viagem, enquanto a massa efetivamente requerida em cada cenário de mistura passa a ser denotada por $F_{kg}(\alpha,r)$.
 
 Considera-se o navio operando sob regime médio constante de velocidade e potência ao longo da travessia. Não são modeladas variações extremas de velocidade, condições meteorológicas adversas, períodos de espera em porto ou estratégias operacionais específicas, como \emph{slow steaming}. O consumo é tratado de forma agregada para o trecho marítimo principal, correspondente à navegação em mar aberto.
 
-\warn{Em termos metodológicos, o vetor $\mathbf{X}$ é tratado como representação média do perfil operacional da embarcação na rota selecionada, servindo como base comum para a comparação entre os diferentes cenários de combustível analisados. A comparação entre combustíveis é realizada para o mesmo serviço de transporte, isto é, mesma rota, mesma carga e mesma meta operacional de viagem. Assim, mantém-se constante a demanda útil da travessia e permite-se que o consumo mássico total varie com a composição da mistura e com a eficiência efetiva do motor.}
+Em termos metodológicos, o vetor $\mathbf{X}$ é tratado como representação média do perfil operacional da embarcação na rota selecionada, servindo como base comum para a comparação entre os diferentes cenários de combustível analisados. A comparação entre combustíveis é realizada para o mesmo serviço de transporte, isto é, mesma rota, mesma carga e mesma meta operacional de viagem. Assim, mantém-se constante a demanda útil da travessia e permite-se que o consumo mássico total varie com a composição da mistura e com a eficiência efetiva do motor.
 
 \section{Avaliação ambiental: estimativas baseadas em avaliação de ciclo de vida secundária}
 
@@ -186,15 +186,15 @@ A avaliação ambiental estima, de forma comparativa, as emissões associadas ao
 
 Adota-se abordagem baseada em Avaliação de Ciclo de Vida secundária, fundamentada em fatores de emissão provenientes da literatura científica e de relatórios técnicos reconhecidos, sem construção de inventários primários nem modelagem original de \gls{ACV}. A modelagem é compatível com abordagem \emph{attributional} e utiliza fatores médios representativos \citep{intergovernmental_panel_on_climate_change_2006_2006,intergovernmental_panel_on_climate_change_2019_2019}.
 
-A perspectiva ambiental corresponde ao escopo \emph{well-to-wake} (\gls{WTW}), abrangendo emissões associadas à produção, ao processamento, ao transporte e à combustão do combustível, em conformidade com as normas \gls{ISO} 14040 e \gls{ISO} 14044. \warn{Para fins analíticos, distingue-se explicitamente as componentes \emph{well-to-tank} (\gls{WTT}) e \emph{tank-to-wake} (\gls{TTW}), sendo esta última diretamente associada às emissões de combustão a bordo e a primeira às etapas anteriores da cadeia de suprimento. Essa distinção é relevante para interpretação dos resultados no contexto regulatório europeu, no qual instrumentos como o \gls{EUETS} incidem sobre emissões \emph{TTW}, enquanto outros mecanismos, como o \emph{FuelEU Maritime}, adotam métricas baseadas em \emph{WTW}.}
+A perspectiva ambiental corresponde ao escopo \emph{well-to-wake} (\gls{WTW}), abrangendo emissões associadas à produção, ao processamento, ao transporte e à combustão do combustível, em conformidade com as normas \gls{ISO} 14040 e \gls{ISO} 14044. Para fins analíticos, distingue-se explicitamente as componentes \emph{well-to-tank} (\gls{WTT}) e \emph{tank-to-wake} (\gls{TTW}), sendo esta última diretamente associada às emissões de combustão a bordo e a primeira às etapas anteriores da cadeia de suprimento. Essa distinção é relevante para interpretação dos resultados no contexto regulatório europeu, no qual instrumentos como o \gls{EUETS} incidem sobre emissões \emph{TTW}, enquanto outros mecanismos, como o \emph{FuelEU Maritime}, adotam métricas baseadas em \emph{WTW}.
 
-\warn{A formalização energético-ambiental parte do cenário convencional para inferir a demanda útil da viagem e, a partir dela, estimar a massa requerida de combustível em cada cenário alternativo. Seja $F_{kg}(0)$ a massa total de combustível consumida por viagem no cenário convencional. A energia útil requerida pela viagem é inferida a partir desse cenário de referência e mantida constante nos cenários alternativos, assumindo que o serviço de transporte prestado permanece inalterado. Seja $PCI_j$ o poder calorífico inferior do combustível $j$. A energia química total fornecida é dada por:}
+A formalização energético-ambiental parte do cenário convencional para inferir a demanda útil da viagem e, a partir dela, estimar a massa requerida de combustível em cada cenário alternativo. Seja $F_{kg}(0)$ a massa total de combustível consumida por viagem no cenário convencional. A energia útil requerida pela viagem é inferida a partir desse cenário de referência e mantida constante nos cenários alternativos, assumindo que o serviço de transporte prestado permanece inalterado. Seja $PCI_j$ o poder calorífico inferior do combustível $j$. A energia química total fornecida é dada por:
 
 \begin{equation}
-\warn{E_{quim,j} = F_{kg}(\alpha,r) \cdot PCI_j}
+E_{quim,j} = F_{kg}(\alpha,r) \cdot PCI_j
 \end{equation}
 
-\warn{Define-se a demanda útil da viagem a partir do cenário convencional como}
+Define-se a demanda útil da viagem a partir do cenário convencional como
 
 \begin{equation}
 \warn{E_{\text{req}} = F_{kg}(0)\cdot PCI_b \cdot \eta_b}
@@ -202,13 +202,13 @@ A perspectiva ambiental corresponde ao escopo \emph{well-to-wake} (\gls{WTW}), a
 
 \warn{onde $\eta_b$ representa a eficiência energética associada ao uso do combustível convencional. Sob a hipótese de serviço útil constante, tem-se que $E_{\text{req}}$ permanece invariável entre cenários.}
 
-\warn{Para cada combinação $(\alpha,r)$, calcula-se a massa total requerida para entregar essa mesma energia útil:}
+Para cada combinação $(\alpha,r)$, calcula-se a massa total requerida para entregar essa mesma energia útil:
 
 \begin{equation}
 \warn{F_{kg}(\alpha,r)=\frac{E_{\text{req}}}{PCI_{\alpha,r}\,\eta_{\alpha,r}}}
 \end{equation}
 
-\warn{Essa formulação explicita que variações no consumo de combustível decorrem exclusivamente das propriedades energéticas da mistura e da eficiência associada, assegurando consistência física entre os cenários comparados.}
+Essa formulação explicita que variações no consumo de combustível decorrem exclusivamente das propriedades energéticas da mistura e da eficiência associada, assegurando consistência física entre os cenários comparados.
 
 Os fatores de emissão podem ser expressos em base mássica, $FE_j^{m}$ (kg CO$_2$/kg), ou em base energética, $FE_j^{e}$ (kg CO$_2$/MJ), relacionadas por:
 
@@ -236,21 +236,21 @@ Para o biodiesel proveniente da rota $r$, considera-se neutralidade do carbono b
 FE_{bio,r}^{TTW} \approx 0
 \]
 
-\warn{Essa hipótese é consistente com abordagens consolidadas de \gls{ACV} \emph{attributional}, nas quais as emissões biogênicas de CO$_2$ liberadas na combustão são compensadas pela absorção durante o crescimento da biomassa, de modo que as emissões relevantes se concentram na parcela \emph{WTT}. A partir dessa estrutura, a mistura e as emissões compostas podem ser representadas diretamente em função da fração mássica de biodiesel.} Seja $\alpha$ a fração mássica de biodiesel na mistura. O fator de emissão composto do biobunker é definido como:
+Essa hipótese é consistente com abordagens consolidadas de \gls{ACV} \emph{attributional}, nas quais as emissões biogênicas de CO$_2$ liberadas na combustão são compensadas pela absorção durante o crescimento da biomassa, de modo que as emissões relevantes se concentram na parcela \emph{WTT}. A partir dessa estrutura, a mistura e as emissões compostas podem ser representadas diretamente em função da fração mássica de biodiesel. Seja $\alpha$ a fração mássica de biodiesel na mistura. O fator de emissão composto do biobunker é definido como:
 
 \begin{equation}
 FE_{\alpha,r}^{WTW} = (1-\alpha)FE_b^{WTW} + \alpha FE_{bio,r}^{WTW}
 \end{equation}
 
-\warn{As emissões totais por viagem são então estimadas como:}
+As emissões totais por viagem são então estimadas como:
 
 \begin{equation}
-\warn{G(\alpha,r) = F_{kg}(\alpha,r) \cdot FE_{\alpha,r}^{WTW}}
+G(\alpha,r) = F_{kg}(\alpha,r) \cdot FE_{\alpha,r}^{WTW}
 \end{equation}
 
-\warn{A decomposição explícita entre $WTT$ e $TTW$ permite interpretar $G(\alpha,r)$ tanto sob a ótica de emissões totais (\emph{WTW}) quanto sob a ótica de emissões diretamente reguladas por instrumentos como o \gls{EUETS} (\emph{TTW}), sem necessidade de alteração da estrutura da função.}
+A decomposição explícita entre $WTT$ e $TTW$ permite interpretar $G(\alpha,r)$ tanto sob a ótica de emissões totais (\emph{WTW}) quanto sob a ótica de emissões diretamente reguladas por instrumentos como o \gls{EUETS} (\emph{TTW}), sem necessidade de alteração da estrutura da função.
 
-\warn{No que se refere às fontes de dados e aos parâmetros adotados, os fatores $FE_{bio,r}^{WTW}$ são obtidos prioritariamente a partir dos instrumentos metodológicos do RenovaBio, especialmente o RenovaCalc \citep{agencia_nacional_do_petroleo_gas_natural_e_biocombustiveis_anp_renovacalc_2023}, complementados, quando necessário, por literatura científica internacional revisada por pares.}
+No que se refere às fontes de dados e aos parâmetros adotados, os fatores $FE_{bio,r}^{WTW}$ são obtidos prioritariamente a partir dos instrumentos metodológicos do RenovaBio, especialmente o RenovaCalc \citep{agencia_nacional_do_petroleo_gas_natural_e_biocombustiveis_anp_renovacalc_2023}, complementados, quando necessário, por literatura científica internacional revisada por pares.
 
 Para o \emph{bunker fuel}, utilizam-se fatores consolidados em inventários internacionais de emissões do setor marítimo \citep{european_environment_agency_emepeea_2019,intergovernmental_panel_on_climate_change_2006_2006,intergovernmental_panel_on_climate_change_2019_2019}.
 
@@ -258,50 +258,50 @@ A análise concentra-se nas emissões de gases de efeito estufa expressas em CO$
 
 \section{Avaliação econômica}
 
-A avaliação econômica estima, de forma comparativa, os custos associados ao uso do biobunker em relação ao \emph{bunker fuel} convencional no cenário operacional definido. Formalmente, define-se a função de custo $C(\alpha,r)$ sobre o conjunto de cenários de combustível previamente estabelecido. \warn{A formalização econômico-energética parte da massa total de combustível requerida por viagem, $F_{kg}(\alpha,r)$, mantendo-se constante a demanda útil da travessia, e relaciona essa massa às propriedades econômicas da mistura.} Seja $p_b$ o preço unitário do \emph{bunker fuel} convencional (USD/kg) e $p_{bio,r}$ o preço unitário do biodiesel associado à rota de produção $r$. O preço unitário da mistura é definido como:
+A avaliação econômica estima, de forma comparativa, os custos associados ao uso do biobunker em relação ao \emph{bunker fuel} convencional no cenário operacional definido. Formalmente, define-se a função de custo $C(\alpha,r)$ sobre o conjunto de cenários de combustível previamente estabelecido. A formalização econômico-energética parte da massa total de combustível requerida por viagem, $F_{kg}(\alpha,r)$, mantendo-se constante a demanda útil da travessia, e relaciona essa massa às propriedades econômicas da mistura. Seja $p_b$ o preço unitário do \emph{bunker fuel} convencional (USD/kg) e $p_{bio,r}$ o preço unitário do biodiesel associado à rota de produção $r$. O preço unitário da mistura é definido como:
 
 \begin{equation}
 p_{\alpha,r} = (1-\alpha)p_b + \alpha p_{bio,r}
 \end{equation}
 
-\warn{Com isso, o custo total de combustível por viagem é dado por:}
+Com isso, o custo total de combustível por viagem é dado por:
 
 \begin{equation}
-\warn{C(\alpha,r) = F_{kg}(\alpha,r) \cdot p_{\alpha,r}}
+C(\alpha,r) = F_{kg}(\alpha,r) \cdot p_{\alpha,r}
 \end{equation}
 
-\warn{Para garantir consistência com o balanço energético, o custo pode também ser expresso em base energética. Seja $PCI_{\alpha,r}$ o poder calorífico inferior da mistura:}
+Para garantir consistência com o balanço energético, o custo pode também ser expresso em base energética. Seja $PCI_{\alpha,r}$ o poder calorífico inferior da mistura:
 
 \begin{equation}
 PCI_{\alpha,r} = (1-\alpha)PCI_b + \alpha PCI_{bio,r}
 \end{equation}
 
-\warn{A energia química total consumida na viagem é:}
+A energia química total consumida na viagem é:
 
 \begin{equation}
-\warn{E_{quim,\alpha,r} = F_{kg}(\alpha,r) \cdot PCI_{\alpha,r}}
+E_{quim,\alpha,r} = F_{kg}(\alpha,r) \cdot PCI_{\alpha,r}
 \end{equation}
 
-\warn{A partir disso, define-se o custo específico por unidade de energia:}
+A partir disso, define-se o custo específico por unidade de energia:
 
 \begin{equation}
 C_{MJ}(\alpha,r) = \frac{p_{\alpha,r}}{PCI_{\alpha,r}}
 \quad \text{(USD/MJ)}
 \end{equation}
 
-\warn{O custo incremental em relação ao cenário convencional é dado por:}
+O custo incremental em relação ao cenário convencional é dado por:
 
 \begin{equation}
 \Delta C(\alpha,r) = C(\alpha,r) - C(0)
 \end{equation}
 
-\warn{onde, para o cenário de referência,}
+onde, para o cenário de referência,
 
 \[
-\warn{C(0) = F_{kg}(0) \cdot p_b}
+C(0) = F_{kg}(0) \cdot p_b
 \]
 
-\warn{A partir das funções ambiental $G(\alpha,r)$ e econômica $C(\alpha,r)$, define-se o custo marginal de abatimento de carbono. Considerando $\Delta G(\alpha,r)$ expresso em toneladas de CO$_2$, tem-se:}
+A partir das funções ambiental $G(\alpha,r)$ e econômica $C(\alpha,r)$, define-se o custo marginal de abatimento de carbono. Considerando $\Delta G(\alpha,r)$ expresso em toneladas de CO$_2$, tem-se:
 
 \begin{equation}
 MAC(\alpha,r) =
@@ -310,31 +310,31 @@ MAC(\alpha,r) =
 \quad \text{(USD/t CO}_2\text{)}
 \end{equation}
 
-\warn{onde}
+onde
 
 \begin{equation}
 \Delta G(\alpha,r) = G(0) - G(\alpha,r)
 \end{equation}
 
-O custo marginal de abatimento constitui métrica amplamente utilizada na análise econômica de alternativas de mitigação, permitindo comparar o custo relativo de diferentes opções de redução de emissões \citep{mckinsey2009}. \warn{No contexto deste estudo, essa métrica funciona como ponte entre a dimensão econômica e a dimensão regulatória, pois permite confrontar o custo incremental do biobunker com sinais de preço de carbono observados ou assumidos para o ambiente europeu.}
+O custo marginal de abatimento constitui métrica amplamente utilizada na análise econômica de alternativas de mitigação, permitindo comparar o custo relativo de diferentes opções de redução de emissões \citep{mckinsey2009}. No contexto deste estudo, essa métrica funciona como ponte entre a dimensão econômica e a dimensão regulatória, pois permite confrontar o custo incremental do biobunker com sinais de preço de carbono observados ou assumidos para o ambiente europeu.
 
-\warn{Para explicitar a dimensão regulatória sem introduzir variáveis paralelas, define-se a família regulatória $\gamma = (\gamma^{comp},\gamma^{ref})$. Essa notação constitui uma construção analítica adotada nesta dissertação para aproximar, de forma operacionalizável, diferentes dimensões do ambiente regulatório europeu aplicável ao transporte marítimo. O termo $\gamma^{comp}$ representa o preço explícito de \emph{compliance} associado às emissões cobertas pelo \gls{EUETS} marítimo e entra diretamente na composição do custo total da viagem, em coerência com a incorporação do transporte marítimo ao sistema europeu de comércio de emissões \citep{eu_reg_2023_957,euets2023}. Nesse sentido, $\gamma^{comp}$ atua como um custo marginal adicional proporcional às emissões, internalizando no modelo o efeito de precificação de carbono característico de instrumentos do tipo \emph{cap-and-trade}.}
+Para explicitar a dimensão regulatória sem introduzir variáveis paralelas, define-se a família regulatória $\gamma = (\gamma^{comp},\gamma^{ref})$. Essa notação constitui uma construção analítica adotada nesta dissertação para aproximar, de forma operacionalizável, diferentes dimensões do ambiente regulatório europeu aplicável ao transporte marítimo. O termo $\gamma^{comp}$ representa o preço explícito de \emph{compliance} associado às emissões cobertas pelo \gls{EUETS} marítimo e entra diretamente na composição do custo total da viagem, em coerência com a incorporação do transporte marítimo ao sistema europeu de comércio de emissões \citep{eu_reg_2023_957,euets2023}. Nesse sentido, $\gamma^{comp}$ atua como um custo marginal adicional proporcional às emissões, internalizando no modelo o efeito de precificação de carbono característico de instrumentos do tipo \emph{cap-and-trade}.
 
-\warn{Já $\gamma^{ref}$ representa um preço de referência do carbono utilizado para interpretar a viabilidade econômica do abatimento estimado. Esse componente não corresponde a um instrumento jurídico específico, mas a um parâmetro de benchmark calibrado a partir de sinais de preço observados em mercados de carbono e estudos institucionais, permitindo avaliar se o $MAC(\alpha,r)$ se encontra em patamar compatível com o ambiente regulatório europeu \citep{worldbank2024carbon,euets2023}. Dessa forma, $\gamma^{ref}$ opera como critério de comparação exógeno ao modelo, enquanto $\gamma^{comp}$ atua como componente endógeno do custo.}
+Já $\gamma^{ref}$ representa um preço de referência do carbono utilizado para interpretar a viabilidade econômica do abatimento estimado. Esse componente não corresponde a um instrumento jurídico específico, mas a um parâmetro de benchmark calibrado a partir de sinais de preço observados em mercados de carbono e estudos institucionais, permitindo avaliar se o $MAC(\alpha,r)$ se encontra em patamar compatível com o ambiente regulatório europeu \citep{worldbank2024carbon,euets2023}. Dessa forma, $\gamma^{ref}$ opera como critério de comparação exógeno ao modelo, enquanto $\gamma^{comp}$ atua como componente endógeno do custo.
 
-\warn{Essa decomposição permite distinguir, no plano metodológico, entre (i) custos regulatórios diretamente monetizados no modelo e (ii) outros instrumentos do arcabouço europeu que influenciam a atratividade relativa dos combustíveis. Em particular, mecanismos como o \emph{FuelEU Maritime} estabelecem metas de intensidade de emissões e penalidades associadas ao não cumprimento, mas não são representados explicitamente como função de penalidade nesta formulação. Seus efeitos são capturados de forma indireta por meio da calibração do ambiente regulatório sintetizado na família $\gamma$, sem reprodução integral de sua mecânica jurídica e operacional \citep{eu_reg_2023_1805}.}
+Essa decomposição permite distinguir, no plano metodológico, entre (i) custos regulatórios diretamente monetizados no modelo e (ii) outros instrumentos do arcabouço europeu que influenciam a atratividade relativa dos combustíveis. Em particular, mecanismos como o \emph{FuelEU Maritime} estabelecem metas de intensidade de emissões e penalidades associadas ao não cumprimento, mas não são representados explicitamente como função de penalidade nesta formulação. Seus efeitos são capturados de forma indireta por meio da calibração do ambiente regulatório sintetizado na família $\gamma$, sem reprodução integral de sua mecânica jurídica e operacional \citep{eu_reg_2023_1805}.
 
-\warn{Para fins de avaliação regulatória, adota-se para o componente de referência da família regulatória o intervalo:}
+Para fins de avaliação regulatória, adota-se para o componente de referência da família regulatória o intervalo:
 
 \[
 \gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2
 \]
 
-Esse intervalo representa a faixa de referência adotada para a análise da compatibilidade econômica do custo de abatimento estimado no modelo, em consonância com valores observados no sistema europeu de comércio de emissões e em relatórios recentes sobre precificação de carbono \citep{euets2023,worldbank2024carbon}. \warn{Na formulação proposta, esse intervalo é atribuído especificamente a $\gamma^{ref}$, enquanto $\gamma^{comp}$ permanece associado ao preço efetivo de \emph{allowances} utilizado na parcela de \emph{compliance} do custo total.}
+Esse intervalo representa a faixa de referência adotada para a análise da compatibilidade econômica do custo de abatimento estimado no modelo, em consonância com valores observados no sistema europeu de comércio de emissões e em relatórios recentes sobre precificação de carbono \citep{euets2023,worldbank2024carbon}. Na formulação proposta, esse intervalo é atribuído especificamente a $\gamma^{ref}$, enquanto $\gamma^{comp}$ permanece associado ao preço efetivo de \emph{allowances} utilizado na parcela de \emph{compliance} do custo total.
 
-\warn{Como o custo marginal de abatimento é calculado em USD/tCO$_2$ e o parâmetro regulatório $\gamma^{ref}$ é expresso em EUR/tCO$_2$, adota-se conversão cambial explícita para fins de comparação no critério de viabilidade. Na implementação computacional corrente, utiliza-se taxa de referência EUR/USD do Banco Central Europeu, aplicada de forma determinística ao parâmetro regulatório antes da comparação com $MAC(\alpha,r)$.}
+Como o custo marginal de abatimento é calculado em USD/tCO$_2$ e o parâmetro regulatório $\gamma^{ref}$ é expresso em EUR/tCO$_2$, adota-se conversão cambial explícita para fins de comparação no critério de viabilidade. Na implementação computacional corrente, utiliza-se taxa de referência EUR/USD do Banco Central Europeu, aplicada de forma determinística ao parâmetro regulatório antes da comparação com $MAC(\alpha,r)$.
 
-\warn{Os custos unitários $p_b$ e $p_{bio,r}$ são obtidos a partir de referências de mercado e de dados secundários disponíveis na literatura e em fontes institucionais, refletindo valores médios compatíveis com o período analisado. Não são consideradas variações temporais de preços, estratégias financeiras de proteção, subsídios específicos ou regimes tributários diferenciados. O custo de \emph{compliance} associado ao \gls{EUETS} é incorporado explicitamente ao custo total da viagem por meio do componente $\gamma^{comp}$, enquanto o intervalo $\gamma^{ref}$ permanece como parâmetro regulatório de referência para interpretação do custo marginal de abatimento \citep{eu_reg_2023_1805}.}
+Os custos unitários $p_b$ e $p_{bio,r}$ são obtidos a partir de referências de mercado e de dados secundários disponíveis na literatura e em fontes institucionais, refletindo valores médios compatíveis com o período analisado. Não são consideradas variações temporais de preços, estratégias financeiras de proteção, subsídios específicos ou regimes tributários diferenciados. O custo de \emph{compliance} associado ao \gls{EUETS} é incorporado explicitamente ao custo total da viagem por meio do componente $\gamma^{comp}$, enquanto o intervalo $\gamma^{ref}$ permanece como parâmetro regulatório de referência para interpretação do custo marginal de abatimento \citep{eu_reg_2023_1805}.
 
 A avaliação econômica, articulada às funções energética e ambiental previamente definidas, permite estimar diferenças absolutas de custo, custo específico por unidade de energia e custo marginal de abatimento de carbono para cada cenário considerado.
 
@@ -344,7 +344,7 @@ O modelo desenvolvido constitui um sistema determinístico integrado que articul
 
 \warn{A estrutura do modelo parte do vetor de condições operacionais $\mathbf{X}$, a partir do qual se estima o consumo total de combustível por viagem no cenário convencional, $F_{kg}(0)$, e se infere a demanda útil da travessia, $E_{\text{req}}$. Mantida constante essa demanda para um mesmo serviço de transporte, as propriedades físico-químicas da mistura $B_{\alpha}^{r}$ determinam o consumo requerido $F_{kg}(\alpha,r)$, as emissões totais $G(\alpha,r)$, no escopo \emph{well-to-wake}, e o custo total por viagem $C(\alpha,r)$. A partir dessas funções, obtêm-se as variações incrementais em relação ao cenário convencional e o custo marginal de abatimento de carbono $MAC(\alpha,r)$.}
 
-\warn{Essa estrutura também permite interpretar os resultados sob diferentes perspectivas regulatórias. A decomposição entre componentes \emph{well-to-tank} e \emph{tank-to-wake} aproxima a análise tanto de métricas globais de ciclo de vida quanto de instrumentos específicos, como o \gls{EUETS}, que incide diretamente sobre emissões \emph{TTW}. Em paralelo, a comparação entre $MAC(\alpha,r)$ e $\gamma^{ref}$ permite avaliar a compatibilidade econômica dos cenários com o ambiente europeu de precificação de carbono.}
+Essa estrutura também permite interpretar os resultados sob diferentes perspectivas regulatórias. A decomposição entre componentes \emph{well-to-tank} e \emph{tank-to-wake} aproxima a análise tanto de métricas globais de ciclo de vida quanto de instrumentos específicos, como o \gls{EUETS}, que incide diretamente sobre emissões \emph{TTW}. Em paralelo, a comparação entre $MAC(\alpha,r)$ e $\gamma^{ref}$ permite avaliar a compatibilidade econômica dos cenários com o ambiente europeu de precificação de carbono.
 
 O encadeamento lógico do modelo pode ser representado de forma sintética pela Figura~\ref{fig:encadeamento_modelo}, que organiza a sequência de cálculo desde as condições operacionais da viagem até a classificação final de viabilidade.
 
@@ -374,13 +374,13 @@ O encadeamento lógico do modelo pode ser representado de forma sintética pela 
     draw=red!75!black
   }
 ]
-\node[box] (x) {\warn{Condições operacionais}\\ \warn{$\mathbf{X}$}};
-\node[box, right=of x] (f0) {\warn{Consumo convencional}\\ \warn{$F_{kg}(0)$}};
-\node[box, right=of f0] (ereq) {\warn{Demanda útil}\\ \warn{$E_{\text{req}}$}};
-\node[widebox, below=of ereq] (gc) {\warn{Resultados absolutos}\\ \warn{$\{G(\alpha,r),\, C(\alpha,r)\}$}};
-\node[box, left=of gc] (fmix) {\warn{Consumo requerido}\\ \warn{$F_{kg}(\alpha,r)$}};
-\node[widebox, below=of gc] (delta) {\warn{Resultados incrementais}\\ \warn{$\{\Delta C(\alpha,r),\, \Delta G(\alpha,r),\, MAC(\alpha,r)\}$}};
-\node[box, left=of delta] (v) {\warn{Viabilidade}\\ \warn{$V(\alpha,r)$}};
+\node[box] (x) {Condições operacionais\\ $\mathbf{X}$};
+\node[box, right=of x] (f0) {Consumo convencional\\ $F_{kg}(0)$};
+\node[box, right=of f0] (ereq) {Demanda útil\\ \warn{$E_{\text{req}}$}};
+\node[widebox, below=of ereq] (gc) {Resultados absolutos\\ $\{G(\alpha,r),\, C(\alpha,r)\}$};
+\node[box, left=of gc] (fmix) {Consumo requerido\\ $F_{kg}(\alpha,r)$};
+\node[widebox, below=of gc] (delta) {Resultados incrementais\\ $\{\Delta C(\alpha,r),\, \Delta G(\alpha,r),\, MAC(\alpha,r)\}$};
+\node[box, left=of delta] (v) {Viabilidade\\ $V(\alpha,r)$};
 
 \draw[arrow] (x) -- (f0);
 \draw[arrow] (f0) -- (ereq);
@@ -389,13 +389,13 @@ O encadeamento lógico do modelo pode ser representado de forma sintética pela 
 \draw[arrow] (gc) -- (delta);
 \draw[arrow] (delta) -- (v);
 \end{tikzpicture}
-\caption{\warn{Encadeamento lógico do modelo analítico do biobunker, desde as condições operacionais da viagem até o indicador final de viabilidade.}}
+\caption{Encadeamento lógico do modelo analítico do biobunker, desde as condições operacionais da viagem até o indicador final de viabilidade.}
 \label{fig:encadeamento_modelo}
 \end{figure}
 
 em que $V(\alpha,r)$ representa a condição de viabilidade do cenário considerado.
 
-\warn{Define-se formalmente a viabilidade econômico-ambiental como a satisfação simultânea de um critério ambiental mínimo de redução de emissões e de um critério econômico-regulatório baseado no custo marginal de abatimento de carbono.}
+Define-se formalmente a viabilidade econômico-ambiental como a satisfação simultânea de um critério ambiental mínimo de redução de emissões e de um critério econômico-regulatório baseado no custo marginal de abatimento de carbono.
 
 A primeira condição corresponde ao critério ambiental:
 
@@ -425,7 +425,7 @@ com
 
 onde $\gamma^{ref}$ representa o intervalo de referência do preço do carbono associado ao ambiente regulatório europeu.
 
-\warn{Sob essa formulação, o custo marginal de abatimento pode ser interpretado como o preço implícito de carbono associado à substituição parcial do combustível fóssil por biocombustível. Sua comparação com $\gamma^{ref}$ indica se essa substituição é economicamente compatível com o sinal de preço do carbono vigente no contexto regulatório considerado.}
+Sob essa formulação, o custo marginal de abatimento pode ser interpretado como o preço implícito de carbono associado à substituição parcial do combustível fóssil por biocombustível. Sua comparação com $\gamma^{ref}$ indica se essa substituição é economicamente compatível com o sinal de preço do carbono vigente no contexto regulatório considerado.
 
 Dessa forma, a viabilidade é definida como:
 
@@ -440,7 +440,7 @@ V(\alpha,r) =
 
 O cenário convencional, correspondente a $\alpha = 0$, constitui a referência comparativa para emissões e custo.
 
-\warn{Assim, a viabilidade resulta da interação entre desempenho físico, desempenho ambiental e condições econômicas e regulatórias, permitindo avaliar a atratividade relativa dos combustíveis sob um ambiente regulatório explicitamente parametrizado.}
+Assim, a viabilidade resulta da interação entre desempenho físico, desempenho ambiental e condições econômicas e regulatórias, permitindo avaliar a atratividade relativa dos combustíveis sob um ambiente regulatório explicitamente parametrizado.
 
 Com base nessa definição, formula-se a seguinte hipótese operacional:
 
@@ -477,14 +477,14 @@ O procedimento é descrito formalmente no Algoritmo~\ref{alg:biobunker}.
 \Require Condições operacionais $\mathbf{X}$; conjunto $\mathcal{S}_{bio}$; intervalo $\alpha \in [0{,}10,0{,}30]$; intervalo $\delta \in [0{,}10,0{,}25]$; componente $\gamma^{comp}$ para o custo regulatório; intervalo $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$
 \Ensure Matriz de resultados $\mathcal{M}$ e subconjunto viável $\mathcal{V}$
 
-\State \warn{Calcular consumo convencional $F_{kg}(0)$ a partir de $\mathbf{X}$}
+\State Calcular consumo convencional $F_{kg}(0)$ a partir de $\mathbf{X}$
 \State \warn{Inferir demanda útil $E_{\text{req}}$ a partir do cenário convencional}
 \State Inicializar $\mathcal{M} \gets \emptyset$
 \State Inicializar $\mathcal{V} \gets \emptyset$
 
 \For{cada rota $r \in \mathcal{S}_{bio}$}
     \For{cada $\alpha \in [0{,}10,0{,}30]$}
-        \State \warn{Calcular $F_{kg}(\alpha,r)$}
+        \State Calcular $F_{kg}(\alpha,r)$
         \State Calcular $G(\alpha,r)$
         \State Calcular $C(\alpha,r)$
         \State Determinar $\Delta G(\alpha,r)$
@@ -515,29 +515,29 @@ Em termos analíticos, o arcabouço regulatório é sintetizado, neste estudo, p
 \text{Atratividade} = f\left(G(\alpha,r), C(\alpha,r), \gamma\right)
 \]
 
-\warn{A família $\gamma$ atua como modificador do critério de viabilidade previamente definido, especialmente ao influenciar o valor de referência associado ao custo marginal de abatimento de carbono e a interpretação do limiar de redução ambiental adotado no estudo. Dessa forma, instrumentos regulatórios podem tornar aceitáveis combinações $(\alpha,r)$ que, na ausência de incentivos ou penalidades ambientais, não satisfariam o critério econômico estabelecido. Na formulação atual, esse efeito é representado de duas formas complementares e articuladas: por $\gamma^{comp}$, incorporado ao custo total da viagem como preço explícito de \emph{compliance}, e por $\gamma^{ref}$, utilizado como referência adicional para interpretação do $MAC(\alpha,r)$.}
+A família $\gamma$ atua como modificador do critério de viabilidade previamente definido, especialmente ao influenciar o valor de referência associado ao custo marginal de abatimento de carbono e a interpretação do limiar de redução ambiental adotado no estudo. Dessa forma, instrumentos regulatórios podem tornar aceitáveis combinações $(\alpha,r)$ que, na ausência de incentivos ou penalidades ambientais, não satisfariam o critério econômico estabelecido. Na formulação atual, esse efeito é representado de duas formas complementares e articuladas: por $\gamma^{comp}$, incorporado ao custo total da viagem como preço explícito de \emph{compliance}, e por $\gamma^{ref}$, utilizado como referência adicional para interpretação do $MAC(\alpha,r)$.
 
 O arcabouço institucional tem como referência central as diretrizes e metas estabelecidas pela \gls{IMO}, especialmente aquelas relacionadas à redução da intensidade de emissões de gases de efeito estufa até 2030 \citep{international_maritime_organization_fourth_2020}. Essas metas funcionam como referencial global que orienta o setor, ainda que sua implementação ocorra de forma diferenciada em contextos regionais.
 
-\warn{Em nível regional, destacam-se instrumentos aplicáveis a embarcações que escalam portos da União Europeia, como o sistema europeu de comércio de emissões (\gls{EUETS}) e o regulamento \emph{FuelEU Maritime}. Tais instrumentos alteram o ambiente decisório ao introduzir custos associados à intensidade de carbono do combustível utilizado, modificando o referencial econômico relevante para a decisão operacional. No presente estudo, o \gls{EUETS} é incorporado ao modelo por meio do componente $\gamma^{comp}$, associado ao custo explícito de \emph{compliance} das emissões cobertas da viagem, enquanto o intervalo $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$ é mantido como parâmetro de referência para comparação com o custo marginal de abatimento \citep{euets2023,worldbank2024carbon}. O tratamento regulatório permanece simplificado, pois não reproduz integralmente a mecânica do \emph{FuelEU Maritime} nem outras interações normativas mais complexas.}
+Em nível regional, destacam-se instrumentos aplicáveis a embarcações que escalam portos da União Europeia, como o sistema europeu de comércio de emissões (\gls{EUETS}) e o regulamento \emph{FuelEU Maritime}. Tais instrumentos alteram o ambiente decisório ao introduzir custos associados à intensidade de carbono do combustível utilizado, modificando o referencial econômico relevante para a decisão operacional. No presente estudo, o \gls{EUETS} é incorporado ao modelo por meio do componente $\gamma^{comp}$, associado ao custo explícito de \emph{compliance} das emissões cobertas da viagem, enquanto o intervalo $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$ é mantido como parâmetro de referência para comparação com o custo marginal de abatimento \citep{euets2023,worldbank2024carbon}. O tratamento regulatório permanece simplificado, pois não reproduz integralmente a mecânica do \emph{FuelEU Maritime} nem outras interações normativas mais complexas.
 
 No contexto brasileiro, instrumentos relacionados à produção e ao uso de biocombustíveis, como o RenovaBio \citep{brasil_lei_2017}, influenciam a oferta e os parâmetros econômicos e ambientais do biodiesel considerados no modelo. Esses instrumentos afetam indiretamente os valores de $p_{bio,r}$ e $FE_{bio,r}^{WTW}$, sem que se estabeleça relação causal direta entre política pública nacional e decisão operacional específica no transporte marítimo internacional.
 
-\warn{A análise institucional integra-se às avaliações ambiental e econômica como camada interpretativa aplicada. O ambiente regulatório altera a interpretação prática do conjunto viável obtido tanto por meio do custo explícito de \emph{allowances} do \gls{EUETS}, representado por $\gamma^{comp}$, quanto pelo limiar regulatório $\gamma^{ref}$, convertido para a moeda do $MAC$. Ainda assim, a modelagem institucional permanece parcial e simplificada, uma vez que outros instrumentos regulatórios não são formalizados em todo o seu detalhamento jurídico e operacional.}
+A análise institucional integra-se às avaliações ambiental e econômica como camada interpretativa aplicada. O ambiente regulatório altera a interpretação prática do conjunto viável obtido tanto por meio do custo explícito de \emph{allowances} do \gls{EUETS}, representado por $\gamma^{comp}$, quanto pelo limiar regulatório $\gamma^{ref}$, convertido para a moeda do $MAC$. Ainda assim, a modelagem institucional permanece parcial e simplificada, uma vez que outros instrumentos regulatórios não são formalizados em todo o seu detalhamento jurídico e operacional.
 
 \section{Exemplo numérico ilustrativo com base empírica}
 
 Esta seção apresenta exemplo numérico reproduzível com base na rota Santos--Roterdã, utilizando os parâmetros técnicos e econômicos adotados ao longo deste capítulo. O objetivo não é reproduzir com exatidão operação específica, mas ilustrar, de maneira integrada, o encadeamento entre consumo de combustível, energia útil fornecida, custo operacional e emissões de gases de efeito estufa, incorporando explicitamente a dimensão da rota de produção do biodiesel e os critérios de viabilidade definidos no modelo analítico.
 
-\warn{Considera-se navio graneleiro do tipo Panamax (65.000 DWT), equipado com motor MAN B\&W S50ME-C10.7 (MAN ENERGY SOLUTIONS, 2025b), operando em regime médio constante na rota Santos (Brasil) -- Roterdã (Países Baixos). Com base no roteamento marítimo Santos--Roterdã, adota-se distância de $D = 10.120~km$ \cite{searoutes2026} e velocidade média de cruzeiro de $V = 25,93~km/h$ (14 nós), valor compatível com velocidades de serviço típicas de navios Panamax \cite{brown_power_2019}, resultando em tempo estimado de viagem de aproximadamente $T = 390~h$ (16,25 dias). Considerando consumo médio de $c = 40~t/dia$ \cite{marineaffairs2025}, o consumo convencional por viagem é de aproximadamente $F = 650~t$, equivalente a $F_{kg}(0) \approx 650.000~kg$. No modelo executado, esse valor funciona como referência para inferir a demanda útil da viagem; os cenários com mistura passam a ter massa total requerida própria, denotada por $F_{kg}(\alpha,r)$.}
+Considera-se navio graneleiro do tipo Panamax (65.000 DWT), equipado com motor MAN B\&W S50ME-C10.7 (MAN ENERGY SOLUTIONS, 2025b), operando em regime médio constante na rota Santos (Brasil) -- Roterdã (Países Baixos). Com base no roteamento marítimo Santos--Roterdã, adota-se distância de $D = 10.120~km$ \cite{searoutes2026} e velocidade média de cruzeiro de $V = 25,93~km/h$ (14 nós), valor compatível com velocidades de serviço típicas de navios Panamax \cite{brown_power_2019}, resultando em tempo estimado de viagem de aproximadamente $T = 390~h$ (16,25 dias). Considerando consumo médio de $c = 40~t/dia$ \cite{marineaffairs2025}, o consumo convencional por viagem é de aproximadamente $F = 650~t$, equivalente a $F_{kg}(0) \approx 650.000~kg$. No modelo executado, esse valor funciona como referência para inferir a demanda útil da viagem; os cenários com mistura passam a ter massa total requerida própria, denotada por $F_{kg}(\alpha,r)$.
 
-\warn{O fator de emissão do \emph{bunker fuel} convencional é adotado como $FE_b = 3,114~kgCO_2/kg$, conforme IPCC (2006, Vol.\ 2, Cap.\ 2, Tabela 2.2, \emph{Residual Fuel Oil}) \cite{ipcc2006}. Para o biodiesel, consideram-se fatores de emissão \gls{WTW} diferenciados conforme a rota de produção. Na parametrização-base da simulação, adotam-se $FE_{bio}^{sebo} = 0,64~kgCO_2/kg$, $FE_{bio}^{UCO} = 0,56~kgCO_2/kg$, $FE_{bio}^{soja} = 1,32~kgCO_2/kg$ e $FE_{bio}^{TCO} = 0,513~kgCO_2/kg$. Para \gls{TCO}, esse parâmetro deve ser interpretado com cautela, pois sua magnitude depende mais fortemente do método de alocação de coprodutos utilizado na literatura de ciclo de vida. Por isso, além do cenário-base, o modelo inclui sensibilidade específica para $FE_{bio}^{TCO}$ e para o preço do biodiesel dessa rota. O poder calorífico inferior é adotado como $PCI_b = 40,2~MJ/kg$ para o combustível fóssil \cite{ipcc2006}, $PCI_{bio} = 37,68~MJ/kg$ para biodiesel convencional \cite{anp_renovacalc} e $PCI_{bio}^{TCO} = 36,64~MJ/kg$ para o biodiesel de \gls{TCO}. As eficiências térmicas médias do motor são consideradas iguais a $\eta_b = 0,45$ e $\eta_{bio} = 0,43$, respectivamente. Para fins ilustrativos, os preços unitários são fixados em $p_b = 0,5~USD/kg$ e $p_{bio} = 1,6~USD/kg$.}
+O fator de emissão do \emph{bunker fuel} convencional é adotado como $FE_b = 3,114~kgCO_2/kg$, conforme IPCC (2006, Vol.\ 2, Cap.\ 2, Tabela 2.2, \emph{Residual Fuel Oil}) \cite{ipcc2006}. Para o biodiesel, consideram-se fatores de emissão \gls{WTW} diferenciados conforme a rota de produção. Na parametrização-base da simulação, adotam-se $FE_{bio}^{sebo} = 0,64~kgCO_2/kg$, $FE_{bio}^{UCO} = 0,56~kgCO_2/kg$, $FE_{bio}^{soja} = 1,32~kgCO_2/kg$ e $FE_{bio}^{TCO} = 0,513~kgCO_2/kg$. Para \gls{TCO}, esse parâmetro deve ser interpretado com cautela, pois sua magnitude depende mais fortemente do método de alocação de coprodutos utilizado na literatura de ciclo de vida. Por isso, além do cenário-base, o modelo inclui sensibilidade específica para $FE_{bio}^{TCO}$ e para o preço do biodiesel dessa rota. O poder calorífico inferior é adotado como $PCI_b = 40,2~MJ/kg$ para o combustível fóssil \cite{ipcc2006}, $PCI_{bio} = 37,68~MJ/kg$ para biodiesel convencional \cite{anp_renovacalc} e $PCI_{bio}^{TCO} = 36,64~MJ/kg$ para o biodiesel de \gls{TCO}. As eficiências térmicas médias do motor são consideradas iguais a $\eta_b = 0,45$ e $\eta_{bio} = 0,43$, respectivamente. Para fins ilustrativos, os preços unitários são fixados em $p_b = 0,5~USD/kg$ e $p_{bio} = 1,6~USD/kg$.
 
-\warn{No cenário de referência ($\alpha = 0$), correspondente ao uso exclusivo de \emph{bunker fuel}, a energia útil fornecida é dada por $E_{tot,0} = F_{kg}(0)\times 40,2 \times 0,45$. Utilizando o valor aproximado de $F_{kg}(0)=650.000~kg$, obtém-se $E_{tot,0} \approx 11.759~GJ$. Considerando o custo de combustível e o custo explícito de \emph{compliance} do \gls{EUETS} na parametrização-base, o custo total por viagem é $C(0) \approx 419.067~USD$, e as emissões totais são $G(0) \approx 2.026~t~CO_2$.}
+No cenário de referência ($\alpha = 0$), correspondente ao uso exclusivo de \emph{bunker fuel}, a energia útil fornecida é dada por $E_{tot,0} = F_{kg}(0)\times 40,2 \times 0,45$. Utilizando o valor aproximado de $F_{kg}(0)=650.000~kg$, obtém-se $E_{tot,0} \approx 11.759~GJ$. Considerando o custo de combustível e o custo explícito de \emph{compliance} do \gls{EUETS} na parametrização-base, o custo total por viagem é $C(0) \approx 419.067~USD$, e as emissões totais são $G(0) \approx 2.026~t~CO_2$.
 
-\warn{Para ilustrar o efeito da substituição parcial, considera-se mistura com $\alpha = 0,24$ (\gls{B24}). Diferentemente da formulação simplificada de massa fixa, o modelo executado impõe a mesma demanda útil da viagem e recalcula a massa total necessária da mistura. Com os parâmetros atualmente implementados, obtém-se massa total requerida de aproximadamente $671.301~kg$, dos quais $510.188~kg$ correspondem à fração fóssil e $161.112~kg$ à fração renovável. A energia útil fornecida permanece igual à do cenário de referência, $E_{tot,B24} \approx 11.767~GJ$. Considerando-se também o custo de \emph{compliance} do \gls{EUETS}, o custo total da viagem passa a $C_{B24} \approx 586.470~USD$ para as rotas de soja, sebo bovino e \gls{UCO}, e a $C_{B24}^{TCO} \approx 590.060~USD$ para a rota de \gls{TCO}.}
+Para ilustrar o efeito da substituição parcial, considera-se mistura com $\alpha = 0,24$ (\gls{B24}). Diferentemente da formulação simplificada de massa fixa, o modelo executado impõe a mesma demanda útil da viagem e recalcula a massa total necessária da mistura. Com os parâmetros atualmente implementados, obtém-se massa total requerida de aproximadamente $671.301~kg$, dos quais $510.188~kg$ correspondem à fração fóssil e $161.112~kg$ à fração renovável. A energia útil fornecida permanece igual à do cenário de referência, $E_{tot,B24} \approx 11.767~GJ$. Considerando-se também o custo de \emph{compliance} do \gls{EUETS}, o custo total da viagem passa a $C_{B24} \approx 586.470~USD$ para as rotas de soja, sebo bovino e \gls{UCO}, e a $C_{B24}^{TCO} \approx 590.060~USD$ para a rota de \gls{TCO}.
 
-\warn{As emissões totais passam a depender explicitamente da rota de produção do biodiesel e da massa total requerida da mistura. Para o biodiesel proveniente de sebo bovino, o modelo atual produz $G_{B24}^{sebo} \approx 1.692~t$, o que corresponde à redução relativa de 16,5\% em relação ao cenário convencional. Para óleo de cozinha usado (\gls{UCO}), as emissões são $G_{B24}^{UCO} \approx 1.679~t$, representando redução de 17,1\%. Para \gls{TCO}, obtém-se $G_{B24}^{TCO} \approx 1.681~t$, equivalente à redução de 17,0\%. Já para biodiesel de soja, obtém-se $G_{B24}^{soja} \approx 1.801~t$, equivalente à redução de 11,1\%.}
+As emissões totais passam a depender explicitamente da rota de produção do biodiesel e da massa total requerida da mistura. Para o biodiesel proveniente de sebo bovino, o modelo atual produz $G_{B24}^{sebo} \approx 1.692~t$, o que corresponde à redução relativa de 16,5\% em relação ao cenário convencional. Para óleo de cozinha usado (\gls{UCO}), as emissões são $G_{B24}^{UCO} \approx 1.679~t$, representando redução de 17,1\%. Para \gls{TCO}, obtém-se $G_{B24}^{TCO} \approx 1.681~t$, equivalente à redução de 17,0\%. Já para biodiesel de soja, obtém-se $G_{B24}^{soja} \approx 1.801~t$, equivalente à redução de 11,1\%.
 
 A Tabela~\ref{tab:toy_santos_rotterdam} sintetiza os resultados obtidos.
 
@@ -549,18 +549,18 @@ A Tabela~\ref{tab:toy_santos_rotterdam} sintetiza os resultados obtidos.
 \hline
 Cenário & Energia (GJ) & Custo (USD) & $CO_2$ (t) & Redução \\
 \hline
-\warn{\emph{bunker fuel}} & \warn{11.759} & \warn{419.067} & \warn{2.026} & \warn{--} \\
-\warn{B24 Sebo} & \warn{11.767} & \warn{586.470} & \warn{1.692} & \warn{16,5\%} \\
-\warn{B24 UCO} & \warn{11.767} & \warn{586.470} & \warn{1.679} & \warn{17,1\%} \\
-\warn{B24 TCO} & \warn{11.767} & \warn{590.060} & \warn{1.682} & \warn{17,0\%} \\
-\warn{B24 Soja} & \warn{11.767} & \warn{586.470} & \warn{1.801} & \warn{11,1\%} \\
+\emph{bunker fuel} & 11.759 & 419.067 & 2.026 & -- \\
+B24 Sebo & 11.767 & 586.470 & 1.692 & 16,5\% \\
+B24 UCO & 11.767 & 586.470 & 1.679 & 17,1\% \\
+B24 TCO & 11.767 & 590.060 & 1.682 & 17,0\% \\
+B24 Soja & 11.767 & 586.470 & 1.801 & 11,1\% \\
 \hline
 \end{tabular}
 \end{table}
 
 À luz dos critérios de viabilidade definidos no modelo, pode-se avaliar o desempenho desses cenários em relação aos parâmetros $\delta$ e $\gamma^{ref}$. Considerando o intervalo de redução ambiental $\delta \in [0,10,0,25]$, observa-se que as misturas \gls{B24} baseadas em sebo bovino, \gls{UCO} e \gls{TCO} satisfazem a condição de redução mínima de emissões, uma vez que apresentam reduções próximas de 20\% em relação ao cenário convencional. O biodiesel de soja, por sua vez, apresenta redução inferior, situando-se próximo ao limite inferior do intervalo considerado.
 
-\warn{No plano econômico, o custo marginal de abatimento de carbono associado a cada cenário pode ser comparado ao intervalo de referência $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$, convertido explicitamente para USD/tCO$_2$ na implementação computacional. Como o custo total da viagem já incorpora o custo de \emph{compliance} do \gls{EUETS} por meio de $\gamma^{comp}$, o exemplo evidencia de forma mais realista como o diferencial de preço entre combustível fóssil e biodiesel, combinado à necessidade de maior massa total de mistura para entregar o mesmo serviço útil, influencia diretamente o valor de $MAC(\alpha,r)$ e, portanto, a classificação de cada cenário como viável ou não no domínio definido pelo modelo.}
+No plano econômico, o custo marginal de abatimento de carbono associado a cada cenário pode ser comparado ao intervalo de referência $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$, convertido explicitamente para USD/tCO$_2$ na implementação computacional. Como o custo total da viagem já incorpora o custo de \emph{compliance} do \gls{EUETS} por meio de $\gamma^{comp}$, o exemplo evidencia de forma mais realista como o diferencial de preço entre combustível fóssil e biodiesel, combinado à necessidade de maior massa total de mistura para entregar o mesmo serviço útil, influencia diretamente o valor de $MAC(\alpha,r)$ e, portanto, a classificação de cada cenário como viável ou não no domínio definido pelo modelo.
 
 O exemplo ilustra, assim, a lógica analítica subjacente à hipótese operacional do estudo. A variável $\alpha$ controla a magnitude da substituição energética, enquanto a variável $r$ determina a intensidade de carbono da fração renovável. A combinação dessas duas dimensões, avaliada à luz dos parâmetros $\delta$ e $\gamma^{ref}$, define o conjunto de cenários potencialmente viáveis no espaço paramétrico analisado.
 
@@ -570,12 +570,12 @@ As escolhas metodológicas adotadas implicam limitações estruturais que devem 
 
 No plano operacional, a representação da navegação por meio do vetor médio $\mathbf{X} = (D,V,c)$ abstrai variações intra-viagem, como flutuações de velocidade, condições meteorológicas adversas, espera em porto e regimes dinâmicos de carga do motor. O consumo é tratado de forma agregada para o trecho marítimo principal, não sendo modeladas fases operacionais específicas.
 
-\warn{No plano energético, utilizam-se valores médios de poder calorífico ($PCI_j$) e uma eficiência térmica efetiva da mistura representada de forma simplificada. A implementação atual incorpora uma penalidade não linear moderada na eficiência do motor em função da fração de mistura, com o objetivo de evitar comportamento idealizado demais do \emph{blend} e capturar, ainda que de forma agregada, evidências da literatura de que o consumo específico e o desempenho térmico variam com o teor de biodiesel. Essa formulação não substitui ensaios de motor nem modelagem termodinâmica detalhada, tampouco captura efeitos de longo prazo, adaptações técnicas ou dependência com a carga do motor.}
+No plano energético, utilizam-se valores médios de poder calorífico ($PCI_j$) e uma eficiência térmica efetiva da mistura representada de forma simplificada. A implementação atual incorpora uma penalidade não linear moderada na eficiência do motor em função da fração de mistura, com o objetivo de evitar comportamento idealizado demais do \emph{blend} e capturar, ainda que de forma agregada, evidências da literatura de que o consumo específico e o desempenho térmico variam com o teor de biodiesel. Essa formulação não substitui ensaios de motor nem modelagem termodinâmica detalhada, tampouco captura efeitos de longo prazo, adaptações técnicas ou dependência com a carga do motor.
 
-\warn{No plano ambiental, a análise depende de fatores de emissão provenientes de Avaliação de Ciclo de Vida secundária. Não são desenvolvidos inventários próprios nem modeladas explicitamente incertezas associadas às cadeias produtivas do biodiesel. A avaliação concentra-se exclusivamente em emissões de gases de efeito estufa, expressas em CO$_2$ equivalente no escopo \gls{WTW}, não contemplando outras categorias de impacto ambiental. Essa ressalva é particularmente importante para \gls{TCO}, cujo fator de emissão pode variar de forma relevante conforme a regra de alocação adotada para os coprodutos da cadeia do milho.}
+No plano ambiental, a análise depende de fatores de emissão provenientes de Avaliação de Ciclo de Vida secundária. Não são desenvolvidos inventários próprios nem modeladas explicitamente incertezas associadas às cadeias produtivas do biodiesel. A avaliação concentra-se exclusivamente em emissões de gases de efeito estufa, expressas em CO$_2$ equivalente no escopo \gls{WTW}, não contemplando outras categorias de impacto ambiental. Essa ressalva é particularmente importante para \gls{TCO}, cujo fator de emissão pode variar de forma relevante conforme a regra de alocação adotada para os coprodutos da cadeia do milho.
 
-\warn{No plano econômico, a análise restringe-se ao custo do combustível por viagem e ao custo explícito de \emph{compliance} do \gls{EUETS}, parametrizado por $\gamma^{comp}$. Não são incorporadas dinâmicas de mercado, volatilidade de preços, elasticidades, instrumentos financeiros ou outros instrumentos de política econômica além desse componente regulatório simplificado. O custo marginal de abatimento ($MAC$) resulta de parâmetros médios determinísticos, sendo utilizado como métrica comparativa em relação ao intervalo de referência $\gamma^{ref}$ adotado no modelo e convertido para a mesma moeda de comparação.}
+No plano econômico, a análise restringe-se ao custo do combustível por viagem e ao custo explícito de \emph{compliance} do \gls{EUETS}, parametrizado por $\gamma^{comp}$. Não são incorporadas dinâmicas de mercado, volatilidade de preços, elasticidades, instrumentos financeiros ou outros instrumentos de política econômica além desse componente regulatório simplificado. O custo marginal de abatimento ($MAC$) resulta de parâmetros médios determinísticos, sendo utilizado como métrica comparativa em relação ao intervalo de referência $\gamma^{ref}$ adotado no modelo e convertido para a mesma moeda de comparação.
 
-\warn{Adicionalmente, o modelo não endogeneíza integralmente as variáveis regulatórias. Embora o custo de \emph{compliance} do \gls{EUETS} seja incorporado como parcela explícita do custo da viagem por meio de $\gamma^{comp}$, instrumentos como o regulamento \emph{FuelEU Maritime}, interações entre regimes regulatórios e políticas nacionais de biocombustíveis ainda são tratados de forma simplificada na interpretação dos resultados e no parâmetro regulatório $\gamma^{ref}$.}
+Adicionalmente, o modelo não endogeneíza integralmente as variáveis regulatórias. Embora o custo de \emph{compliance} do \gls{EUETS} seja incorporado como parcela explícita do custo da viagem por meio de $\gamma^{comp}$, instrumentos como o regulamento \emph{FuelEU Maritime}, interações entre regimes regulatórios e políticas nacionais de biocombustíveis ainda são tratados de forma simplificada na interpretação dos resultados e no parâmetro regulatório $\gamma^{ref}$.
 
 Essas limitações decorrem da opção por um modelo determinístico orientado à comparação paramétrica entre cenários e delimitam o alcance inferencial dos resultados obtidos. O objetivo do modelo não é prever o comportamento futuro do mercado ou da frota marítima, mas oferecer estrutura analítica consistente para comparar cenários de combustível sob condições operacionais controladas.

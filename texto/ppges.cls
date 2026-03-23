@@ -6,6 +6,7 @@
 %% Load additional packages and commands.
 \RequirePackage[a4paper, left=2.5cm, right=2cm, top=2.5cm, bottom=2cm]{geometry} 
 \RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
 \RequirePackage[square,authoryear]{natbib}
 \RequirePackage[dvipsnames,svgnames,table]{xcolor}
 \RequirePackage{amsmath}
