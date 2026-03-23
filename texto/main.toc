@@ -1,0 +1,48 @@
+\babel@toc {brazil}{}\relax 
+\contentsline {chapter}{\numberline {I}Introdução}{1}{chapter.1}%
+\contentsline {chapter}{\numberline {II}Revisão da Literatura}{4}{chapter.2}%
+\contentsline {section}{\numberline {II.1}Referencial teórico}{4}{section.2.1}%
+\contentsline {subsection}{\numberline {II.1.1}Sustentabilidade e Metas Globais}{4}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {II.1.2}Instrumentos regulatórios europeus e seus efeitos sobre a descarbonização do transporte marítimo}{6}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {II.1.3}Tecnologias de Combustíveis Alternativos}{9}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {II.1.4}Adaptação do setor marítimo brasileiro}{11}{subsection.2.1.4}%
+\contentsline {subsubsection}{(i) Características estruturais do setor e desafios de transição}{11}{subsection.2.1.4}%
+\contentsline {subsubsection}{(ii) Arcabouço institucional e regulatório no Brasil}{12}{subsection.2.1.4}%
+\contentsline {subsubsection}{(iii) Capacidades e restrições para adoção de combustíveis alternativos nos portos}{12}{subsection.2.1.4}%
+\contentsline {subsubsection}{(iv) Biocombustíveis como rota de transição e o papel da logística e do feedstock}{13}{subsection.2.1.4}%
+\contentsline {section}{\numberline {II.2}Trabalhos relacionados}{14}{section.2.2}%
+\contentsline {subsection}{\numberline {II.2.1}Estratégia de busca e critérios de seleção dos estudos}{14}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {II.2.2}Contexto e escopo dos estudos analisados}{15}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {II.2.3}Abordagens metodológicas adotadas na literatura}{18}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {II.2.4}Avaliação de Ciclo de Vida (ACV)}{18}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {II.2.5}Análise Técnico-Econômica (TEA)}{19}{subsection.2.2.5}%
+\contentsline {subsection}{\numberline {II.2.6}Abordagens integradas TEA--ACV}{20}{subsection.2.2.6}%
+\contentsline {subsection}{\numberline {II.2.7}Modelagem operacional, logística e espacial}{20}{subsection.2.2.7}%
+\contentsline {subsection}{\numberline {II.2.8}Comparações entre combustíveis e rotas tecnológicas}{21}{subsection.2.2.8}%
+\contentsline {subsubsection}{(i) Combustíveis fósseis versus biocombustíveis líquidos}{21}{subsection.2.2.8}%
+\contentsline {subsubsection}{(ii) Biocombustíveis versus combustíveis emergentes de emissão zero}{22}{subsection.2.2.8}%
+\contentsline {subsubsection}{(iii) Comparações internas entre rotas e misturas de biocombustíveis}{23}{subsection.2.2.8}%
+\contentsline {subsection}{\numberline {II.2.9}Síntese das evidências e identificação de lacunas de pesquisa}{24}{subsection.2.2.9}%
+\contentsline {chapter}{\numberline {III}Método}{26}{chapter.3}%
+\contentsline {section}{\numberline {III.1}Delineamento da pesquisa}{26}{section.3.1}%
+\contentsline {section}{\numberline {III.2}Quadro de variáveis e parâmetros da modelagem}{26}{section.3.2}%
+\contentsline {section}{\numberline {III.3}Escopo do estudo e premissas}{26}{section.3.3}%
+\contentsline {section}{\numberline {III.4}Dados operacionais}{29}{section.3.4}%
+\contentsline {section}{\numberline {III.5}Avaliação ambiental: estimativas baseadas em avaliação de ciclo de vida secundária}{30}{section.3.5}%
+\contentsline {section}{\numberline {III.6}Avaliação econômica}{33}{section.3.6}%
+\contentsline {section}{\numberline {III.7}Estrutura geral do modelo analítico}{35}{section.3.7}%
+\contentsline {section}{\numberline {III.8}Procedimento de simulação}{38}{section.3.8}%
+\contentsline {section}{\numberline {III.9}Análise institucional e regulatória}{39}{section.3.9}%
+\contentsline {section}{\numberline {III.10}Exemplo numérico ilustrativo com base empírica}{40}{section.3.10}%
+\contentsline {section}{\numberline {III.11}Delimitações e limitações do estudo}{42}{section.3.11}%
+\contentsline {chapter}{\numberline {IV}Resultados}{44}{chapter.4}%
+\contentsline {section}{\numberline {IV.1}Estrutura experimental}{44}{section.4.1}%
+\contentsline {subsection}{\numberline {IV.1.1}Cenário-base de referência}{44}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {IV.1.2}Cenários complementares de sensibilidade}{45}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {IV.1.3}Setups experimentais}{45}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {IV.1.4}Variáveis de saída e estrutura dos resultados}{46}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {IV.1.5}Síntese das saídas}{47}{subsection.4.1.5}%
+\contentsline {section}{\numberline {IV.2}Matriz de cenários experimentais}{48}{section.4.2}%
+\contentsline {section}{\numberline {IV.3}Resultados preliminares}{49}{section.4.3}%
+\contentsline {chapter}{\numberline {V}Conclusão}{53}{chapter.5}%
+\contentsline {chapter}{Referências}{54}{chapter*.15}%
