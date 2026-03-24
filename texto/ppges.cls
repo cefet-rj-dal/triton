@@ -59,6 +59,7 @@
 
 % Numeracao capitulos em romano
 \renewcommand{\thechapter}{\Roman{chapter}}
+\renewcommand{\chaptername}{Capítulo}
 \titleformat{\chapter}[hang] 
 {\normalfont\large\bfseries\centering}{\chaptertitlename\ \thechapter }{1em}{}
 \titleformat{\section}[hang]
@@ -271,7 +272,7 @@ Rio de Janeiro,\\
 		
 		#1
 		\par
-		\noindent Key-words: #2
+		\noindent Keywords: #2
 		
 		
 	\end{singlespacing}
