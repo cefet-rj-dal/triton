@@ -5,6 +5,8 @@
 
 Esta pesquisa desenvolve um modelo determinístico de simulação comparativa \emph{in silico} para avaliar a viabilidade do biobunker como combustível de transição no transporte marítimo internacional operando a partir do Brasil. No escopo desta dissertação, a compatibilidade técnica do uso de misturas é tratada como premissa operacional delimitada a partir da literatura e das propriedades médias adotadas para o sistema de propulsão, ao passo que a verificação formal incide sobre a viabilidade econômico-ambiental dos cenários simulados. O foco está na comparação sistemática entre cenários de combustível sob condições operacionais controladas, com ênfase nos efeitos da fração de mistura e da rota de produção do biodiesel sobre o consumo requerido, o desempenho energético, as emissões de gases de efeito estufa e o custo total da viagem.
 
+No plano metodológico, o problema de pesquisa é operacionalizado como teste de existência de combinações admissíveis entre fração de mistura e rota de produção do biodiesel que satisfaçam simultaneamente um critério ambiental mínimo e um critério econômico-regulatório. Em outros termos, busca-se verificar se existe ao menos um cenário $(\alpha,r)$ pertencente ao domínio analisado para o qual o biobunker se mostre economicamente e ambientalmente defensável sob as condições operacionais e regulatórias adotadas.
+
 A aplicação do modelo é realizada sobre um caso representativo do transporte marítimo internacional, definido pela operação de um navio graneleiro do tipo Panamax na rota Santos--Roterdã. Essa escolha permite analisar, em um contexto operacional concreto, como mudanças na composição do combustível afetam o sistema de propulsão e o desempenho global da viagem, preservando base comparável entre os cenários simulados.
 
 Além da dimensão quantitativa, a análise incorpora interpretação institucional e regulatória dos resultados, especialmente à luz das metas de descarbonização da \gls{IMO} e dos instrumentos que afetam rotas com destino à União Europeia \citep{international_maritime_organization_fourth_2020}. Assim, o delineamento metodológico combina simulação \emph{in silico}, aplicação a caso representativo e leitura integrada das dimensões energética, ambiental, econômica e regulatória do problema.
@@ -118,10 +120,10 @@ Adota-se como cenário-base de referência o \emph{bunker fuel} convencional. As
 \right\}
 \]
 
-Os cenários avaliados são representados por:
+Os cenários avaliados são representados, em termos gerais, por:
 
 \[
-\mathcal{S} = \{\text{Bunker}, B_{0{,}24}^{\text{soja}}, B_{0{,}24}^{\text{sebo}}, B_{0{,}24}^{\text{UCO}}, B_{0{,}24}^{\text{TCO}}\}
+\mathcal{S} = \{\text{Bunker}\} \cup \left\{ B_{\alpha}^{r} \;:\; \alpha \in [0{,}10,0{,}30],\; r \in \mathcal{S}_{bio}\right\}
 \]
 
 Neste trabalho, a sigla \gls{TCO} refere-se exclusivamente a \emph{Technical Corn Oil} (óleo técnico de milho), subproduto da cadeia do milho e do etanol de milho, e não a \emph{Tall Oil Crude}, insumo florestal que também aparece abreviado como TCO em parte da literatura internacional.
@@ -138,7 +140,7 @@ configurando análise de sensibilidade determinística por varredura de parâmet
 
 Assume-se regime médio constante de operação do motor principal ao longo da viagem, permitindo tratar a eficiência térmica como valor médio representativo. O escopo temporal restringe-se ao horizonte até 2030, em alinhamento com as metas intermediárias de descarbonização do transporte marítimo. Combustíveis de emissão zero, como hidrogênio e amônia, não são modelados, sendo considerados apenas como referência contextual na revisão da literatura.
 
-As estimativas ambientais e econômicas são construídas a partir de parâmetros médios extraídos da literatura especializada, preservando a coerência interna do modelo comparativo aplicado ao cenário operacional definido.
+As estimativas ambientais e econômicas são construídas a partir de parâmetros médios extraídos da literatura especializada, preservando a coerência interna do modelo comparativo aplicado ao cenário operacional definido. Nesse enquadramento, o modelo apoia-se em conjunto de hipóteses estruturantes que delimitam seu alcance analítico e sustentam a comparabilidade entre cenários. A primeira consiste em assumir compatibilidade operacional do uso de misturas de biodiesel e \emph{bunker fuel} no intervalo analisado, com base em evidências secundárias da literatura, sem validação experimental direta em motor. A segunda consiste em manter constante o serviço útil prestado pela embarcação em todos os cenários, de modo que diferenças entre alternativas energéticas se expressem por alterações na massa requerida da mistura, nas emissões totais e no custo total. A terceira consiste em representar o sistema por parâmetros médios determinísticos de natureza operacional, energética, ambiental e econômica, sem modelagem estocástica de mercado ou de desempenho. A quarta consiste em tratar o ambiente regulatório de forma parcial e operacionalizável, incorporando explicitamente o custo de \emph{compliance} do \gls{EUETS} e utilizando parâmetro de referência para interpretação do custo marginal de abatimento, sem reproduzir integralmente a mecânica de todos os instrumentos regulatórios incidentes sobre o transporte marítimo.
 
 \section{Dados operacionais}
 
@@ -165,7 +167,7 @@ onde $T$ é expresso em horas.
 O consumo total de combustível por viagem é estimado como:
 
 \begin{equation}
-F = c_h \cdot T
+F = c \cdot T
 \end{equation}
 
 Para efeitos de balanço de massa e energia, o consumo total é convertido para quilogramas:
@@ -320,7 +322,7 @@ O custo marginal de abatimento constitui métrica amplamente utilizada na análi
 
 Para explicitar a dimensão regulatória sem introduzir variáveis paralelas, define-se a família regulatória $\gamma = (\gamma^{comp},\gamma^{ref})$. Essa notação constitui uma construção analítica adotada nesta dissertação para aproximar, de forma operacionalizável, diferentes dimensões do ambiente regulatório europeu aplicável ao transporte marítimo. O termo $\gamma^{comp}$ representa o preço explícito de \emph{compliance} associado às emissões cobertas pelo \gls{EUETS} marítimo e entra diretamente na composição do custo total da viagem, em coerência com a incorporação do transporte marítimo ao sistema europeu de comércio de emissões \citep{eu_reg_2023_957,euets2023}. Nesse sentido, $\gamma^{comp}$ atua como um custo marginal adicional proporcional às emissões, internalizando no modelo o efeito de precificação de carbono característico de instrumentos do tipo \emph{cap-and-trade}.
 
-Já $\gamma^{ref}$ representa um preço de referência do carbono utilizado para interpretar a viabilidade econômica do abatimento estimado. Esse componente não corresponde a um instrumento jurídico específico, mas a um parâmetro de benchmark calibrado a partir de sinais de preço observados em mercados de carbono e estudos institucionais, permitindo avaliar se o $MAC(\alpha,r)$ se encontra em patamar compatível com o ambiente regulatório europeu \citep{worldbank2024carbon,euets2023}. Dessa forma, $\gamma^{ref}$ opera como critério de comparação exógeno ao modelo, enquanto $\gamma^{comp}$ atua como componente endógeno do custo.
+Já $\gamma^{ref}$ representa um preço de referência do carbono utilizado para interpretar a viabilidade econômica do abatimento estimado. Esse componente não corresponde a um instrumento jurídico específico, mas a um parâmetro de benchmark calibrado a partir de sinais de preço observados em mercados de carbono e estudos institucionais, permitindo avaliar se o $MAC(\alpha,r)$ se encontra em patamar compatível com o ambiente regulatório europeu \citep{worldbank2024carbon,euets2023}. Dessa forma, $\gamma^{ref}$ opera como critério de comparação exógeno ao modelo, enquanto $\gamma^{comp}$ atua como componente endógeno do custo. A família $\gamma$ deve, portanto, ser entendida como convenção analítica composta por elementos de natureza metodológica distinta, reunidos para permitir leitura integrada da dimensão regulatória no modelo.
 
 Essa decomposição permite distinguir, no plano metodológico, entre (i) custos regulatórios diretamente monetizados no modelo e (ii) outros instrumentos do arcabouço europeu que influenciam a atratividade relativa dos combustíveis. Em particular, mecanismos como o \emph{FuelEU Maritime} estabelecem metas de intensidade de emissões e penalidades associadas ao não cumprimento, mas não são representados explicitamente como função de penalidade nesta formulação. Seus efeitos são capturados de forma indireta por meio da calibração do ambiente regulatório sintetizado na família $\gamma$, sem reprodução integral de sua mecânica jurídica e operacional \citep{eu_reg_2023_1805}.
 
@@ -524,6 +526,43 @@ Em nível regional, destacam-se instrumentos aplicáveis a embarcações que esc
 No contexto brasileiro, instrumentos relacionados à produção e ao uso de biocombustíveis, como o RenovaBio \citep{brasil_lei_2017}, influenciam a oferta e os parâmetros econômicos e ambientais do biodiesel considerados no modelo. Esses instrumentos afetam indiretamente os valores de $p_{bio,r}$ e $FE_{bio,r}^{WTW}$, sem que se estabeleça relação causal direta entre política pública nacional e decisão operacional específica no transporte marítimo internacional.
 
 A análise institucional integra-se às avaliações ambiental e econômica como camada interpretativa aplicada. O ambiente regulatório altera a interpretação prática do conjunto viável obtido tanto por meio do custo explícito de \emph{allowances} do \gls{EUETS}, representado por $\gamma^{comp}$, quanto pelo limiar regulatório $\gamma^{ref}$, convertido para a moeda do $MAC$. Ainda assim, a modelagem institucional permanece parcial e simplificada, uma vez que outros instrumentos regulatórios não são formalizados em todo o seu detalhamento jurídico e operacional.
+
+\section{Parâmetros do cenário-base}
+
+Para fortalecer a replicabilidade da análise, a Tabela~\ref{tab:parametrizacao_e1} reúne os parâmetros-base utilizados no cenário Santos--Roterdã, que serve de referência para a varredura determinística do domínio $(\alpha,r)$ e para os experimentos de sensibilidade apresentados posteriormente. As análises complementares modificam apenas subconjuntos específicos desses parâmetros, mantendo os demais fixos conforme a parametrização-base aqui sintetizada.
+
+\begin{table}[!ht]
+\centering
+\caption{Parâmetros do cenário-base}
+\label{tab:parametrizacao_e1}
+\small
+\begin{tabular}{lll}
+\hline
+\textbf{Elemento} & \textbf{Símbolo / valor-base} & \textbf{Observação} \\
+\hline
+Rota de referência & Santos--Roterdã & caso-base do experimento \\
+Distância da viagem & $D = 10.120~km$ & valor representativo adotado \\
+Velocidade média & $V = 25{,}93~km/h$ & equivalente a 14 nós \\
+Consumo médio agregado & $c = 40~t/dia$ & usado para inferir $F(0)$ \\
+Conjunto de rotas de biodiesel & $\mathcal{S}_{bio} = \{\text{soja}, \text{sebo bovino}, \text{UCO}, \text{TCO}\}$ & domínio das rotas avaliadas \\
+Frações de mistura & $\alpha \in \{0{,}10, 0{,}15, 0{,}20, 0{,}24, 0{,}25, 0{,}30\}$ & domínio discreto do cenário-base \\
+Combustível fóssil & $PCI_b = 40{,}2~MJ/kg$ & \emph{bunker fuel} convencional \\
+Biodiesel convencional & $PCI_{bio} = 37{,}68~MJ/kg$ & valor-base para biodiesel \\
+Biodiesel de \gls{TCO} & $PCI_{bio}^{TCO} = 36{,}64~MJ/kg$ & caso específico \gls{TCO} \\
+Eficiência do fóssil & $\eta_b = 0{,}45$ & valor médio adotado \\
+Eficiência do biodiesel & $\eta_{bio} = 0{,}43$ & valor médio adotado \\
+Preço do fóssil & $p_b = 0{,}5~USD/kg$ & valor-base da simulação \\
+Preço do biodiesel & $p_{bio} = 1{,}6~USD/kg$ & valor-base inicial \\
+Fator de emissão do fóssil & $FE_b = 3{,}114~kgCO_2/kg$ & fator-base do combustível fóssil \\
+Fator \gls{WTW} sebo & $FE_{bio}^{sebo} = 0{,}64~kgCO_2/kg$ & cenário-base \\
+Fator \gls{WTW} \gls{UCO} & $FE_{bio}^{UCO} = 0{,}56~kgCO_2/kg$ & cenário-base \\
+Fator \gls{WTW} soja & $FE_{bio}^{soja} = 1{,}32~kgCO_2/kg$ & cenário-base \\
+Fator \gls{WTW} \gls{TCO} & $FE_{bio}^{TCO} = 0{,}513~kgCO_2/kg$ & cenário-base com sensibilidade específica \\
+Faixa ambiental & $\delta \in [0{,}10,0{,}25]$ & critério mínimo de redução \\
+Faixa regulatória de referência & $\gamma^{ref} \in [60,100]~EUR/tCO_2$ & benchmark de interpretação \\
+\hline
+\end{tabular}
+\end{table}
 
 \section{Exemplo numérico ilustrativo com base empírica}
 

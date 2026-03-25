@@ -3,7 +3,7 @@
 
 \section{Estrutura experimental}
 
-O presente capítulo apresenta a estrutura experimental efetivamente executada e os resultados preliminares da implementação computacional do modelo em \emph{R}. A análise foi aplicada à rota Santos--Roterdã e contempla o cenário-base, bem como análises complementares de sensibilidade econômica, ambiental, regulatória, operacional e específica para a rota de \gls{TCO}. A interpretação dos resultados é feita à luz do ambiente regulatório europeu, tomando $\gamma^{ref}$ como referência para avaliar a compatibilidade econômica dos cenários com o sinal vigente de preço de carbono.
+O presente capítulo apresenta a estrutura experimental efetivamente executada e os resultados da implementação computacional do modelo em \emph{R}. A análise foi aplicada à rota Santos--Roterdã e contempla o cenário-base, bem como análises complementares de sensibilidade econômica, ambiental, regulatória, operacional e específica para a rota de \gls{TCO}. A interpretação dos resultados é feita à luz do ambiente regulatório europeu, tomando $\gamma^{ref}$ como referência para avaliar a compatibilidade econômica dos cenários com o sinal vigente de preço de carbono.
 
 A avaliação experimental é estruturada em torno de um cenário-base e de conjuntos complementares de análise de sensibilidade. O cenário-base corresponde à rota Santos--Roterdã, previamente definida no capítulo de método, e representa o caso de referência para comparação entre o \emph{bunker fuel} convencional e os cenários de biobunker. Sobre esse cenário são construídas variações paramétricas da fração de mistura $\alpha$, da rota de produção do biodiesel $r$, dos parâmetros econômicos e, de forma complementar, das condições operacionais agregadas da viagem.
 
@@ -133,7 +133,7 @@ A quinta representação corresponde a um mapa de viabilidade, no qual linhas de
 
 \section{Matriz de cenários experimentais}
 
-Com base na estrutura experimental adotada e na implementação efetivamente executada, a avaliação do modelo foi organizada em sete conjuntos de experimentos, cada um associado a objetivo analítico específico. A Tabela~\ref{tab:matriz_experimental} sintetiza os \emph{setups} considerados, suas variáveis de entrada, saídas principais e propósito analítico no contexto da dissertação.
+Com base na estrutura experimental adotada e na implementação efetivamente executada, a avaliação do modelo foi organizada em sete conjuntos de experimentos (E1 a E7), cada um associado a objetivo analítico específico. A Tabela~\ref{tab:matriz_experimental} sintetiza os \emph{setups} considerados, suas variáveis de entrada, saídas principais e propósito analítico no contexto da dissertação.
 
 \begin{table}[!ht]
 \centering
@@ -199,11 +199,11 @@ A matriz experimental proposta organiza a implementação computacional em \emph
 
 No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico principal, pois fornece a comparação direta entre os cenários de mistura e as rotas de produção do biodiesel para a rota de referência Santos--Roterdã. Os \textbf{Setups E2 a E7} funcionam como análises complementares de sensibilidade, destinadas a testar a robustez dos resultados do cenário-base frente a variações em parâmetros econômicos, ambientais, regulatórios e operacionais.
 
-Essa organização permite distinguir, de forma metodologicamente clara, entre resultados centrais do modelo e resultados de sensibilidade, bem como separar a leitura de viabilidade regulatória ampliada da análise específica da rota de \gls{TCO}.
+Essa organização permite distinguir, de forma metodologicamente clara, entre resultados centrais do modelo e resultados de sensibilidade, bem como separar a leitura de viabilidade regulatória ampliada da análise específica da rota de \gls{TCO}. Em particular, o experimento E1 responde diretamente ao teste central de existência de cenários viáveis no domínio analisado, enquanto os experimentos E2 a E7 examinam a robustez dessa resposta e o deslocamento da fronteira de viabilidade sob diferentes hipóteses econômicas, ambientais, operacionais e regulatórias.
 
-\section{Resultados preliminares}
+\section{Resultados}
 
-A execução preliminar do modelo confirma que, no cenário-base e sob sinal regulatório compatível com a faixa recente do \gls{EUETS}, não emergem cenários viáveis para nenhuma das rotas avaliadas. Em termos analíticos, isso significa que, para todos os cenários considerados, o custo marginal de abatimento permanece acima do intervalo de referência $\gamma^{ref}$; em termos qualitativos, o principal entrave continua sendo econômico, pois a redução de emissões obtida com o aumento de $\alpha$ não basta para compensar o custo incremental da mistura frente ao patamar de preço de carbono representado por $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$.
+A execução do modelo confirma que, no cenário-base e sob sinal regulatório compatível com a faixa recente do \gls{EUETS}, não emergem cenários viáveis para nenhuma das rotas avaliadas. Em termos analíticos, isso significa que, para todos os cenários considerados, o custo marginal de abatimento permanece acima do intervalo de referência $\gamma^{ref}$; em termos qualitativos, o principal entrave continua sendo econômico, pois a redução de emissões obtida com o aumento de $\alpha$ não basta para compensar o custo incremental da mistura frente ao patamar de preço de carbono representado por $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$. No plano metodológico, esse resultado implica que a hipótese operacional $H_1$ não se verifica no cenário-base do experimento central E1.
 
 A Figura~\ref{fig:break_even_alpha} apresenta o preço de carbono de equilíbrio por fração de mistura e rota. Como esse indicador coincide, no modelo, com a razão entre custo incremental e redução de emissões, ele pode ser interpretado como o preço de carbono necessário para igualar economicamente o cenário de biobunker ao cenário fóssil. Observa-se que soja permanece sistematicamente acima das demais rotas, enquanto \gls{UCO}, sebo bovino e \gls{TCO} se agrupam em faixa inferior, porém ainda distante do intervalo de referência do \gls{EUETS}.
 
@@ -263,7 +263,7 @@ Soja & -- & -- & -- & -- \\
 
 A leitura de custo também se altera quando o termo regulatório é explicitado. A Figura~\ref{fig:decomp_custo} decompõe o custo total entre combustível e a parcela de \emph{compliance} associada a $\gamma^{comp}$. Essa visualização evidencia que o custo regulatório cresce com a parcela fóssil remanescente, mas ainda não compensa, por si só, o diferencial de preço do biodiesel nos níveis correntes de mercado. Em outras palavras, o \gls{EUETS} melhora a competitividade relativa do biobunker, mas não basta sozinho para torná-lo viável sob os parâmetros-base.
 
-Esse ponto evita uma leitura simplificada do papel da regulação. O componente $\gamma^{comp}$ mitiga o diferencial econômico entre fóssil e biobunker, mas não o elimina no nível atual de preços adotado na simulação. A análise preliminar sugere, portanto, que a viabilidade depende de combinar maior $\gamma^{ref}$, maior $\gamma^{comp}$, redução do preço relativo do biodiesel e escolha de rotas com menor intensidade de carbono, como \gls{UCO}, sebo bovino e \gls{TCO}.
+Esse ponto evita uma leitura simplificada do papel da regulação. O componente $\gamma^{comp}$ mitiga o diferencial econômico entre fóssil e biobunker, mas não o elimina no nível atual de preços adotado na simulação. A análise sugere, portanto, que a viabilidade depende de combinar maior $\gamma^{ref}$, maior $\gamma^{comp}$, redução do preço relativo do biodiesel e escolha de rotas com menor intensidade de carbono, como \gls{UCO}, sebo bovino e \gls{TCO}.
 
 \begin{figure}[!ht]
 \centering
