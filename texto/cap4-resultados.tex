@@ -5,8 +5,6 @@
 
 O presente capítulo apresenta a estrutura experimental efetivamente executada e os resultados da implementação computacional do modelo em \emph{R}. A análise foi aplicada à rota Santos--Roterdã e contempla o cenário-base, bem como análises complementares de sensibilidade econômica, ambiental, regulatória, operacional e específica para a rota de \gls{TCO}. A interpretação dos resultados é feita à luz do ambiente regulatório europeu, tomando $\gamma^{ref}$ como referência para avaliar a compatibilidade econômica dos cenários com o sinal vigente de preço de carbono.
 
-A avaliação experimental é estruturada em torno de um cenário-base e de conjuntos complementares de análise de sensibilidade. O cenário-base corresponde à rota Santos--Roterdã, previamente definida no capítulo de método, e representa o caso de referência para comparação entre o \emph{bunker fuel} convencional e os cenários de biobunker. Sobre esse cenário são construídas variações paramétricas da fração de mistura $\alpha$, da rota de produção do biodiesel $r$, dos parâmetros econômicos e, de forma complementar, das condições operacionais agregadas da viagem.
-
 \subsection{Cenário-base de referência}
 
 O cenário-base de referência é definido por:
@@ -41,21 +39,9 @@ de modo a incluir misturas regularmente espaçadas e, adicionalmente, o ponto de
 
 Esse cenário-base constitui o núcleo da análise da dissertação, pois permite comparar, sob mesmas condições operacionais e mesma demanda útil da viagem, o efeito da origem do biodiesel e do aumento da fração renovável sobre consumo requerido, emissões, custo e custo marginal de abatimento. Nessa leitura, o $MAC$ funciona como preço implícito de carbono associado à substituição parcial do combustível fóssil, conectando diretamente os resultados do modelo ao ambiente regulatório europeu.
 
-\subsection{Cenários complementares de sensibilidade}
-
-Além do cenário-base, a avaliação experimental compreende seis conjuntos complementares de sensibilidade.
-
-O primeiro conjunto corresponde à sensibilidade econômica, na qual se variam os preços unitários do \emph{bunker fuel} e do biodiesel dentro de faixas compatíveis com a literatura e com referências de mercado. O objetivo é avaliar em que medida o diferencial de preço entre fração fóssil e fração renovável altera o custo total por viagem e o custo marginal de abatimento de carbono.
-
-O segundo conjunto corresponde à sensibilidade ambiental, na qual se analisam variações nos fatores de emissão \gls{WTW} associados às diferentes rotas de produção do biodiesel. Essa etapa busca verificar a robustez da ordenação dos cenários quando se consideram incertezas ou variações metodológicas na literatura de ciclo de vida.
-
-O terceiro conjunto corresponde à sensibilidade regulatória, na qual se avalia a resposta do modelo a diferentes valores de $\gamma^{ref}$, componente da família regulatória $\gamma$ que representa o sinal de referência do carbono no ambiente europeu. Na implementação atual, esse parâmetro é convertido para USD/tCO$_2$ antes da comparação com o custo marginal de abatimento, permitindo identificar como a fronteira de viabilidade econômico-ambiental se desloca sob diferentes referências de preço do carbono.
-
-O quarto conjunto corresponde à sensibilidade operacional, na qual o vetor $\mathbf{X}$ é perturbado em torno do cenário-base. Nessa etapa, são avaliadas variações moderadas de distância total da rota, velocidade média e consumo médio agregado, com o objetivo de verificar se a hierarquia relativa entre os cenários de combustível se mantém sob mudanças plausíveis no perfil operacional.
-
 \subsection{Setups experimentais}
 
-A implementação em \emph{R} foi organizada em sete \emph{setups} experimentais principais.
+A implementação em \emph{R} foi organizada em sete \emph{setups} experimentais principais. Além do cenário-base, a avaliação experimental compreende seis conjuntos complementares de sensibilidade, sintetizados na Tabela~\ref{tab:matriz_experimental}. Em conjunto, eles examinam a robustez dos resultados centrais frente a variações econômicas, ambientais, regulatórias e operacionais, bem como incertezas específicas da rota de \gls{TCO}.
 
 No \textbf{Setup 1}, realiza-se a varredura determinística completa do domínio $(\alpha,r)$ no cenário-base Santos--Roterdã. Esse experimento gera a matriz principal de resultados da dissertação e constitui a base para as comparações entre rotas de produção do biodiesel.
 
@@ -195,11 +181,7 @@ E7 &
 \end{tabular}
 \end{table}
 
-A matriz experimental proposta organiza a implementação computacional em \emph{R} de forma modular, permitindo separar claramente os efeitos da composição da mistura, da rota de produção do biodiesel, das condições econômicas, dos fatores ambientais e dos parâmetros regulatórios. Essa estrutura favorece a reprodutibilidade da análise e permite que os resultados da dissertação sejam posteriormente reorganizados em formato compatível com artigo científico.
-
-No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico principal, pois fornece a comparação direta entre os cenários de mistura e as rotas de produção do biodiesel para a rota de referência Santos--Roterdã. Os \textbf{Setups E2 a E7} funcionam como análises complementares de sensibilidade, destinadas a testar a robustez dos resultados do cenário-base frente a variações em parâmetros econômicos, ambientais, regulatórios e operacionais.
-
-Essa organização permite distinguir, de forma metodologicamente clara, entre resultados centrais do modelo e resultados de sensibilidade, bem como separar a leitura de viabilidade regulatória ampliada da análise específica da rota de \gls{TCO}. Em particular, o experimento E1 responde diretamente ao teste central de existência de cenários viáveis no domínio analisado, enquanto os experimentos E2 a E7 examinam a robustez dessa resposta e o deslocamento da fronteira de viabilidade sob diferentes hipóteses econômicas, ambientais, operacionais e regulatórias.
+A matriz experimental organiza a implementação computacional de forma modular. No contexto da dissertação, o \textbf{Setup E1} constitui o núcleo analítico principal, enquanto os \textbf{Setups E2 a E7} funcionam como análises complementares de sensibilidade voltadas à robustez dos resultados e ao deslocamento da fronteira de viabilidade sob hipóteses alternativas.
 
 \section{Resultados}
 
@@ -223,9 +205,7 @@ A Figura~\ref{fig:break_even_alpha} apresenta o preço de carbono de equilíbrio
 \label{fig:break_even_alpha}
 \end{figure}
 
-Os valores mínimos de preço de carbono de equilíbrio no cenário-base ocorrem em $\alpha = 0{,}30$ e são da ordem de $415,3\,\text{EUR}/tCO_2$ para \gls{UCO}, $427,4\,\text{EUR}/tCO_2$ para \gls{TCO}, $431,3\,\text{EUR}/tCO_2$ para sebo bovino e $641,1\,\text{EUR}/tCO_2$ para soja. Isso sugere que a atratividade relativa das rotas residuais ou de subprodutos industriais já se manifesta no modelo, mas ainda requer sinal regulatório mais forte do que o observado no mercado europeu de carbono, isto é, valores de $\gamma^{ref}$ significativamente superiores à faixa praticada no \gls{EUETS}.
-
-Em termos interpretativos, a Figura~\ref{fig:break_even_alpha} mostra mais do que uma simples ordenação entre rotas. Ela evidencia que o aumento de $\alpha$ melhora o desempenho relativo das alternativas renováveis no cenário-base, levando os menores preços de carbono de equilíbrio aos pontos de mistura mais altos testados. Isso indica que, na formulação atual, reduzir a fração renovável não é o caminho mais promissor para tornar o biobunker competitivo; ao contrário, as melhores condições econômicas relativas aparecem quando a mistura se aproxima do limite superior analisado.
+Os valores mínimos de preço de carbono de equilíbrio no cenário-base ocorrem em $\alpha = 0{,}30$ e são da ordem de $415,3\,\text{EUR}/tCO_2$ para \gls{UCO}, $427,4\,\text{EUR}/tCO_2$ para \gls{TCO}, $431,3\,\text{EUR}/tCO_2$ para sebo bovino e $641,1\,\text{EUR}/tCO_2$ para soja. Esses valores mostram, ao mesmo tempo, a ordenação relativa entre rotas e o efeito do aumento de $\alpha$: as melhores condições econômicas relativas aparecem nos pontos de mistura mais altos testados, mas ainda requerem sinal regulatório significativamente superior à faixa praticada no \gls{EUETS}.
 
 A Figura~\ref{fig:tradeoff_delta} ajuda a interpretar esse resultado em um plano conjunto de custo e benefício ambiental. Todos os cenários do experimento E1 se concentram no quadrante em que há redução de emissões acompanhada de aumento de custo em relação ao combustível fóssil convencional. Isso reforça que, no cenário-base, a questão central não é a inexistência de ganho ambiental, mas sim a insuficiência do sinal econômico-regulatório para converter esse ganho em alternativa competitiva. O diagrama também evidencia que \gls{UCO}, \gls{TCO} e sebo bovino se posicionam mais favoravelmente do que soja no espaço de \emph{trade-off}, o que é consistente com a ordenação mostrada pela Figura~\ref{fig:break_even_alpha}.
 
