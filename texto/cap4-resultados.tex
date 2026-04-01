@@ -3,7 +3,8 @@
 
 \section{Estrutura experimental}
 
-O presente capítulo apresenta a estrutura experimental efetivamente executada e os resultados parciais da implementação computacional do modelo em \emph{R}. Nesta etapa de qualificação, o objetivo central é verificar a viabilidade da própria pesquisa a partir de uma primeira análise estruturada do problema, avaliando se o modelo construído produz resultados consistentes, comparáveis entre rotas e informativos para o aprofundamento posterior da dissertação. A análise foi aplicada à rota Santos--Roterdã e contempla o cenário-base, bem como análises complementares de sensibilidade econômica, ambiental, regulatória, operacional e específica para a rota de \gls{TCO}. A interpretação dos resultados é feita à luz do ambiente regulatório europeu, tomando $\gamma^{ref}$ como referência para avaliar a compatibilidade econômica dos cenários com o sinal vigente de preço de carbono.
+
+O presente capítulo apresenta a estrutura experimental efetivamente executada e os resultados parciais da implementação computacional do modelo em \emph{R}. Nesta etapa de qualificação, o objetivo central é verificar a viabilidade da própria pesquisa a partir de uma primeira análise estruturada do problema, avaliando se o modelo construído produz resultados consistentes, comparáveis entre rotas e informativos para o aprofundamento posterior da dissertação. A análise foi aplicada à rota Santos--Roterdã e contempla o cenário-base, bem como análises complementares de sensibilidade econômica, ambiental, regulatória e operacional. A interpretação dos resultados é feita à luz do ambiente regulatório europeu, tomando $\gamma^{ref}$ como referência para avaliar a compatibilidade econômica dos cenários com o sinal vigente de preço de carbono.
 
 \subsection{Cenário-base de referência}
 
@@ -39,11 +40,11 @@ de modo a incluir misturas regularmente espaçadas e, adicionalmente, o ponto de
 
 Esse cenário-base constitui o núcleo da análise da dissertação, pois permite comparar, sob mesmas condições operacionais e mesma demanda útil da viagem, o efeito da origem do biodiesel e do aumento da fração renovável sobre consumo requerido, emissões, custo e custo marginal de abatimento. Nessa leitura, o $MAC$ funciona como preço implícito de carbono associado à substituição parcial do combustível fóssil, conectando diretamente os resultados do modelo ao ambiente regulatório europeu.
 
-\subsection{Setups experimentais}
+\subsection{Configurações experimentais}
 
-A implementação em \emph{R} foi organizada em sete \emph{setups} experimentais principais. Além do cenário-base, a avaliação experimental compreende seis conjuntos complementares de sensibilidade, sintetizados na Tabela~\ref{tab:matriz_experimental}. Em conjunto, eles examinam a robustez dos resultados centrais frente a variações econômicas, ambientais, regulatórias e operacionais, bem como incertezas específicas da rota de \gls{TCO}.
+A implementação em \emph{R} foi organizada em sete configurações experimentais principais (\emph{setups}). Além do cenário-base, a avaliação experimental compreende seis conjuntos complementares de análise de sensibilidade, sintetizados na Tabela~\ref{tab:matriz_experimental}. Em conjunto, essas configurações permitem avaliar a robustez dos resultados frente a variações econômicas, ambientais, regulatórias e operacionais, considerando as diferentes rotas de produção de biodiesel analisadas no modelo.
 
-No \textbf{Setup 1}, realiza-se a varredura determinística completa do domínio $(\alpha,r)$ no cenário-base Santos--Roterdã. Esse experimento gera a matriz principal de resultados da dissertação e constitui a base para as comparações entre rotas de produção do biodiesel.
+No \textbf{Setup 1}, são avaliadas, de forma sistemática, todas as combinações entre a fração de mistura $\alpha$ e as rotas de produção $r$ no cenário-base Santos--Roterdã. Esse experimento gera a matriz principal de resultados da dissertação e constitui a base para as comparações entre rotas de produção do biodiesel.
 
 No \textbf{Setup 2}, realiza-se a sensibilidade econômica, mantendo fixos os parâmetros operacionais e ambientais e variando $p_b$ e $p_{bio,r}$. Essa etapa permite avaliar a estabilidade dos resultados econômicos frente a diferentes diferenciais de preço.
 
@@ -51,11 +52,11 @@ No \textbf{Setup 3}, realiza-se a sensibilidade ambiental, mantendo fixos os par
 
 No \textbf{Setup 4}, realiza-se a sensibilidade regulatória, por meio da variação do componente $\gamma^{ref}$ no intervalo de referência adotado no modelo. Essa etapa permite mapear o conjunto de cenários potencialmente viáveis sob diferentes sinais de preço do carbono.
 
-No \textbf{Setup 5}, realiza-se a sensibilidade operacional, perturbando $\mathbf{X}$ em torno do cenário-base. O objetivo é avaliar o efeito de mudanças operacionais plausíveis sobre a demanda útil da viagem, o consumo total requerido da mistura, o custo total, as emissões totais e o custo marginal de abatimento.
+No \textbf{Setup 5}, realiza-se a análise de sensibilidade operacional, por meio da variação do vetor $\mathbf{X}$ em torno do cenário-base.No \textbf{Setup 5}, realiza-se a análise de sensibilidade operacional, por meio da variação do vetor $\mathbf{X}$ em torno do cenário-base. O objetivo é avaliar o efeito de mudanças operacionais plausíveis sobre a demanda útil da viagem, o consumo total requerido da mistura, o custo total, as emissões totais e o custo marginal de abatimento.
 
 No \textbf{Setup 6}, realizam-se caminhos de viabilidade regulatória com ampliação simultânea de $\gamma^{ref}$ e $\gamma^{comp}$, permitindo identificar em que patamares de indução regulatória surgem os primeiros cenários viáveis.
 
-No \textbf{Setup 7}, realiza-se sensibilidade específica para o biodiesel de \gls{TCO}, variando-se separadamente seu fator de emissão \gls{WTW} e seu preço relativo. Essa etapa busca verificar o quanto a atratividade dessa rota depende de premissas metodológicas e econômicas ainda mais incertas do que aquelas associadas às demais matérias-primas.
+No \textbf{Setup 7}, realiza-se uma análise de sensibilidade adicional sobre os parâmetros econômicos e ambientais das rotas de biodiesel, variando-se o fator de emissão \gls{WTW} e o preço relativo. Essa etapa busca avaliar o quanto os resultados dependem de premissas metodológicas e econômicas sujeitas a maior grau de incerteza.
 
 \subsection{Variáveis de saída e estrutura dos resultados}
 
@@ -115,7 +116,8 @@ A terceira representação corresponde à curva de custo marginal de abatimento 
 
 A quarta representação corresponde ao diagrama de dispersão entre $\Delta G(\alpha,r)$ e $\Delta C(\alpha,r)$, interpretado como espaço de \emph{trade-off} entre benefício ambiental e custo adicional. Essa visualização é particularmente útil, pois sintetiza em um único plano a relação entre abatimento de emissões e incremento de custo.
 
-A quinta representação corresponde a um mapa de viabilidade, no qual linhas de mistura e rotas de produção são classificadas segundo o valor de $V(\alpha,r)$. Essa representação pode assumir a forma de tabela sintética colorida ou de \emph{heatmap}, desde que preserve clareza e legibilidade.
+A quinta representação corresponde a um mapa de viabilidade, no qual linhas de mistura e rotas de produção são classificadas segundo o valor de $V(\alpha,r)$. Essa representação pode assumir a forma de tabela sintética colorida ou de mapa de calor (\emph{heatmap}), desde que preserve clareza e legibilidade.
+
 
 \section{Matriz de cenários experimentais}
 
@@ -282,4 +284,4 @@ A ordenação entre rotas, contudo, não é aleatória. \gls{UCO}, sebo bovino e
 
 Os cenários regulatórios ampliados deslocam esse diagnóstico, mas não o anulam de forma indiscriminada. A partir de aproximadamente $300\,\text{EUR}/tCO_2$, surgem cenários viáveis para \gls{UCO}, sebo bovino e \gls{TCO}, especialmente em misturas a partir de $\alpha = 0{,}24$, enquanto soja permanece fora da região de viabilidade no conjunto de políticas testado. Essa resposta é importante porque sugere que o biobunker deve ser lido, à luz dos resultados e da literatura, menos como solução automaticamente competitiva e mais como rota de transição condicional, cuja defensabilidade depende de combinação entre escolha de \emph{feedstock}, intensidade de carbono, diferencial de preço e intensidade da indução regulatória \citep{lindstad_reduction_2021,kanchiralla_role_2024,carvalho_biofuels_2021}.
 
-Em síntese, os resultados apontam três conclusões centrais. Primeiro, o custo marginal de abatimento dos cenários avaliados permanece acima do intervalo de referência $\gamma^{ref}$ sob condições atuais, caracterizando inviabilidade econômico-ambiental do biobunker sob sinal de carbono na faixa recente do \gls{EUETS}. Segundo, emergem cenários viáveis para \gls{UCO}, sebo bovino e \gls{TCO} quando se simulam regimes de indução regulatória mais fortes, o que reforça o caráter condicional dessa rota de transição. Terceiro, o preço de carbono de equilíbrio se mostra uma métrica-síntese útil para comparar rotas, frações de mistura e condições regulatórias em um mesmo quadro interpretativo.
+Em síntese, os resultados apontam três conclusões centrais. Primeiro, o custo marginal de abatimento dos cenários avaliados permanece acima do intervalo de referência $\gamma^{ref}$ sob condições atuais, caracterizando inviabilidade econômico-ambiental do biobunker sob sinal de carbono na faixa recente do \gls{EUETS}. Segundo, emergem cenários viáveis para \gls{UCO}, sebo bovino e \gls{TCO} quando se simulam regimes de indução regulatória mais fortes, o que reforça o caráter condicional dessa rota de transição. Terceiro, o preço de carbono de equilíbrio funciona como uma métrica-síntese útil, pois indica qual nível de preço de carbono seria necessário para tornar cada cenário viável, permitindo comparar diferentes rotas, frações de mistura e condições regulatórias em um mesmo quadro interpretativo.
