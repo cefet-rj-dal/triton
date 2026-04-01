@@ -1,9 +1,10 @@
 \documentclass[11pt]{ppges} 
-\usepackage[brazil]{babel} 
+\usepackage[brazilian]{babel} 
 \usepackage[pt-BR]{datetime2}
 \usepackage{enumerate}
 \usepackage{amsthm}
 \usepackage{tikz}
+\usepackage{silence}
 \usetikzlibrary{arrows.meta,positioning}
 \bibliographystyle{apalike}
 
@@ -12,6 +13,10 @@
 \makeatletter
 \providecommand*{\toclevel@algorithm}{0}
 \makeatother
+\WarningFilter{latex}{Text page}
+\hfuzz=30pt
+\hbadness=10000
+\emergencystretch=2em
 
 \newcommand{\warn}[1]{{\color{red} {#1}}}
 \newcommand{\warnadv}[2]{

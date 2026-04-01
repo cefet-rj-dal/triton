@@ -3,24 +3,24 @@
 
 \section{Delineamento da pesquisa}
 
-Esta pesquisa desenvolve um modelo determinístico de simulação comparativa \emph{in silico} para avaliar a viabilidade do biobunker como combustível de transição no transporte marítimo internacional operando a partir do Brasil. No escopo desta dissertação, a compatibilidade técnica do uso de misturas é tratada como premissa operacional delimitada a partir da literatura e das propriedades médias adotadas para o sistema de propulsão, ao passo que a verificação formal incide sobre a viabilidade econômico-ambiental dos cenários simulados. O foco está na comparação sistemática entre cenários de combustível sob condições operacionais controladas, com ênfase nos efeitos da fração de mistura e da rota de produção do biodiesel sobre o consumo requerido, o desempenho energético, as emissões de gases de efeito estufa e o custo total da viagem.
+Esta pesquisa desenvolve um modelo determinístico de simulação comparativa \emph{in silico} para avaliar a viabilidade do biobunker no transporte marítimo internacional operando a partir do Brasil. No escopo desta dissertação, a compatibilidade técnica do uso de misturas é tratada como premissa operacional delimitada a partir da literatura e das propriedades médias adotadas para o sistema de propulsão, ao passo que a verificação formal incide sobre a viabilidade econômico-ambiental dos cenários simulados. O foco está na comparação entre cenários de combustível sob condições operacionais controladas, com ênfase nos efeitos da fração de mistura e da rota de produção do biodiesel sobre o consumo requerido, o desempenho energético, as emissões de gases de efeito estufa e o custo total da viagem.
 
 No plano metodológico, o problema de pesquisa é operacionalizado como teste de existência de combinações admissíveis entre fração de mistura e rota de produção do biodiesel que satisfaçam simultaneamente um critério ambiental mínimo e um critério econômico-regulatório. Em outros termos, busca-se verificar se existe ao menos um cenário $(\alpha,r)$ pertencente ao domínio analisado para o qual o biobunker se mostre econômico-ambientalmente viável segundo o critério adotado e sob as condições operacionais e regulatórias assumidas.
 
-A aplicação do modelo é realizada sobre um caso representativo do transporte marítimo internacional, definido pela operação de um navio graneleiro do tipo Panamax na rota Santos--Roterdã. Essa escolha permite analisar, em um contexto operacional concreto, como mudanças na composição do combustível afetam o sistema de propulsão e o desempenho global da viagem, preservando base comparável entre os cenários simulados.
+A aplicação do modelo é realizada sobre um caso representativo do transporte marítimo internacional, definido pela operação de um navio graneleiro do tipo Panamax na rota Santos--Roterdã. Essa escolha permite analisar, em contexto operacional concreto, como mudanças na composição do combustível afetam o sistema de propulsão e o desempenho global da viagem, preservando base comparável entre os cenários simulados.
 
-Além da dimensão quantitativa, a análise incorpora interpretação institucional e regulatória dos resultados, especialmente à luz das metas de descarbonização da \gls{IMO} e dos instrumentos que afetam rotas com destino à União Europeia \citep{international_maritime_organization_fourth_2020}. Assim, o delineamento metodológico combina simulação \emph{in silico}, aplicação a caso representativo e leitura integrada das dimensões energética, ambiental, econômica e regulatória do problema.
+Além da dimensão quantitativa, a análise incorpora interpretação institucional e regulatória dos resultados, especialmente à luz dos instrumentos que afetam rotas com destino à União Europeia \citep{international_maritime_organization_fourth_2020}. Assim, o delineamento metodológico combina simulação \emph{in silico}, aplicação a caso representativo e leitura integrada das dimensões energética, ambiental, econômica e regulatória do problema.
 
 \section{Quadro de variáveis e parâmetros da modelagem}
 
-Antes do detalhamento das premissas e equações, a Tabela~\ref{tab:notacao_modelo} sintetiza as principais variáveis, índices, conjuntos e parâmetros utilizados ao longo da modelagem. Esse tipo de quadro busca explicitar a notação adotada e facilitar a leitura das formulações apresentadas nas seções seguintes.
+Antes do detalhamento das premissas e equações, a Tabela~\ref{tab:notacao_modelo} sintetiza as principais variáveis, índices, conjuntos e parâmetros utilizados ao longo da modelagem.
 
 \begin{table}[!ht]
 \centering
 \caption{Quadro-síntese das variáveis, índices, conjuntos e parâmetros utilizados na modelagem}
 \label{tab:notacao_modelo}
 \scriptsize
-\begin{tabular}{L{2cm} L{14.0cm}}
+\begin{tabular}{@{}L{1.8cm} L{12.8cm}@{}}
 \hline
 \textbf{Símbolo} & \textbf{Significado} \\
 \hline
@@ -85,9 +85,7 @@ $H_1$ & Hipótese operacional de existência de ao menos uma combinação $(\alp
 
 \section{Escopo do estudo e premissas}
 
-O escopo deste estudo é delimitado para permitir análise controlada dos aspectos técnicos, econômicos e ambientais associados ao uso do biobunker como combustível de transição no transporte marítimo internacional, em coerência com os objetivos da pesquisa e com o horizonte das metas intermediárias de descarbonização estabelecidas pela \gls{IMO} até 2030.
-
-Do ponto de vista operacional, o estudo concentra-se na análise de um navio graneleiro do tipo Panamax, representativo do comércio marítimo internacional de granéis sólidos e compatível com o uso de combustíveis líquidos convencionais e alternativos \citep{unctad_rmt_2024}. Considera-se a embarcação operando em rota internacional ligando o porto de Santos, no Brasil, ao porto de Roterdã, nos Países Baixos, escolhida por sua relevância econômica e por sua inserção em corredor sujeito a pressões regulatórias associadas à descarbonização do transporte marítimo \citep{eu_reg_2023_957,eu_reg_2023_1805}.
+Do ponto de vista operacional, o estudo concentra-se na análise de um navio graneleiro do tipo Panamax, representativo do comércio marítimo internacional de granéis sólidos e compatível com o uso de combustíveis líquidos convencionais e alternativos \citep{unctad_rmt_2024}. Considera-se a embarcação operando em rota internacional ligando o porto de Santos, no Brasil, ao porto de Roterdã, nos Países Baixos, escolhida por sua inserção em corredor sujeito a pressões regulatórias associadas à descarbonização do transporte marítimo \citep{eu_reg_2023_957,eu_reg_2023_1805}.
 
 A natureza da carga transportada não constitui variável central da análise nem condiciona a origem da matéria-prima do biocombustível considerado. A carga é tratada como elemento contextual do perfil operacional da embarcação, sem modelagem específica da cadeia produtiva associada.
 
@@ -125,12 +123,12 @@ Os cenários avaliados são representados, em termos gerais, por:
 \[
 \mathcal{S} = \{\text{Bunker}\} \cup \left\{ B_{\alpha}^{r} \;:\; \alpha \in [0{,}10,0{,}30],\; r \in \mathcal{S}_{bio}\right\}
 \]
-O conjunto $\mathcal{S}_{bio}$ representa as diferentes rotas de produção de biodiesel consideradas no estudo, definidas a partir do tipo de matéria-prima (\emph{feedstock}). Já o conjunto $\mathcal{S}$ corresponde ao conjunto completo de cenários analisados, incluindo o cenário de referência com uso exclusivo de bunker fuel e os cenários alternativos com uso de biobunker. Cada elemento $B_{\alpha}^{r}$ representa uma mistura específica, caracterizada por uma fração mássica de biodiesel $\alpha$ e por uma rota de produção $r$. Dessa forma, o modelo avalia, de maneira sistemática, todas as combinações entre proporção de biodiesel e tipo de matéria-prima dentro do intervalo definido.
+
+Nesse enquadramento, o conjunto $\mathcal{S}_{bio}$ representa as rotas de produção de biodiesel consideradas no estudo, e o conjunto $\mathcal{S}$ corresponde ao conjunto completo de cenários analisados, incluindo o cenário de referência com uso exclusivo de \emph{bunker fuel} e os cenários alternativos com uso de biobunker.
 
 Neste trabalho, a sigla \gls{TCO} refere-se exclusivamente a \emph{Technical Corn Oil} (óleo técnico de milho), subproduto da cadeia do milho e do etanol de milho, e não a \emph{Tall Oil Crude}, insumo florestal que também aparece abreviado como TCO em parte da literatura internacional.
 
-As quatro rotas de biodiesel são tratadas de forma comparativa no domínio do modelo, sem hierarquia prévia entre elas. A análise busca justamente verificar como diferenças de \emph{feedstock}, fator de emissão e propriedades energéticas afetam os resultados ao longo das simulações.
-
+As quatro rotas de biodiesel são tratadas de forma comparativa no domínio do modelo, sem hierarquia prévia entre elas.
 
 O modelo admite variação da fração de mistura no intervalo:
 
@@ -138,11 +136,9 @@ O modelo admite variação da fração de mistura no intervalo:
 \alpha \in [0{,}10, 0{,}30]
 \]
 
-permitindo avaliar como diferentes proporções de biodiesel influenciam os resultados.
-
 Assume-se regime médio constante de operação do motor principal ao longo da viagem, permitindo tratar a eficiência térmica como valor médio representativo. O escopo temporal restringe-se ao horizonte até 2030, em alinhamento com as metas intermediárias de descarbonização do transporte marítimo. Combustíveis de emissão zero, como hidrogênio e amônia, não são modelados, sendo considerados apenas como referência contextual na revisão da literatura.
 
-As estimativas ambientais e econômicas são construídas a partir de parâmetros médios extraídos da literatura especializada, preservando a coerência interna do modelo comparativo aplicado ao cenário operacional definido. Nesse enquadramento, o modelo baseia-se em um conjunto de hipóteses que delimitam seu escopo e garantem a comparabilidade entre os cenários analisados.
+As estimativas ambientais e econômicas são construídas a partir de parâmetros médios extraídos da literatura especializada. Nesse enquadramento, o modelo baseia-se em um conjunto de hipóteses que delimitam seu escopo e garantem a comparabilidade entre os cenários analisados.
 
 A primeira hipótese é a de compatibilidade operacional entre o uso de misturas de biodiesel e \emph{bunker fuel} no intervalo considerado. Essa premissa é fundamentada em evidências da literatura, não sendo realizada validação experimental direta em motor.
 
@@ -154,9 +150,7 @@ Por fim, a quarta hipótese trata o ambiente regulatório de forma simplificada 
 
 \section{Dados operacionais}
 
-A análise desenvolvida neste estudo baseia-se em dados operacionais representativos de viagem de transporte marítimo internacional realizada por navio graneleiro do tipo Panamax, conforme delimitado no escopo da pesquisa. Esses dados caracterizam o perfil médio de navegação e permitem estimar o consumo de combustível, constituindo a base quantitativa para as avaliações subsequentes.
-
-O cenário considerado corresponde à rota marítima internacional ligando o porto de Santos, no Brasil, ao porto de Roterdã, nos Países Baixos, representativa de operações reais envolvendo embarcações do porte analisado.
+Os dados operacionais caracterizam o perfil médio de navegação e permitem estimar o consumo de combustível, constituindo a base quantitativa para as avaliações subsequentes.
 
 Do ponto de vista formal, as condições operacionais do modelo são representadas pelo vetor:
 
@@ -190,15 +184,15 @@ onde $F_{kg}$ representa a massa observada de combustível consumida no trecho m
 
 Considera-se o navio operando sob regime médio constante de velocidade e potência ao longo da travessia. Não são modeladas variações extremas de velocidade, condições meteorológicas adversas, períodos de espera em porto ou estratégias operacionais específicas, como operação em velocidade reduzida (do inglês, \emph{slow steaming}). O consumo é tratado de forma agregada para o trecho marítimo principal, correspondente à navegação em mar aberto.
 
-Em termos metodológicos, o vetor $\mathbf{X}$ é tratado como representação média do perfil operacional da embarcação na rota selecionada, servindo como base comum para a comparação entre os diferentes cenários de combustível analisados. A comparação entre combustíveis é realizada para o mesmo serviço de transporte, isto é, mesma rota, mesma carga e mesma meta operacional de viagem. Assim, mantém-se constante a demanda útil da travessia e permite-se que o consumo mássico total varie com a composição da mistura e com a eficiência efetiva do motor.
+A comparação entre combustíveis é realizada para o mesmo serviço de transporte, isto é, mesma rota, mesma carga e mesma meta operacional de viagem. Assim, mantém-se constante a demanda útil da travessia e permite-se que o consumo mássico total varie com a composição da mistura e com a eficiência efetiva do motor.
 
 \section{Avaliação ambiental: estimativas baseadas em avaliação de ciclo de vida secundária}
 
-A avaliação ambiental estima, de forma comparativa, as emissões associadas ao uso do biobunker em relação ao \emph{bunker fuel} convencional no cenário operacional definido. Formalmente, a análise consiste na estimação da função de emissões $G(\alpha,r)$ sobre o conjunto de cenários previamente estabelecido.
+A avaliação ambiental estima, de forma comparativa, as emissões associadas ao uso do biobunker em relação ao \emph{bunker fuel} convencional. Formalmente, a análise consiste na estimação da função de emissões $G(\alpha,r)$ sobre o conjunto de cenários previamente estabelecido.
 
 Adota-se abordagem baseada em Avaliação de Ciclo de Vida secundária, fundamentada em fatores de emissão provenientes da literatura científica e de relatórios técnicos reconhecidos, sem construção de inventários primários nem modelagem original de \gls{ACV}. A modelagem é compatível com abordagem \emph{attributional} e utiliza fatores médios representativos \citep{intergovernmental_panel_on_climate_change_2006_2006,intergovernmental_panel_on_climate_change_2019_2019}.
 
-A perspectiva ambiental corresponde ao escopo \emph{well-to-wake} (\gls{WTW}), abrangendo emissões associadas à produção, ao processamento, ao transporte e à combustão do combustível, em conformidade com as normas \gls{ISO} 14040 e \gls{ISO} 14044. Para fins analíticos, distingue-se explicitamente as componentes \emph{well-to-tank} (\gls{WTT}) e \emph{tank-to-wake} (\gls{TTW}), sendo esta última diretamente associada às emissões de combustão a bordo e a primeira às etapas anteriores da cadeia de suprimento. Essa distinção é relevante para interpretação dos resultados no contexto regulatório europeu, no qual instrumentos como o \gls{EUETS} incidem sobre emissões \emph{TTW}, enquanto outros mecanismos, como o \emph{FuelEU Maritime}, adotam métricas baseadas em \emph{WTW}.
+A perspectiva ambiental corresponde ao escopo \emph{well-to-wake} (\gls{WTW}), abrangendo emissões associadas à produção, ao processamento, ao transporte e à combustão do combustível, em conformidade com as normas \gls{ISO} 14040 e \gls{ISO} 14044. Para fins de análise, distingue-se explicitamente as componentes \emph{well-to-tank} (\gls{WTT}) e \emph{tank-to-wake} (\gls{TTW}), sendo esta última diretamente associada às emissões de combustão a bordo e a primeira às etapas anteriores da cadeia de suprimento. Essa distinção é relevante para interpretação dos resultados no contexto regulatório europeu, no qual instrumentos como o \gls{EUETS} incidem sobre emissões \emph{TTW}, enquanto outros mecanismos, como o \emph{FuelEU Maritime}, adotam métricas baseadas em \emph{WTW}.
 
 A formalização energético-ambiental parte do cenário convencional para inferir a demanda útil da viagem e, a partir dela, estimar a massa requerida de combustível em cada cenário alternativo. Seja $F_{kg}(0)$ a massa total de combustível consumida por viagem no cenário convencional. A energia útil requerida pela viagem é inferida a partir desse cenário de referência e mantida constante nos cenários alternativos, assumindo que o serviço de transporte prestado permanece inalterado. Seja $PCI_j$ o poder calorífico inferior do combustível $j$. A energia química total fornecida é dada por:
 
@@ -206,7 +200,7 @@ A formalização energético-ambiental parte do cenário convencional para infer
 E_{quim,j} = F_{kg}(\alpha,r) \cdot PCI_j
 \end{equation}
 
-Define-se a demanda útil da viagem a partir do cenário convencional como
+Define-se, então, a demanda útil da viagem a partir do cenário convencional como
 
 \begin{equation}
 E_{\text{req}} = F_{kg}(0)\cdot PCI_b \cdot \eta_b
@@ -248,7 +242,7 @@ Para o biodiesel proveniente da rota $r$, considera-se neutralidade do carbono b
 FE_{bio,r}^{TTW} \approx 0
 \]
 
-Essa hipótese é consistente com abordagens consolidadas de \gls{ACV} \emph{attributional}, nas quais as emissões biogênicas de CO$_2$ liberadas na combustão são compensadas pela absorção durante o crescimento da biomassa, de modo que as emissões relevantes se concentram na parcela \emph{WTT}. A partir dessa estrutura, a mistura e as emissões compostas podem ser representadas diretamente em função da fração mássica de biodiesel. Seja $\alpha$ a fração mássica de biodiesel na mistura. O fator de emissão composto do biobunker é definido como:
+Essa hipótese é consistente com abordagens consolidadas de \gls{ACV} \emph{attributional}, nas quais as emissões biogênicas de CO$_2$ liberadas na combustão são compensadas pela absorção durante o crescimento da biomassa, de modo que as emissões relevantes se concentram na parcela \emph{WTT}. A partir dessa estrutura, a mistura e as emissões compostas podem ser representadas diretamente em função da fração mássica de biodiesel. Assim, seja $\alpha$ a fração mássica de biodiesel na mistura. O fator de emissão composto do biobunker é definido como:
 
 \begin{equation}
 FE_{\alpha,r}^{WTW} = (1-\alpha)FE_b^{WTW} + \alpha FE_{bio,r}^{WTW}
@@ -266,11 +260,11 @@ No que se refere às fontes de dados e aos parâmetros adotados, os fatores $FE_
 
 Para o \emph{bunker fuel}, utilizam-se fatores consolidados em inventários internacionais de emissões do setor marítimo \citep{european_environment_agency_emepeea_2019,intergovernmental_panel_on_climate_change_2006_2006,intergovernmental_panel_on_climate_change_2019_2019}.
 
-A análise concentra-se nas emissões de gases de efeito estufa expressas em CO$_2$ equivalente, aplicadas ao cenário operacional representado por $\mathbf{X}$.
+A análise concentra-se nas emissões de gases de efeito estufa expressas em CO$_2$ equivalente.
 
 \section{Avaliação econômica}
 
-A avaliação econômica estima, de forma comparativa, os custos associados ao uso do biobunker em relação ao \emph{bunker fuel} convencional no cenário operacional definido. Formalmente, define-se a função de custo $C(\alpha,r)$ sobre o conjunto de cenários de combustível previamente estabelecido. A formalização econômico-energética parte da massa total de combustível requerida por viagem, $F_{kg}(\alpha,r)$, mantendo-se constante a demanda útil da travessia, e relaciona essa massa às propriedades econômicas da mistura. Seja $p_b$ o preço unitário do \emph{bunker fuel} convencional (USD/kg) e $p_{bio,r}$ o preço unitário do biodiesel associado à rota de produção $r$. O preço unitário da mistura é definido como:
+A avaliação econômica estima, de forma comparativa, os custos associados ao uso do biobunker em relação ao \emph{bunker fuel} convencional. Formalmente, define-se a função de custo $C(\alpha,r)$ sobre o conjunto de cenários de combustível previamente estabelecido. A formalização econômico-energética parte da massa total de combustível requerida por viagem, $F_{kg}(\alpha,r)$, mantendo-se constante a demanda útil da travessia, e relaciona essa massa às propriedades econômicas da mistura. Seja $p_b$ o preço unitário do \emph{bunker fuel} convencional (USD/kg) e $p_{bio,r}$ o preço unitário do biodiesel associado à rota de produção $r$. O preço unitário da mistura é definido como:
 
 \begin{equation}
 p_{\alpha,r} = (1-\alpha)p_b + \alpha p_{bio,r}
@@ -331,7 +325,7 @@ onde
 O custo marginal de abatimento é uma métrica amplamente utilizada para avaliar o custo de redução de emissões entre diferentes alternativas \citep{mckinsey2009}. No contexto deste estudo, essa métrica funciona como ponte entre a dimensão econômica e a dimensão regulatória, pois permite confrontar o custo incremental do biobunker com sinais de preço de carbono observados ou assumidos para o ambiente europeu.
 
 
-Para explicitar a dimensão regulatória sem introduzir variáveis paralelas, define-se a família regulatória $\gamma = (\gamma^{comp},\gamma^{ref})$. Essa notação constitui uma construção analítica adotada nesta dissertação para aproximar, de forma operacionalizável, diferentes dimensões do ambiente regulatório europeu aplicável ao transporte marítimo. O termo $\gamma^{comp}$ representa o preço explícito de \emph{compliance} associado às emissões cobertas pelo \gls{EUETS} marítimo e entra diretamente na composição do custo total da viagem, em coerência com a incorporação do transporte marítimo ao sistema europeu de comércio de emissões \citep{eu_reg_2023_957,euets2023}. Nesse sentido, $\gamma^{comp}$ atua como um custo marginal adicional proporcional às emissões, internalizando no modelo o efeito de precificação de carbono característico de instrumentos do tipo sistema de comércio de emissões (do inglês, \emph{cap-and-trade}).
+Para explicitar a dimensão regulatória sem introduzir variáveis paralelas, define-se a família regulatória $\gamma = (\gamma^{comp},\gamma^{ref})$. Essa notação constitui uma construção operacional adotada nesta dissertação para aproximar, de forma operacionalizável, diferentes dimensões do ambiente regulatório europeu aplicável ao transporte marítimo. O termo $\gamma^{comp}$ representa o preço explícito de \emph{compliance} associado às emissões cobertas pelo \gls{EUETS} marítimo e entra diretamente na composição do custo total da viagem, em coerência com a incorporação do transporte marítimo ao sistema europeu de comércio de emissões \citep{eu_reg_2023_957,euets2023}. Nesse sentido, $\gamma^{comp}$ atua como um custo marginal adicional proporcional às emissões, internalizando no modelo o efeito de precificação de carbono característico de instrumentos do tipo sistema de comércio de emissões (do inglês, \emph{cap-and-trade}).
 
 Já $\gamma^{ref}$ representa um preço de referência do carbono utilizado para interpretar a viabilidade econômica do abatimento estimado. Esse componente não corresponde a um instrumento jurídico específico, mas a um parâmetro de benchmark calibrado a partir de sinais de preço observados em mercados de carbono e estudos institucionais, permitindo avaliar se o $MAC(\alpha,r)$ se encontra em patamar compatível com o ambiente regulatório europeu \citep{worldbank2024carbon,euets2023}. Assim, $\gamma^{ref}$ é utilizado como referência externa para interpretar os resultados, enquanto $\gamma^{comp}$ entra diretamente no custo do modelo.
 
@@ -351,11 +345,7 @@ Como o custo marginal de abatimento é calculado em USD/tCO$_2$ e o parâmetro r
 
 Os custos unitários $p_b$ e $p_{bio,r}$ são obtidos a partir de referências de mercado e de dados secundários disponíveis na literatura e em fontes institucionais, refletindo valores médios compatíveis com o período analisado. Não são consideradas variações temporais de preços, estratégias financeiras de proteção, subsídios específicos ou regimes tributários diferenciados. O custo de \emph{compliance} associado ao \gls{EUETS} é incorporado explicitamente ao custo total da viagem por meio do componente $\gamma^{comp}$, enquanto o intervalo $\gamma^{ref}$ permanece como parâmetro regulatório de referência para interpretação do custo marginal de abatimento \citep{eu_reg_2023_1805}.
 
-A avaliação econômica, articulada às funções energética e ambiental previamente definidas, permite estimar o custo total de cada cenário, comparar as alternativas e calcular o custo marginal de abatimento de carbono entre elas.
-
-\section{Estrutura geral do modelo analítico}
-
-O modelo desenvolvido integra, de forma consistente, as dimensões operacional, energética, ambiental e econômica previamente definidas.
+\section{Estrutura geral do modelo}
 
 A estrutura do modelo parte do vetor de condições operacionais $\mathbf{X}$, a partir do qual se estima o consumo total de combustível por viagem no cenário convencional, $F_{kg}(0)$, e se infere a demanda útil da travessia, $E_{\text{req}}$. Mantida constante essa demanda para um mesmo serviço de transporte, as propriedades físico-químicas da mistura $B_{\alpha}^{r}$ determinam o consumo requerido $F_{kg}(\alpha,r)$, as emissões totais $G(\alpha,r)$, no escopo \emph{well-to-wake}, e o custo total por viagem $C(\alpha,r)$. Dessas funções derivam as variações incrementais em relação ao cenário convencional e o custo marginal de abatimento de carbono $MAC(\alpha,r)$.
 
@@ -404,7 +394,7 @@ O encadeamento lógico do modelo pode ser representado de forma sintética pela 
 \draw[arrow] (gc) -- (delta);
 \draw[arrow] (delta) -- (v);
 \end{tikzpicture}
-\caption{Encadeamento lógico do modelo analítico do biobunker, desde as condições operacionais da viagem até o indicador final de viabilidade.}
+\caption{Encadeamento lógico do modelo do biobunker, desde as condições operacionais da viagem até o indicador final de viabilidade.}
 \label{fig:encadeamento_modelo}
 \end{figure}
 
@@ -424,7 +414,7 @@ com
 \delta \in [0{,}10,0{,}25]
 \]
 
-onde $\delta$ representa o limiar mínimo de redução ambiental adotado analiticamente na pesquisa, em consonância com o horizonte de descarbonização do transporte marítimo internacional até 2030 definido pela \gls{IMO} \citep{imo2023strategy}.
+onde $\delta$ representa o limiar mínimo de redução ambiental adotado na pesquisa, em consonância com o horizonte de descarbonização do transporte marítimo internacional até 2030 definido pela \gls{IMO} \citep{imo2023strategy}.
 
 A segunda condição corresponde ao critério econômico-regulatório:
 
@@ -455,8 +445,6 @@ V(\alpha,r) =
 
 O cenário convencional, correspondente a $\alpha = 0$, constitui a referência comparativa para emissões e custo.
 
-Assim, a viabilidade resulta da interação entre desempenho físico, desempenho ambiental e condições econômicas e regulatórias, permitindo avaliar a atratividade relativa dos combustíveis sob um ambiente regulatório explicitamente parametrizado.
-
 Com base nessa definição, formula-se a seguinte hipótese operacional:
 
 \[
@@ -476,13 +464,9 @@ com
 
 ou seja, existe ao menos uma combinação de fração de mistura e rota de produção do biodiesel capaz de atingir redução mínima de emissões em relação ao cenário convencional e, simultaneamente, apresentar custo marginal de abatimento compatível com o sinal econômico de referência do mercado europeu de carbono.
 
-A verificação dessa hipótese é realizada por meio de varredura paramétrica sobre o domínio definido pelo intervalo admissível de $\alpha$ e pelo conjunto de rotas consideradas, mantendo fixo o vetor de condições operacionais $\mathbf{X}$.
-
 \section{Procedimento de simulação}
 
-A operacionalização do modelo é realizada por meio de algoritmo determinístico que percorre o domínio paramétrico definido por $(\alpha,r)$ e calcula, para cada combinação admissível, as funções $G(\alpha,r)$ e $C(\alpha,r)$, bem como as grandezas derivadas necessárias à avaliação da viabilidade.
-
-O procedimento é descrito formalmente no Algoritmo~\ref{alg:biobunker}.
+A operacionalização do modelo é realizada por meio de algoritmo determinístico que percorre o domínio paramétrico definido por $(\alpha,r)$ e calcula, para cada combinação admissível, as funções $G(\alpha,r)$ e $C(\alpha,r)$, bem como as grandezas derivadas necessárias à avaliação da viabilidade. O procedimento é descrito formalmente no Algoritmo~\ref{alg:biobunker}.
 
 \begin{algorithm}[H]
 \caption{Procedimento determinístico de avaliação paramétrica da viabilidade do biobunker}
@@ -518,21 +502,13 @@ O procedimento é descrito formalmente no Algoritmo~\ref{alg:biobunker}.
 
 O algoritmo realiza o mapeamento completo do domínio paramétrico, sem empregar técnicas de otimização ou busca heurística. Sua complexidade é proporcional ao produto entre o número de rotas consideradas e o número de discretizações adotadas para o intervalo de $\alpha$, sendo linear no tamanho do domínio analisado.
 
-O conjunto viável $\mathcal{V}$ obtido constitui a base empírica para a verificação da hipótese operacional $H_1$.
-
 \section{Análise institucional e regulatória}
 
-A análise institucional e regulatória examina os principais condicionantes normativos que influenciam a adoção de combustíveis de menor intensidade de carbono no transporte marítimo internacional, com foco nos efeitos sobre rotas que operam a partir de portos brasileiros. Não se propõe comparar políticas públicas nem formular recomendações normativas, mas compreender o contexto regulatório no qual se inserem as decisões operacionais dos armadores.
-
-Em termos analíticos, o arcabouço regulatório é sintetizado, neste estudo, pela família $\gamma = (\gamma^{comp},\gamma^{ref})$, que incide sobre a interpretação dos resultados do modelo quantitativo. O componente $\gamma^{comp}$ atua diretamente sobre o custo explícito de \emph{compliance} do \gls{EUETS}, enquanto $\gamma^{ref}$ funciona como referência para interpretação do $MAC(\alpha,r)$. Assim, a atratividade relativa de cada cenário depende, de forma combinada, do desempenho ambiental, do custo e dessa parametrização regulatória:
+A análise institucional e regulatória é sintetizada, neste estudo, pela família $\gamma = (\gamma^{comp},\gamma^{ref})$, que incide sobre a interpretação dos resultados do modelo quantitativo. O componente $\gamma^{comp}$ atua diretamente sobre o custo explícito de \emph{compliance} do \gls{EUETS}, enquanto $\gamma^{ref}$ funciona como referência para interpretação do $MAC(\alpha,r)$. Assim, a atratividade relativa de cada cenário depende, de forma combinada, do desempenho ambiental, do custo e dessa parametrização regulatória:
 
 \[
 \text{Atratividade} = f\left(G(\alpha,r), C(\alpha,r), \gamma\right)
 \]
-
-A família $\gamma$ atua, portanto, como camada regulatória aplicada ao critério de viabilidade previamente definido: $\gamma^{comp}$ entra no custo total da viagem, enquanto $\gamma^{ref}$ funciona como benchmark de interpretação do $MAC(\alpha,r)$, conforme formalizado nas seções anteriores.
-
-O arcabouço institucional tem como referência central as diretrizes e metas estabelecidas pela \gls{IMO}, especialmente aquelas relacionadas à redução da intensidade de emissões de gases de efeito estufa até 2030 \citep{international_maritime_organization_fourth_2020}. Essas metas funcionam como referencial global que orienta o setor, ainda que sua implementação ocorra de forma diferenciada em contextos regionais.
 
 Em nível regional, destacam-se instrumentos aplicáveis a embarcações que escalam portos da União Europeia, como o sistema europeu de comércio de emissões (\gls{EUETS}) e o regulamento \emph{FuelEU Maritime}. Tais instrumentos alteram o ambiente decisório ao introduzir custos associados à intensidade de carbono do combustível utilizado, modificando o referencial econômico relevante para a decisão operacional. No presente estudo, o \gls{EUETS} é incorporado ao modelo por meio do componente $\gamma^{comp}$, associado ao custo explícito de \emph{compliance} das emissões cobertas da viagem, enquanto o intervalo $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$ é mantido como parâmetro de referência para comparação com o custo marginal de abatimento \citep{euets2023,worldbank2024carbon}. O tratamento regulatório permanece simplificado, pois não reproduz integralmente a mecânica do \emph{FuelEU Maritime} nem outras interações normativas mais complexas.
 
@@ -540,16 +516,14 @@ No contexto brasileiro, instrumentos relacionados à produção de biocombustív
 
 Embora não se aplique diretamente ao transporte marítimo, esse instrumento afeta indiretamente os parâmetros econômicos e ambientais do biodiesel considerados no modelo, refletindo-se nos valores de $p_{bio,r}$ e $FE_{bio,r}^{WTW}$. Dessa forma, sua influência ocorre na etapa de produção do combustível, e não na decisão operacional da embarcação.
 
-A análise institucional integra-se às avaliações ambiental e econômica como camada interpretativa aplicada. O ambiente regulatório altera a interpretação prática do conjunto viável obtido tanto por meio do custo explícito de \emph{allowances} do \gls{EUETS}, representado por $\gamma^{comp}$, quanto pelo limiar regulatório $\gamma^{ref}$, convertido para a moeda do $MAC$. Ainda assim, a modelagem institucional permanece parcial e simplificada, uma vez que outros instrumentos regulatórios não são formalizados em todo o seu detalhamento jurídico e operacional.
-
-Para fortalecer a replicabilidade da análise, a Tabela~\ref{tab:parametrizacao_e1} reúne os parâmetros-base utilizados no cenário Santos--Roterdã, que serve de referência para a varredura determinística do domínio $(\alpha,r)$ e para os experimentos de sensibilidade apresentados posteriormente. As análises complementares modificam apenas subconjuntos específicos desses parâmetros, mantendo os demais fixos conforme a parametrização-base aqui sintetizada.
+Para fortalecer a replicabilidade da análise, a Tabela~\ref{tab:parametrizacao_e1} reúne os parâmetros-base utilizados no cenário Santos--Roterdã, que serve de referência para a varredura determinística do domínio $(\alpha,r)$ e para os experimentos de sensibilidade apresentados posteriormente.
 
 \begin{table}[!ht]
 \centering
 \caption{Parâmetros do cenário-base}
 \label{tab:parametrizacao_e1}
 \small
-\begin{tabular}{lll}
+\begin{tabular}{@{}L{3.4cm} L{4.4cm} L{5.4cm}@{}}
 \hline
 \textbf{Elemento} & \textbf{Símbolo / valor-base} & \textbf{Observação} \\
 \hline
@@ -557,8 +531,8 @@ Rota de referência & Santos--Roterdã & caso-base do experimento \\
 Distância da viagem & $D = 10.120~km$ & valor representativo adotado \\
 Velocidade média & $V = 25{,}93~km/h$ & equivalente a 14 nós \\
 Consumo médio agregado & $c = 40~t/dia$ & usado para inferir $F(0)$ \\
-Conjunto de rotas de biodiesel & $\mathcal{S}_{bio} = \{\text{soja}, \text{sebo bovino}, \text{UCO}, \text{TCO}\}$ & domínio das rotas avaliadas \\
-Frações de mistura & $\alpha \in \{0{,}10, 0{,}15, 0{,}20, 0{,}24, 0{,}25, 0{,}30\}$ & domínio discreto do cenário-base \\
+Conjunto de rotas de biodiesel & \specialcell[l]{$\mathcal{S}_{bio} = \{\text{soja}, \text{sebo bovino},$\\$\text{UCO}, \text{TCO}\}$} & domínio das rotas avaliadas \\
+Frações de mistura & \specialcell[l]{$\alpha \in \{0{,}10, 0{,}15, 0{,}20,$\\$0{,}24, 0{,}25, 0{,}30\}$} & domínio discreto do cenário-base \\
 Combustível fóssil & $PCI_b = 40{,}2~MJ/kg$ & \emph{bunker fuel} convencional \\
 Biodiesel convencional & $PCI_{bio} = 37{,}68~MJ/kg$ & valor-base para biodiesel \\
 Biodiesel de \gls{TCO} & $PCI_{bio}^{TCO} = 36{,}64~MJ/kg$ & rota adicional no conjunto analisado \\
@@ -579,7 +553,7 @@ Faixa regulatória de referência & $\gamma^{ref} \in [60,100]~EUR/tCO_2$ & benc
 
 \section{Exemplo numérico ilustrativo com base empírica}
 
-Esta seção apresenta exemplo numérico reproduzível com base na rota Santos--Roterdã, utilizando os parâmetros técnicos e econômicos adotados ao longo deste capítulo. O objetivo não é reproduzir com exatidão operação específica, mas ilustrar, de maneira integrada, o encadeamento entre consumo de combustível, energia útil fornecida, custo operacional e emissões de gases de efeito estufa, incorporando explicitamente a dimensão da rota de produção do biodiesel e os critérios de viabilidade definidos no modelo analítico.
+Esta seção apresenta exemplo numérico reproduzível com base na rota Santos--Roterdã, utilizando os parâmetros técnicos e econômicos adotados ao longo deste capítulo. O objetivo é ilustrar, de maneira integrada, o encadeamento entre consumo de combustível, energia útil fornecida, custo operacional e emissões de gases de efeito estufa, incorporando explicitamente a dimensão da rota de produção do biodiesel e os critérios de viabilidade definidos no modelo.
 
 Considera-se navio graneleiro do tipo Panamax (65.000 DWT), equipado com motor MAN B\&W S50ME-C10.7 (MAN ENERGY SOLUTIONS, 2025b), operando em regime médio constante na rota Santos (Brasil) -- Roterdã (Países Baixos). Com base no roteamento marítimo Santos--Roterdã, adota-se distância de $D = 10.120~km$ \cite{searoutes2026} e velocidade média de cruzeiro de $V = 25,93~km/h$ (14 nós), valor compatível com velocidades de serviço típicas de navios Panamax \cite{brown_power_2019}, resultando em tempo estimado de viagem de aproximadamente $T = 390~h$ (16,25 dias). Considerando consumo médio de $c = 40~t/dia$ \cite{marineaffairs2025}, o consumo convencional por viagem é de aproximadamente $F = 650~t$, equivalente a $F_{kg}(0) \approx 650.000~kg$. No modelo executado, esse valor funciona como referência para inferir a demanda útil da viagem; os cenários com mistura passam a ter massa total requerida própria, denotada por $F_{kg}(\alpha,r)$.
 
@@ -614,19 +588,13 @@ B24 Soja & 11.767 & 586.470 & 1.801 & 11,1\% \\
 
 No plano econômico, o custo marginal de abatimento de carbono associado a cada cenário pode ser comparado ao intervalo de referência $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$, convertido explicitamente para USD/tCO$_2$ na implementação computacional. Como o custo total da viagem já incorpora o custo de \emph{compliance} do \gls{EUETS} por meio de $\gamma^{comp}$, o exemplo evidencia de forma mais realista como o diferencial de preço entre combustível fóssil e biodiesel, combinado à necessidade de maior massa total de mistura para entregar o mesmo serviço útil, influencia diretamente o valor de $MAC(\alpha,r)$ e, portanto, a classificação de cada cenário como viável ou não no domínio definido pelo modelo.
 
-O exemplo ilustra, assim, a lógica analítica subjacente à hipótese operacional do estudo. A variável $\alpha$ controla a magnitude da substituição energética, enquanto a variável $r$ determina a intensidade de carbono da fração renovável. A combinação dessas duas dimensões, avaliada à luz dos parâmetros $\delta$ e $\gamma^{ref}$, define o conjunto de cenários potencialmente viáveis no espaço paramétrico analisado.
-
 \section{Delimitações e limitações do estudo}
 
 As escolhas metodológicas adotadas implicam limitações estruturais que devem ser consideradas na interpretação dos resultados.
 
 No plano operacional, a representação da navegação por meio do vetor médio $\mathbf{X} = (D,V,c)$ abstrai variações intra-viagem, como flutuações de velocidade, condições meteorológicas adversas, espera em porto e regimes dinâmicos de carga do motor. O consumo é tratado de forma agregada para o trecho marítimo principal, não sendo modeladas fases operacionais específicas.
 
-No plano energético, utilizam-se valores médios de poder calorífico ($PCI_j$) e uma representação simplificada da eficiência térmica do motor. Para evitar um comportamento excessivamente idealizado das misturas, o modelo incorpora um ajuste não linear moderado na eficiência em função da fração de biodiesel.
-
-Esse ajuste busca refletir, de forma agregada, evidências da literatura de que o consumo específico e o desempenho térmico do motor podem variar com o teor de biodiesel na mistura.
-
-Ressalta-se que essa abordagem é simplificada e não substitui ensaios experimentais em motor nem modelagem termodinâmica detalhada, tampouco captura efeitos de longo prazo, adaptações técnicas ou variações associadas à carga do motor.
+No plano energético, utilizam-se valores médios de poder calorífico ($PCI_j$) e uma representação simplificada da eficiência térmica do motor. Para evitar um comportamento excessivamente idealizado das misturas, o modelo incorpora um ajuste não linear moderado na eficiência em função da fração de biodiesel. Esse ajuste busca refletir, de forma agregada, evidências da literatura de que o consumo específico e o desempenho térmico do motor podem variar com o teor de biodiesel na mistura, mas não substitui ensaios experimentais em motor nem modelagem termodinâmica detalhada, tampouco captura efeitos de longo prazo, adaptações técnicas ou variações associadas à carga do motor.
 
 
 No plano ambiental, a análise depende de fatores de emissão provenientes de Avaliação de Ciclo de Vida secundária. Não são desenvolvidos inventários próprios nem modeladas explicitamente incertezas associadas às cadeias produtivas do biodiesel. A avaliação concentra-se exclusivamente em emissões de gases de efeito estufa, expressas em CO$_2$ equivalente no escopo \gls{WTW}, não contemplando outras categorias de impacto ambiental. Essa ressalva vale para o conjunto das rotas analisadas e é particularmente sensível em casos nos quais o resultado depende da regra de alocação adotada para coprodutos, como ocorre em parte da literatura sobre \gls{TCO}.
@@ -635,4 +603,4 @@ No plano econômico, a análise restringe-se ao custo do combustível por viagem
 
 Adicionalmente, o modelo não endogeneíza integralmente as variáveis regulatórias. Embora o custo de \emph{compliance} do \gls{EUETS} seja incorporado como parcela explícita do custo da viagem por meio de $\gamma^{comp}$, instrumentos como o regulamento \emph{FuelEU Maritime}, interações entre regimes regulatórios e políticas nacionais de biocombustíveis ainda são tratados de forma simplificada na interpretação dos resultados e no parâmetro regulatório $\gamma^{ref}$.
 
-Essas limitações decorrem da opção por um modelo determinístico orientado à comparação paramétrica entre cenários e delimitam o alcance inferencial dos resultados. O objetivo do modelo não é prever o comportamento futuro do mercado ou da frota marítima, mas oferecer estrutura analítica consistente para comparar cenários de combustível sob condições operacionais controladas.
+Essas limitações decorrem da opção por um modelo determinístico orientado à comparação paramétrica entre cenários e delimitam o alcance inferencial dos resultados. O objetivo do modelo não é prever o comportamento futuro do mercado ou da frota marítima, mas oferecer estrutura consistente para comparar cenários de combustível sob condições operacionais controladas.
