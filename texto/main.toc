@@ -33,7 +33,7 @@
 \contentsline {section}{\numberline {III.7}Estrutura geral do modelo}{36}{section.3.7}%
 \contentsline {section}{\numberline {III.8}Procedimento de simulação}{38}{section.3.8}%
 \contentsline {section}{\numberline {III.9}Análise institucional e regulatória}{39}{section.3.9}%
-\contentsline {section}{\numberline {III.10}Exemplo numérico ilustrativo com base empírica}{40}{section.3.10}%
+\contentsline {section}{\numberline {III.10}Exemplo numérico ilustrativo com base empírica}{39}{section.3.10}%
 \contentsline {section}{\numberline {III.11}Delimitações e limitações do estudo}{42}{section.3.11}%
 \contentsline {chapter}{\numberline {IV}Resultados parciais}{44}{chapter.4}%
 \contentsline {section}{\numberline {IV.1}Estrutura experimental}{44}{section.4.1}%
