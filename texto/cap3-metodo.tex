@@ -124,7 +124,7 @@ Os cenários avaliados são representados, em termos gerais, por:
 \mathcal{S} = \{\text{Bunker}\} \cup \left\{ B_{\alpha}^{r} \;:\; \alpha \in [0{,}10,0{,}30],\; r \in \mathcal{S}_{bio}\right\}
 \]
 
-Nesse enquadramento, o conjunto $\mathcal{S}_{bio}$ representa as diferentes rotas de produção de biodiesel consideradas no estudo, definidas a partir do tipo de materia-prima (\emph{feedstock}). Já $\mathcal{S}$ corresponde ao conjunto completo de cenários analisados, incluindo o cenário de referência com uso exclusivo de \emph{bunker fuel} e os cenários alternativos com uso de biobunker.
+Nesse enquadramento, o conjunto $\mathcal{S}_{bio}$ representa as diferentes rotas de produção de biodiesel consideradas no estudo, definidas a partir do tipo de matéria-prima (\emph{feedstock}). Já $\mathcal{S}$ corresponde ao conjunto completo de cenários analisados, incluindo o cenário de referência com uso exclusivo de \emph{bunker fuel} e os cenários alternativos com uso de biobunker.
 
 Neste trabalho, a sigla \gls{TCO} refere-se exclusivamente a \emph{Technical Corn Oil} (óleo técnico de milho), subproduto da cadeia do milho e do etanol de milho, e não a \emph{Tall Oil Crude}, insumo florestal que também aparece abreviado como TCO em parte da literatura internacional.
 
@@ -142,7 +142,7 @@ As estimativas ambientais e econômicas são construídas a partir de parâmetro
 
 A primeira hipótese é a de compatibilidade operacional entre o uso de misturas de biodiesel e \emph{bunker fuel} no intervalo considerado. Essa premissa é fundamentada em evidências da literatura, não sendo realizada validação experimental direta em motor.
 
-A segunda hipótese consiste em manter constante o serviço de transporte prestado pela embarcação em todos os cenários. Dessa forma, as diferenças entre as alternativas energéticas se refletem apenas na massa de combustível requerida, nas emissões totais e no custo total.
+A segunda hipótese consiste em manter constante o serviço de transporte prestado pela embarcação em todos os cenários. Desse modo, as diferenças entre as alternativas energéticas se refletem apenas na massa de combustível requerida, nas emissões totais e no custo total.
 
 A terceira hipótese assume que o sistema pode ser representado por parâmetros médios determinísticos, de natureza operacional, energética, ambiental e econômica, sem considerar variações estocásticas de mercado ou de desempenho.
 
@@ -184,7 +184,7 @@ onde $F_{kg}$ representa a massa observada de combustível consumida no trecho m
 
 Considera-se o navio operando sob regime médio constante de velocidade e potência ao longo da travessia. Não são modeladas variações extremas de velocidade, condições meteorológicas adversas, períodos de espera em porto ou estratégias operacionais específicas, como operação em velocidade reduzida (do inglês, \emph{slow steaming}). O consumo é tratado de forma agregada para o trecho marítimo principal, correspondente à navegação em mar aberto.
 
-A comparação entre combustíveis é realizada para o mesmo serviço de transporte, isto é, mesma rota, mesma carga e mesma meta operacional de viagem. Assim, mantém-se constante a demanda útil da travessia e permite-se que o consumo mássico total varie com a composição da mistura e com a eficiência efetiva do motor.
+A comparação entre combustíveis é realizada para o mesmo serviço de transporte, isto é, mesma rota, mesma carga e mesma meta operacional de viagem. Assim, mantém-se constante a demanda útil da travessia e permite-se que o consumo mássico total varie com a composição da mistura e a eficiência efetiva do motor.
 
 \section{Avaliação ambiental: estimativas baseadas em avaliação de ciclo de vida secundária}
 
@@ -329,7 +329,7 @@ O custo marginal de abatimento é uma métrica amplamente utilizada para avaliar
 
 Para explicitar a dimensão regulatória sem introduzir variáveis paralelas, define-se a família regulatória $\gamma = (\gamma^{comp},\gamma^{ref})$ para representar duas dimensões do ambiente regulatório europeu aplicável ao transporte marítimo. O termo $\gamma^{comp}$ representa o preço explícito de \emph{compliance} associado às emissões cobertas pelo \gls{EUETS} marítimo e entra diretamente na composição do custo total da viagem, em coerência com a incorporação do transporte marítimo ao sistema europeu de comércio de emissões \citep{eu_reg_2023_957,euets2023}. Nesse sentido, $\gamma^{comp}$ atua como um custo marginal adicional proporcional às emissões, internalizando no modelo o efeito de precificação de carbono característico de instrumentos do tipo sistema de comércio de emissões (do inglês, \emph{cap-and-trade}).
 
-Já $\gamma^{ref}$ representa um preço de referência do carbono utilizado para interpretar a viabilidade econômica do abatimento estimado. Esse componente não representa um instrumento jurídico específico; é um parâmetro de referência baseado em sinais de preço observados em mercados de carbono e estudos institucionais, que permite avaliar se o $MAC(\alpha,r)$ se encontra em patamar compatível com o ambiente regulatório europeu \citep{worldbank2024carbon,euets2023}. Assim, $\gamma^{ref}$ é utilizado como referência externa para interpretar os resultados, enquanto $\gamma^{comp}$ entra diretamente no custo do modelo.
+Já $\gamma^{ref}$ representa um preço de referência do carbono utilizado para interpretar a viabilidade econômica do abatimento estimado. Esse componente não representa um instrumento jurídico específico; trata-se de um parâmetro de referência baseado em sinais de preço observados em mercados de carbono e estudos institucionais, que permite avaliar se o $MAC(\alpha,r)$ se encontra em patamar compatível com o ambiente regulatório europeu \citep{worldbank2024carbon,euets2023}. Assim, $\gamma^{ref}$ é utilizado como referência externa para interpretar os resultados, enquanto $\gamma^{comp}$ entra diretamente no custo do modelo.
 
 Essa decomposição permite distinguir, no plano metodológico, entre (i) custos regulatórios diretamente monetizados no modelo e (ii) outros instrumentos do arcabouço europeu que influenciam a atratividade relativa dos combustíveis. Em particular, mecanismos como o \emph{FuelEU Maritime} estabelecem metas de intensidade de emissões e penalidades associadas ao não cumprimento, mas não são representados explicitamente como função de penalidade nesta formulação. Seus efeitos são considerados indiretamente na parametrização da família $\gamma$, sem reprodução integral de sua mecânica jurídica e operacional \citep{eu_reg_2023_1805}.
 
@@ -414,7 +414,7 @@ O segundo critério, de natureza econômico-regulatória, toma o custo marginal 
 
 Neste modelo, o custo marginal de abatimento corresponde ao preço implícito de carbono associado à substituição parcial do combustível fóssil por biocombustível. Sua comparação com $\gamma^{ref}$ indica se essa substituição é economicamente compatível com o sinal de preço do carbono vigente no contexto regulatório considerado.
 
-Dessa forma, a viabilidade é definida como:
+Desse modo, a viabilidade é definida como:
 
 \[
 V(\alpha,r) =
