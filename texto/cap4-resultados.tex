@@ -95,55 +95,68 @@ Com base na estrutura experimental adotada e na implementação efetivamente exe
 \label{tab:matriz_experimental}
 \small
 \setlength{\tabcolsep}{4pt}
-\begin{tabular}{llll}
+\begin{tabular}{p{1.2cm} p{3.0cm} p{10.0cm}}
 \hline
 \parbox[t]{1.2cm}{\textbf{Setup}} &
 \parbox[t]{3.0cm}{\textbf{Objetivo}} &
-\parbox[t]{5.1cm}{\textbf{Variáveis de entrada}} &
-\parbox[t]{4.8cm}{\textbf{Saídas principais}} \\
+\parbox[t]{10.0cm}{\textbf{Estrutura do experimento}} \\
 \hline
 
-E1 &
-\parbox[t]{3.0cm}{Cenário-base de referência} &
-\parbox[t]{5.1cm}{Rota Santos--Roterdã; $\alpha \in \{0{,}10, 0{,}15, 0{,}20, 0{,}24, 0{,}25, 0{,}30\}$; $r \in \{\text{soja}, \text{sebo bovino}, \text{UCO}, \text{TCO}\}$; parâmetros médios fixos} &
-\parbox[t]{4.8cm}{$G(\alpha,r)$, $C(\alpha,r)$,\\ $\Delta G(\alpha,r)$, $\Delta C(\alpha,r)$,\\ $MAC(\alpha,r)$, $V(\alpha,r)$} \\
-& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade:} Comparar o efeito da fração de mistura e da rota de produção do biodiesel sob condições operacionais constantes.}} \\
-
-E2 &
-\parbox[t]{3.0cm}{Sensibilidade econômica} &
-\parbox[t]{5.1cm}{Cenário-base; variação de $p_b$ e $p_{bio,r}$ em faixas compatíveis com literatura e mercado} &
-\parbox[t]{4.8cm}{$C(\alpha,r)$, $\Delta C(\alpha,r)$, $MAC(\alpha,r)$} \\
-& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade:} Avaliar o impacto do diferencial de preços entre combustível fóssil e biodiesel sobre a viabilidade econômica.}} \\
-
-E3 &
-\parbox[t]{3.0cm}{Sensibilidade ambiental} &
-\parbox[t]{5.1cm}{Cenário-base; variação de $FE_{bio,r}^{WTW}$ segundo diferentes referências da literatura} &
-\parbox[t]{4.8cm}{$G(\alpha,r)$, $\Delta G(\alpha,r)$, $MAC(\alpha,r)$} \\
-& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade:} Verificar a robustez da ordenação ambiental e do custo de abatimento frente a diferentes fatores de emissão.}} \\
-
-E4 &
-\parbox[t]{3.0cm}{Sensibilidade regulatória} &
-\parbox[t]{5.1cm}{Cenário-base; variação de $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$, convertido para USD/tCO$_2$} &
-\parbox[t]{4.8cm}{$MAC(\alpha,r)$, $V(\alpha,r)$} \\
-& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade:} Identificar como diferentes sinais de preço do carbono alteram a região de viabilidade econômico-ambiental.}} \\
-
-E5 &
-\parbox[t]{3.0cm}{Sensibilidade operacional} &
-\parbox[t]{5.1cm}{Variações moderadas em $\mathbf{X}=(D,V,c)$ em torno do cenário-base} &
-\parbox[t]{4.8cm}{$F_{kg}(0)$, $F_{kg}(\alpha,r)$,\\ $G(\alpha,r)$, $C(\alpha,r)$,\\ $MAC(\alpha,r)$} \\
-& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade:} Avaliar a estabilidade dos resultados quando se alteram as condições operacionais agregadas da viagem e, por consequência, a demanda útil do serviço de transporte.}} \\
-
-E6 &
-\parbox[t]{3.0cm}{Caminhos de viabilidade regulatória} &
-\parbox[t]{5.1cm}{Cenário-base; variação conjunta de $\gamma^{ref}$ e $\gamma^{comp}$ em faixas ampliadas} &
-\parbox[t]{4.8cm}{$MAC(\alpha,r)$, preço de carbono de equilíbrio, $V(\alpha,r)$} \\
-& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade:} Identificar em que patamares de indução regulatória surgem os primeiros cenários viáveis por rota e fração de mistura.}} \\
-
-E7 &
-\parbox[t]{3.0cm}{Sensibilidade específica de \gls{TCO}} &
-\parbox[t]{5.1cm}{Cenário-base; variação de $FE_{bio}^{TCO}$ e do preço relativo do biodiesel de \gls{TCO}} &
-\parbox[t]{4.8cm}{$MAC(\alpha,\text{TCO})$, preço de carbono de equilíbrio, $V(\alpha,\text{TCO})$} \\
-& \multicolumn{3}{l}{\parbox[t]{12.9cm}{\textit{Finalidade:} Testar a robustez da atratividade do \gls{TCO} frente à incerteza metodológica e econômica própria dessa rota.}} \\
+\multirow{2}{*}{E1} &
+\multirow{2}{3.0cm}{Cenário-base de referência} &
+\textbf{Variáveis de entrada:} Rota Santos--Roterdã; $\alpha \in \{0{,}10, 0{,}15, 0{,}20, 0{,}24, 0{,}25, 0{,}30\}$; $r \in \{\text{soja}, \text{sebo bovino}, \text{UCO}, \text{TCO}\}$; parâmetros médios fixos. \\
+%\cline{3-3}
+& &
+\vspace{1pt}\textbf{Saídas principais:} $G(\alpha,r)$, $C(\alpha,r)$, $\Delta G(\alpha,r)$, $\Delta C(\alpha,r)$, $MAC(\alpha,r)$, $V(\alpha,r)$. \\
+\multicolumn{3}{p{14.2cm}}{\textit{Finalidade:} Comparar o efeito da fração de mistura e da rota de produção do biodiesel sob condições operacionais constantes.} \\
+\hline
+\multirow{2}{*}{E2} &
+\multirow{2}{3.0cm}{Sensibilidade econômica} &
+\textbf{Variáveis de entrada:} Cenário-base; variação de $p_b$ e $p_{bio,r}$ em faixas compatíveis com literatura e mercado. \\
+%\cline{3-3}
+& &
+\vspace{1pt}\textbf{Saídas principais:} $C(\alpha,r)$, $\Delta C(\alpha,r)$, $MAC(\alpha,r)$. \\
+\multicolumn{3}{p{14.2cm}}{\textit{Finalidade:} Avaliar o impacto do diferencial de preços entre combustível fóssil e biodiesel sobre a viabilidade econômica.} \\
+\hline
+\multirow{2}{*}{E3} &
+\multirow{2}{3.0cm}{Sensibilidade ambiental} &
+\textbf{Variáveis de entrada:} Cenário-base; variação de $FE_{bio,r}^{WTW}$ segundo diferentes referências da literatura. \\
+%\cline{3-3}
+& &
+\vspace{1pt}\textbf{Saídas principais:} $G(\alpha,r)$, $\Delta G(\alpha,r)$, $MAC(\alpha,r)$. \\
+\multicolumn{3}{p{14.2cm}}{\textit{Finalidade:} Verificar a robustez da ordenação ambiental e do custo de abatimento frente a diferentes fatores de emissão.} \\
+\hline
+\multirow{2}{*}{E4} &
+\multirow{2}{3.0cm}{Sensibilidade regulatória} &
+\textbf{Variáveis de entrada:} Cenário-base; variação de $\gamma^{ref} \in [60,100]\,\text{EUR}/tCO_2$, convertido para USD/tCO$_2$. \\
+%\cline{3-3}
+& &
+\vspace{1pt}\textbf{Saídas principais:} $MAC(\alpha,r)$, $V(\alpha,r)$. \\
+\multicolumn{3}{p{14.2cm}}{\textit{Finalidade:} Identificar como diferentes sinais de preço do carbono alteram a região de viabilidade econômico-ambiental.} \\
+\hline
+\multirow{2}{*}{E5} &
+\multirow{2}{3.0cm}{Sensibilidade operacional} &
+\textbf{Variáveis de entrada:} Variações moderadas em $\mathbf{X}=(D,V,c)$ em torno do cenário-base. \\
+%\cline{3-3}
+& &
+\vspace{1pt}\textbf{Saídas principais:} $F_{kg}(0)$, $F_{kg}(\alpha,r)$, $G(\alpha,r)$, $C(\alpha,r)$, $MAC(\alpha,r)$. \\
+\multicolumn{3}{p{14.2cm}}{\textit{Finalidade:} Avaliar a estabilidade dos resultados quando se alteram as condições operacionais agregadas da viagem e, por consequência, a demanda útil do serviço de transporte.} \\
+\hline
+\multirow{2}{*}{E6} &
+\multirow{2}{3.0cm}{Caminhos de viabilidade regulatória} &
+\textbf{Variáveis de entrada:} Cenário-base; variação conjunta de $\gamma^{ref}$ e $\gamma^{comp}$ em faixas ampliadas. \\
+%\cline{3-3}
+& &
+\vspace{1pt}\textbf{Saídas principais:} $MAC(\alpha,r)$, preço de carbono de equilíbrio, $V(\alpha,r)$. \\
+\multicolumn{3}{p{14.2cm}}{\textit{Finalidade:} Identificar em que patamares de indução regulatória surgem os primeiros cenários viáveis por rota e fração de mistura.} \\
+\hline
+\multirow{2}{*}{E7} &
+\multirow{2}{3.0cm}{Sensibilidade específica de \gls{TCO}} &
+\textbf{Variáveis de entrada:} Cenário-base; variação de $FE_{bio}^{TCO}$ e do preço relativo do biodiesel de \gls{TCO}. \\
+%\cline{3-3}
+& &
+\vspace{1pt}\textbf{Saídas principais:} $MAC(\alpha,\text{TCO})$, preço de carbono de equilíbrio, $V(\alpha,\text{TCO})$. \\
+\multicolumn{3}{p{14.2cm}}{\textit{Finalidade:} Testar a robustez da atratividade do \gls{TCO} frente à incerteza metodológica e econômica própria dessa rota.} \\
 
 \hline
 \end{tabular}
@@ -221,18 +234,18 @@ Soja & -- & -- & -- & -- \\
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{grafico_07_fronteira_viabilidade.png}
-\caption{Fronteira de viabilidade econômico-ambiental por fração de mistura, rota e sinal regulatório ampliado.}
+\caption{Fronteira de viabilidade econômico-ambiental por fração de mistura, rota e trajetória regulatória conjunta $\gamma^{ref}=\gamma^{comp}$.}
 \label{fig:frontier_viabilidade}
 \end{figure}
 
-A leitura de custo muda quando o termo regulatório é explicitado. A Figura~\ref{fig:decomp_custo} decompõe o custo total entre combustível e a parcela de \emph{compliance} associada a $\gamma^{comp}$. A visualização mostra que o custo regulatório cresce com a parcela fóssil remanescente, mas ainda não compensa, por si só, o diferencial de preço do biodiesel nos níveis correntes de mercado. Em outras palavras, o \gls{EUETS} melhora a competitividade relativa do biobunker, mas não basta para torná-lo viável sob os parâmetros-base.
+A leitura de custo muda quando o custo de \emph{compliance} é explicitado. A Figura~\ref{fig:decomp_custo} compara diretamente o custo total do biobunker com o custo do cenário convencional, já incluindo a parcela de \emph{compliance} associada a $\gamma^{comp}$. A visualização mostra que esse componente regulatório melhora a competitividade relativa do biobunker, mas ainda não basta para compensar, nos níveis correntes de mercado, o diferencial de preço entre a fração fóssil e a fração renovável.
 
 O componente $\gamma^{comp}$ mitiga o diferencial econômico entre fóssil e biobunker, mas não o elimina no nível atual de preços adotado na simulação. A análise sugere, portanto, que a viabilidade depende de combinar maior $\gamma^{ref}$, maior $\gamma^{comp}$, redução do preço relativo do biodiesel e escolha de rotas com menor intensidade de carbono, como \gls{UCO}, sebo bovino e \gls{TCO}.
 
 \begin{figure}[!ht]
 \centering
 \includegraphics[width=0.95\textwidth]{grafico_06_decomposicao_custo.png}
-\caption{Decomposição do custo total entre custo de combustível e custo de \emph{compliance} do \gls{EUETS}.}
+\caption{Comparação entre o custo total do biobunker e o custo total do cenário convencional com \emph{compliance} do \gls{EUETS}.}
 \label{fig:decomp_custo}
 \end{figure}
 

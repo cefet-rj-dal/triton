@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.21)  8 APR 2026 23:45
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (MiKTeX 25.12) (preloaded format=pdflatex 2026.3.21)  9 APR 2026 00:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1486,40 +1486,44 @@ Cap\'{\i }tulo III.
 Cap\'{\i }tulo IV.
 [44
 
-] [45] [46]
-<./figures/grafico_01_emissoes_vs_alpha.png, id=993, 650.43pt x 433.62pt>
+] [45]
+Overfull \vbox (12.0pt too high) detected at line 146
+ []
+
+<./figures/grafico_01_emissoes_vs_alpha.png, id=989, 650.43pt x 433.62pt>
 File: ./figures/grafico_01_emissoes_vs_alpha.png Graphic file (type png)
 <use ./figures/grafico_01_emissoes_vs_alpha.png>
 Package pdftex.def Info: ./figures/grafico_01_emissoes_vs_alpha.png  used on in
-put line 160.
+put line 173.
 (pdftex.def)             Requested size: 413.13632pt x 275.43166pt.
- [47 <./figures/grafico_01_emissoes_vs_alpha.png>]
-<./figures/grafico_03b_break_even_vs_alpha.png, id=999, 650.43pt x 433.62pt>
+<./figures/grafico_03b_break_even_vs_alpha.png, id=991, 650.43pt x 433.62pt>
 File: ./figures/grafico_03b_break_even_vs_alpha.png Graphic file (type png)
 <use ./figures/grafico_03b_break_even_vs_alpha.png>
 Package pdftex.def Info: ./figures/grafico_03b_break_even_vs_alpha.png  used on
- input line 169.
+ input line 182.
 (pdftex.def)             Requested size: 399.05278pt x 266.04285pt.
+[46] [47]
 <./figures/grafico_04_tradeoff_deltaG_deltaC.png, id=1002, 650.43pt x 433.62pt>
 
 File: ./figures/grafico_04_tradeoff_deltaG_deltaC.png Graphic file (type png)
 <use ./figures/grafico_04_tradeoff_deltaG_deltaC.png>
 Package pdftex.def Info: ./figures/grafico_04_tradeoff_deltaG_deltaC.png  used 
-on input line 180.
+on input line 193.
 (pdftex.def)             Requested size: 413.13632pt x 275.43166pt.
- [48 <./figures/grafico_03b_break_even_vs_alpha.png>]
+ [48 <./figures/grafico_01_emissoes_vs_alpha.png> <./figures/grafico_03b_break_
+even_vs_alpha.png>]
 <./figures/grafico_07_fronteira_viabilidade.png, id=1008, 650.43pt x 433.62pt>
 File: ./figures/grafico_07_fronteira_viabilidade.png Graphic file (type png)
 <use ./figures/grafico_07_fronteira_viabilidade.png>
 Package pdftex.def Info: ./figures/grafico_07_fronteira_viabilidade.png  used o
-n input line 223.
+n input line 236.
 (pdftex.def)             Requested size: 445.99553pt x 297.33888pt.
  [49 <./figures/grafico_04_tradeoff_deltaG_deltaC.png>]
 <./figures/grafico_06_decomposicao_custo.png, id=1015, 650.43pt x 433.62pt>
 File: ./figures/grafico_06_decomposicao_custo.png Graphic file (type png)
 <use ./figures/grafico_06_decomposicao_custo.png>
 Package pdftex.def Info: ./figures/grafico_06_decomposicao_custo.png  used on i
-nput line 234.
+nput line 247.
 (pdftex.def)             Requested size: 445.99553pt x 297.33888pt.
  [50 <./figures/grafico_07_fronteira_viabilidade.png>] [51 <./figures/grafico_0
 6_decomposicao_custo.png>]) (cap5-conclusao.tex [52]
@@ -1543,13 +1547,17 @@ LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10.95> not available
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-12-24>
  ***********
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: B5B4FED5853DA92DD2F182EB0D71F1ED;11726.
  ) 
 Here is how much of TeX's memory you used:
  36838 strings out of 467871
  717649 string characters out of 5418376
- 1192081 words of memory out of 5000000
+ 1192088 words of memory out of 5000000
  64860 multiletter control sequences out of 15000+600000
  647876 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1585,9 +1593,9 @@ ts/cm/cmr7.pfb><C:/Users/maiza/AppData/Local/Programs/MiKTeX/fonts/type1/public
 /amsfonts/cm/cmr8.pfb><C:/Users/maiza/AppData/Local/Programs/MiKTeX/fonts/type1
 /public/amsfonts/cm/cmsy10.pfb><C:/Users/maiza/AppData/Local/Programs/MiKTeX/fo
 nts/type1/public/amsfonts/cm/cmsy8.pfb>
-Output written on main.pdf (78 pages, 1502883 bytes).
+Output written on main.pdf (78 pages, 1504349 bytes).
 PDF statistics:
- 1838 PDF objects out of 2073 (max. 8388607)
+ 1840 PDF objects out of 2073 (max. 8388607)
  242 named destinations out of 1000 (max. 500000)
  442 words of extra memory for PDF output out of 10000 (max. 10000000)
 

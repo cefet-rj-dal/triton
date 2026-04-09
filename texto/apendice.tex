@@ -20,12 +20,16 @@ Algumas extensões relevantes para uma etapa posterior do trabalho já podem ser
 
 \subsection{Desacoplamento entre os sinais regulatórios}
 
-No \emph{Setup} E6, a trajetória regulatória ampliada é implementada com aumento simultâneo de $\gamma^{ref}$ e $\gamma^{comp}$. Uma extensão metodologicamente útil consiste em desacoplar esses dois componentes, permitindo testar cenários em que o preço de referência do carbono e o custo efetivo de \emph{compliance} evoluem em velocidades diferentes. Isso exigiria:
+No \emph{Setup} E6, a trajetória regulatória ampliada é implementada com aumento simultâneo de $\gamma^{ref}$ e $\gamma^{comp}$. Para a fase de qualificação, essa simplificação é suficiente para identificar a ordem de grandeza do sinal regulatório necessário à viabilidade. Em etapa posterior da dissertação, uma extensão metodologicamente útil consiste em desacoplar esses dois componentes, permitindo testar cenários em que o preço de referência do carbono e o custo efetivo de \emph{compliance} evoluem em velocidades diferentes.
+
+Uma forma objetiva de fazer isso é adotar uma grade experimental enxuta com três níveis para cada componente regulatório, representando sinais baixo, médio e alto. Nessa configuração, $\gamma^{comp}$ e $\gamma^{ref}$ passariam a variar de forma cruzada em uma matriz $3 \times 3$, o que permitiria distinguir com maior clareza o efeito de uma indução econômica direta, via custo de \emph{compliance}, do efeito de uma indução regulatória mais ampla, via preço de referência usado na interpretação do $MAC$.
+
+Isso exigiria:
 
 \begin{enumerate}
-    \item redefinir a tabela \texttt{policy\_tbl} com combinações independentes entre os dois sinais;
+    \item redefinir a tabela \texttt{policy\_tbl} com combinações independentes entre $\gamma^{comp}$ e $\gamma^{ref}$, organizadas em níveis baixo, médio e alto;
     \item reexecutar o cálculo dos cenários E6;
-    \item gerar novas figuras de fronteira regulatória e novas tabelas-resumo.
+    \item gerar novas figuras de fronteira regulatória e novas tabelas-resumo para a matriz cruzada de cenários.
 \end{enumerate}
 
 \subsection{Refinamento do domínio de mistura}

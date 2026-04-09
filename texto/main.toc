@@ -40,7 +40,7 @@
 \contentsline {subsection}{\numberline {IV.1.1}Cenário-base de referência}{44}{subsection.4.1.1}%
 \contentsline {subsection}{\numberline {IV.1.2}Variáveis de saída e estrutura dos resultados}{45}{subsection.4.1.2}%
 \contentsline {section}{\numberline {IV.2}Matriz de cenários experimentais}{46}{section.4.2}%
-\contentsline {section}{\numberline {IV.3}Resultados parciais}{47}{section.4.3}%
+\contentsline {section}{\numberline {IV.3}Resultados parciais}{46}{section.4.3}%
 \contentsline {section}{\numberline {IV.4}Discussão}{51}{section.4.4}%
 \contentsline {chapter}{\numberline {V}Considerações parciais}{53}{chapter.5}%
 \contentsline {chapter}{\numberline {A}Glossário de termos metodológicos}{55}{appendix.A}%
@@ -50,7 +50,7 @@
 \contentsline {subsection}{\numberline {B.2.1}Desacoplamento entre os sinais regulatórios}{57}{subsection.B.2.1}%
 \contentsline {subsection}{\numberline {B.2.2}Refinamento do domínio de mistura}{58}{subsection.B.2.2}%
 \contentsline {subsection}{\numberline {B.2.3}Expansão para múltiplas rotas marítimas}{58}{subsection.B.2.3}%
-\contentsline {subsection}{\numberline {B.2.4}Modelagem estocástica}{58}{subsection.B.2.4}%
+\contentsline {subsection}{\numberline {B.2.4}Modelagem estocástica}{59}{subsection.B.2.4}%
 \contentsline {subsection}{\numberline {B.2.5}Custos adicionais de adaptação e logística}{59}{subsection.B.2.5}%
 \contentsline {section}{\numberline {B.3}Uso recomendado deste planejamento}{59}{section.B.3}%
 \contentsline {chapter}{Referências}{60}{appendix*.19}%

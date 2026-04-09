@@ -650,8 +650,8 @@ g3b <- ggplot(res_E1, aes(x = alpha, y = break_even_EUR_tCO2, group = rota, line
   geom_point(size = 2) +
   labs(
     x = expression(alpha),
-    y = expression("Break-even carbon price " * "(" * EUR/tCO[2] * ")"),
-    title = "Preco de carbono de equilibrio por fracao de mistura",
+    y = expression("Preco de carbono de equilibrio " * "(" * EUR/tCO[2] * ")"),
+    title = "Preco de carbono de equilibrio por fracao de mistura e rota",
     linetype = "Rota do biodiesel"
   ) +
   theme_minimal(base_size = 12)
@@ -700,31 +700,44 @@ save_plot(g5, "grafico_05_heatmap_viabilidade.png")
 # -----------------------------
 # Gráfico 6 - Decomposição do custo total
 # -----------------------------
-cost_breakdown <- res_E1 %>%
-  select(rota, alpha, C_fuel_USD, C_comp_USD) %>%
+cost_compare <- res_E1 %>%
+  transmute(
+    rota,
+    alpha,
+    `Biobunker` = C_USD,
+    `Bunker fuel + compliance` = C0_USD
+  ) %>%
   pivot_longer(
-    cols = c(C_fuel_USD, C_comp_USD),
-    names_to = "componente",
+    cols = c(`Biobunker`, `Bunker fuel + compliance`),
+    names_to = "cenario",
     values_to = "custo_usd"
   ) %>%
   mutate(
-    componente = recode(
-      componente,
-      "C_fuel_USD" = "Combustivel",
-      "C_comp_USD" = "Compliance ETS"
-    )
+    cenario = factor(cenario, levels = c("Biobunker", "Bunker fuel + compliance"))
   )
 
-g6 <- ggplot(cost_breakdown, aes(x = alpha, y = custo_usd, color = componente, linetype = componente)) +
-  geom_line(linewidth = 0.9) +
-  geom_point(size = 1.8) +
+g6 <- ggplot(cost_compare, aes(x = alpha, y = custo_usd, color = cenario, linetype = cenario)) +
+  geom_line(linewidth = 1.0) +
+  geom_point(size = 2.0) +
   facet_wrap(~ rota, scales = "free_y") +
+  scale_color_manual(
+    values = c(
+      "Biobunker" = "#C43C39",
+      "Bunker fuel + compliance" = "#2C7FB8"
+    )
+  ) +
+  scale_linetype_manual(
+    values = c(
+      "Biobunker" = "solid",
+      "Bunker fuel + compliance" = "solid"
+    )
+  ) +
   labs(
     x = expression(alpha),
-    y = "Custo (USD/viagem)",
-    color = "Componente",
-    linetype = "Componente",
-    title = "Decomposicao do custo entre combustivel e compliance ETS"
+    y = "Custo total (USD/viagem)",
+    color = "Cenario",
+    linetype = "Cenario",
+    title = "Comparacao entre o custo total do biobunker e do bunker fuel com compliance ETS"
   ) +
   theme_minimal(base_size = 12)
 
@@ -745,9 +758,9 @@ g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
   facet_wrap(~ rota) +
   labs(
     x = expression(alpha),
-    y = expression("Sinal regulatorio " * "(" * EUR/tCO[2] * ")"),
+    y = expression("Sinal regulatorio " * "(" * gamma^{ref} * " = " * gamma^{comp} * ", " * EUR/tCO[2] * ")"),
     fill = "Viavel",
-    title = "Fronteira de viabilidade por mistura e sinal regulatorio"
+    title = "Fronteira de viabilidade por fracao de mistura e trajetoria regulatoria conjunta"
   ) +
   theme_minimal(base_size = 12)
 
