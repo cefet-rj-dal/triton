@@ -19,8 +19,8 @@
 \emergencystretch=2em
 
 \newcommand{\warn}[1]{{\color{red} {#1}}}
-\newcommand{\warnadv}[2]{
-{\color{red} {#1}} {\color{blue} \begin{quote}\emph{\small{{#2}}}\end{quote}}}
+\newcommand{\verify}[1]{{\color{blue} {#1}}}
+\newcommand{\remarks}[2]{{\color{red} #1\ (\textit{#2})}}
 
 \newcommand{\field}[1]{{\sc {#1}}}
  
@@ -70,7 +70,9 @@
 
 \input{cap0-preambulo.tex}
 
+\hypersetup{pageanchor=false}
 \pagenumbering{arabic}
+\hypersetup{pageanchor=true}
 \justifying
 
 \input{cap1-intro.tex}

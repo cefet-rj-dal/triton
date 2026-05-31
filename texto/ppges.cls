@@ -1,18 +1,54 @@
 \NeedsTeXFormat{LaTeX2e}
+\RequirePackage[utf8]{inputenc}
 \ProvidesClass{ppges}[2026/03/08]
+
+\newif\ifppgesenglish
+\DeclareOption{english}{\ppgesenglishtrue}
+\DeclareOption{brazilian}{\ppgesenglishfalse}
+\ExecuteOptions{brazilian}
+\ProcessOptions\relax
 
 \LoadClass[11pt,a4paper]{report}
 
+\ifppgesenglish
+	\PassOptionsToPackage{english}{babel}
+\else
+	\PassOptionsToPackage{brazilian}{babel}
+\fi
+
+\newcommand{\ppgesenglishmonth}[1]{%
+	\ifcase#1\or January\or February\or March\or April\or May\or June\or July\or August\or September\or October\or November\or December\fi}
+\newcommand{\ppgesbrazilianmonth}[1]{%
+	\ifcase#1\or janeiro\or fevereiro\or março\or abril\or maio\or junho\or julho\or agosto\or setembro\or outubro\or novembro\or dezembro\fi}
+
+\ifppgesenglish
+	\newcommand{\ppgescovertext}{Master's Dissertation submitted to the Graduate Program in Energy and Society, Celso Suckow da Fonseca Federal Center for Technological Education (CEFET/RJ), as partial fulfillment of the requirements for the master's degree.}
+	\newcommand{\ppgesadvisorlabel}{Advisors:}
+	\newcommand{\ppgessignaturetext}{Master's Dissertation in Energy and Society, Celso Suckow da Fonseca Federal Center for Technological Education (CEFET/RJ).}
+	\newcommand{\ppgesapprovedlabel}{Approved by:}
+	\newcommand{\ppgesacrtitle}{LIST OF ACRONYMS}
+	\newcommand{\ppgestodaycover}{\ppgesenglishmonth{\month}\space\number\day, \number\year}
+\else
+	\newcommand{\ppgescovertext}{Dissertação de Mestrado apresentada ao Programa de Pós-graduação em Energia e Sociedade, Centro Federal de Educação Tecnológica Celso Suckow da Fonseca CEFET/RJ, como parte dos requisitos necessários à obtenção do grau de mestre.}
+	\newcommand{\ppgesadvisorlabel}{Orientadores:}
+	\newcommand{\ppgessignaturetext}{Dissertação de Mestrado em Energia e Sociedade, Centro Federal de Educação Tecnológica Celso Suckow da Fonseca, CEFET/RJ.}
+	\newcommand{\ppgesapprovedlabel}{Aprovada por:}
+	\newcommand{\ppgesacrtitle}{LISTA DE ACRÔNIMOS}
+	\newcommand{\ppgestodaycover}{\number\day\space de \ppgesbrazilianmonth{\month}\space de \number\year}
+\fi
+
 %% Load additional packages and commands.
 \RequirePackage[a4paper, left=2.5cm, right=2cm, top=2.5cm, bottom=2cm]{geometry} 
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
 \RequirePackage[square,authoryear]{natbib}
+\RequirePackage{babel}
 \RequirePackage[dvipsnames,svgnames,table]{xcolor}
 \RequirePackage{amsmath}
 \RequirePackage{booktabs}
 \RequirePackage{colortbl}
+\RequirePackage{tracklang}
+\TrackLangShowWarningsfalse
 \RequirePackage[acronym,nomain]{glossaries}
+\TrackLangShowWarningstrue
 %\RequirePackage{datagidx}
 %\usepackage{epstopdf}
 \RequirePackage{fancyhdr} 
@@ -59,7 +95,45 @@
 
 % Numeracao capitulos em romano
 \renewcommand{\thechapter}{\Roman{chapter}}
-\renewcommand{\chaptername}{Capítulo}
+\AtBeginDocument{%
+	\@ifundefined{captionsenglish}{}{%
+		\addto\captionsenglish{%
+			\renewcommand{\chaptername}{Chapter}%
+			\renewcommand{\contentsname}{CONTENTS}%
+			\renewcommand{\listfigurename}{LIST OF FIGURES}%
+			\renewcommand{\listtablename}{LIST OF TABLES}%
+			\renewcommand{\figurename}{Figure}%
+			\renewcommand{\tablename}{Table}%
+		}%
+	}%
+	\@ifundefined{captionsbrazilian}{}{%
+		\addto\captionsbrazilian{%
+			\renewcommand{\chaptername}{Capítulo}%
+			\renewcommand{\contentsname}{SUMÁRIO}%
+			\renewcommand{\listfigurename}{LISTA DE FIGURAS}%
+			\renewcommand{\listtablename}{LISTA DE TABELAS}%
+			\renewcommand{\figurename}{Figura}%
+			\renewcommand{\tablename}{Tabela}%
+		}%
+	}%
+	\ifppgesenglish
+		\renewcommand{\chaptername}{Chapter}%
+		\renewcommand{\contentsname}{CONTENTS}%
+		\renewcommand{\listfigurename}{LIST OF FIGURES}%
+		\renewcommand{\listtablename}{LIST OF TABLES}%
+		\renewcommand{\figurename}{Figure}%
+		\renewcommand{\tablename}{Table}%
+		\@ifundefined{selectlanguage}{}{\selectlanguage{english}}%
+	\else
+		\renewcommand{\chaptername}{Capítulo}%
+		\renewcommand{\contentsname}{SUMÁRIO}%
+		\renewcommand{\listfigurename}{LISTA DE FIGURAS}%
+		\renewcommand{\listtablename}{LISTA DE TABELAS}%
+		\renewcommand{\figurename}{Figura}%
+		\renewcommand{\tablename}{Tabela}%
+		\@ifundefined{selectlanguage}{}{\selectlanguage{brazilian}}%
+	\fi
+}
 \titleformat{\chapter}[hang] 
 {\normalfont\large\bfseries\centering}{\chaptertitlename\ \thechapter }{1em}{}
 \titleformat{\section}[hang]
@@ -91,7 +165,7 @@
 \newcommand{\specialcell}[2][c]{%
 	\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
 
-%\newgidx{acronym}{Lista de Abreviações}
+%\newgidx{acronym}{Lista de Acrônimos}
 %\DTLgidxSetDefaultDB{acronym}
 
 %dcover
@@ -116,7 +190,7 @@
 			\begin{minipage}{0.5\textwidth}
 				\normalsize
 				\singlespacing
-				Dissertação de Mestrado apresentada ao Programa de Pós-graduação em Energia e Sociedade, Centro Federal de Educação Tecnológica Celso Suckow da Fonseca CEFET/RJ, como parte dos requisitos necessários à obtenção do grau de mestre.
+				\ppgescovertext
 			\end{minipage}\\[1.5cm]
 		\end{flushright}
 		
@@ -124,13 +198,13 @@
 			\begin{minipage}{0.5\textwidth}
 				\normalsize
 				\singlespacing
-				Orientadores: \\
+				\ppgesadvisorlabel \\
 				\dadvisor
 			\end{minipage}\\
 		\end{flushright}
 		\vfill	
 		Rio de Janeiro,\\
-		\today
+		\ppgestodaycover
 		
 	\end{titlepage}
 }
@@ -150,7 +224,7 @@
 	
 	\begin{minipage}{0.9\textwidth}
 		\normalsize
-		Dissertação de Mestrado em Energia e Sociedade, Centro Federal de Educação Tecnológica Celso Suckow da Fonseca, CEFET/RJ. 
+		\ppgessignaturetext
 	\end{minipage}\\[2cm]
 	
 	\begin{minipage}{0.9\textwidth}
@@ -161,7 +235,7 @@
 	
 	\begin{minipage}{0.9\textwidth}
 		\begin{flushleft}
-			Aprovada por:
+			\ppgesapprovedlabel
 		\end{flushleft}
 	\end{minipage}\\[1cm]
 	
@@ -171,7 +245,7 @@
 	
 	\vfill	
 	Rio de Janeiro,\\
-	\today
+	\ppgestodaycover
 }
 
 %dlibrary
@@ -212,6 +286,7 @@
 
 %dresumo
 \newcommand{\dresumo}[2]{
+\begin{otherlanguage*}{brazilian}
 \chapter*{RESUMO}
 
 
@@ -240,14 +315,18 @@
 	
 \end{singlespacing}
 
-\centering
-\vfill	
-Rio de Janeiro,\\
-\today
+\vspace{1cm}
+\vfill
+\begin{center}
+	Rio de Janeiro,\\
+	\number\day\space de \ppgesbrazilianmonth{\month}\space de \number\year
+\end{center}
+\end{otherlanguage*}
 }
 
 %dabstract
 \newcommand{\dabstract}[2]{
+\begin{otherlanguage*}{english}
 	\chapter*{ABSTRACT}
 	
 	\begin{center}
@@ -281,13 +360,19 @@ Rio de Janeiro,\\
 	\vfill
 	\begin{center}
 		Rio de Janeiro,\\
-		\today 
+		\ppgesenglishmonth{\month}\space\number\day, \number\year 
 	\end{center}
 	\pagebreak
+\end{otherlanguage*}
 }
 
 %dtables
 \newcommand{\dtables}{
+\ifppgesenglish
+\selectlanguage{english}
+\else
+\selectlanguage{brazilian}
+\fi
 
 %\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
 %\renewcommand{\backref}{}
@@ -307,7 +392,7 @@ Rio de Janeiro,\\
 %\pagebreak
 \clearpage
 \renewcommand{\glossarysection}[2][]{}
-{\fontsize{12pt}{\baselineskip}\selectfont \centerline{ \textbf{Lista de Acrônimos}} \vskip12pt\par}	
+{\large\selectfont \centerline{\textbf{\ppgesacrtitle}} \vskip12pt\par}
 \setlength{\LTleft}{0pt}
 \printglossary[type=\acronymtype,style=long,nonumberlist]
 \pagebreak
