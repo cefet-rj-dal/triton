@@ -103,10 +103,6 @@ fe_mult_grid <- c(0.90, 1.00, 1.10)
 # Sensibilidade operacional
 op_mult_grid <- c(0.90, 1.00, 1.10)
 
-# Sensibilidade específica para TCO
-tco_fe_mult_grid <- c(0.80, 1.00, 1.20)
-tco_price_mult_grid <- c(0.70, 0.85, 1.00, 1.15)
-
 # Penalidade de interação da mistura na eficiência do motor.
 # Valor pequeno e configurável para evitar comportamento idealizado demais do blend.
 # Base empírica para modelar efeito do teor de biodiesel sobre consumo/eficiência:
@@ -169,6 +165,36 @@ fuel_tbl <- tibble(
   # FE_bio = 0,513 kgCO2/kg para TCO: convertido de Wang et al. (2015).
   FE_bio  = c(1.32, 0.64, 0.56, 0.513)          # kgCO2/kg: soja, sebo bovino, UCO, TCO
 )
+
+# Blends estaduais do experimento E7
+# O E7 nao substitui a analise por rotas tecnologicas de E1--E6.
+# Ele testa a mesma estrutura analitica do artigo em composicoes agregadas
+# de oferta observada no Brasil, representadas pelos cinco maiores estados
+# produtores de biodiesel no levantamento auxiliar dos estados.
+#
+# Convencoes:
+# - O perfil operacional e regulatorio permanece o mesmo do artigo.
+# - Os parametros abaixo representam blends estaduais agregados, e nao
+#   rotas puras isoladas.
+# - PCI_bio e eta_bio permanecem alinhados ao biodiesel FAME convencional,
+#   preservando comparabilidade com a base do artigo.
+# - p_bio e FE_bio sao os valores efetivamente usados no estudo adicional
+#   dos estados, construidos a partir de medias ponderadas por composicao
+#   produtiva e medias regionais de preco do B100.
+# - p_bio foi obtido no estudo auxiliar a partir de medias regionais da ANP
+#   para o B100, convertidas de R$/L para USD/kg com densidade de referencia
+#   rho_bio = 0,88 kg/L.
+# - FE_bio representa o fator WTW agregado do blend estadual, obtido no
+#   estudo auxiliar por media ponderada das materias-primas predominantes.
+fuel_tbl_estados <- tibble(
+  rota = c("Bahia", "Goiás", "Mato Grosso", "Paraná", "Rio Grande do Sul"),
+  PCI_bio = c(37.68, 37.68, 37.68, 37.68, 37.68),
+  eta_bio = c(0.43, 0.43, 0.43, 0.43, 0.43),
+  p_bio = c(1.31, 1.28, 1.28, 1.24, 1.24),
+  FE_bio = c(1.14, 1.21, 1.18, 1.17, 1.24)
+)
+
+rotas_bio_estados <- fuel_tbl_estados$rota
 
 FE_b_ttw_ets <- FE_b
 FE_bio_ttw_ets <- 0
@@ -577,45 +603,55 @@ res_E6 <- expand_grid(
 write_csv(res_E6, "resultados/tabelas/E6_caminhos_viabilidade.csv")
 
 # -----------------------------
-# Experimento E7 - Sensibilidade específica para TCO
-# Mantido no código por herança da dissertação.
-# Este experimento nao integra a versão atual do artigo.
+# Experimento E7 - Blends estaduais observados
+# Verifica se a fronteira de viabilidade obtida para rotas tecnologicas
+# permanece consistente quando o biodiesel e representado por composicoes
+# agregadas dos principais estados produtores brasileiros.
 # -----------------------------
-tco_row <- fuel_tbl %>% filter(rota == "TCO")
-
 res_E7 <- expand_grid(
   alpha = alpha_grid,
-  tco_fe_mult = tco_fe_mult_grid,
-  tco_price_mult = tco_price_mult_grid
+  rota = rotas_bio_estados
 ) %>%
+  pmap_dfr(\(alpha, rota) {
+    calc_cenario(
+      alpha = alpha,
+      rota = rota,
+      fuel_data = fuel_tbl_estados
+    )
+  })
+
+write_csv(res_E7, "resultados/tabelas/E7_blends_estaduais_base.csv")
+
+res_E7_reg <- expand_grid(
+  alpha = alpha_grid,
+  rota = rotas_bio_estados,
+  policy_path = policy_tbl$policy_path
+) %>%
+  left_join(policy_tbl, by = "policy_path") %>%
   mutate(
-    fuel_data_adj = pmap(
-      list(tco_fe_mult, tco_price_mult),
-      \(tco_fe_mult, tco_price_mult) {
-        fuel_tbl %>%
-          mutate(
-            p_bio = if_else(rota == "TCO", tco_row$p_bio * tco_price_mult, p_bio),
-            FE_bio = if_else(rota == "TCO", tco_row$FE_bio * tco_fe_mult, FE_bio)
-          )
-      }
-    ),
     data = pmap(
-      list(alpha, fuel_data_adj),
-      \(alpha, fuel_data_adj) {
+      list(alpha, rota, gamma_ref_signal_eur, gamma_comp_signal_eur),
+      \(alpha, rota, gamma_ref_signal_eur, gamma_comp_signal_eur) {
         calc_cenario(
           alpha = alpha,
-          rota = "TCO",
-          fuel_data = fuel_data_adj
+          rota = rota,
+          gamma_ref_val_eur = gamma_ref_signal_eur,
+          gamma_comp_val_eur = gamma_comp_signal_eur,
+          fuel_data = fuel_tbl_estados
         )
       }
     )
   ) %>%
   mutate(
     data = pmap(
-      list(data, tco_fe_mult, tco_price_mult),
-      \(data, tco_fe_mult, tco_price_mult) {
+      list(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur),
+      \(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur) {
         bind_cols(
-          tibble(tco_fe_mult = tco_fe_mult, tco_price_mult = tco_price_mult),
+          tibble(
+            policy_path = policy_path,
+            gamma_ref_signal_eur = gamma_ref_signal_eur,
+            gamma_comp_signal_eur = gamma_comp_signal_eur
+          ),
           data
         )
       }
@@ -624,7 +660,8 @@ res_E7 <- expand_grid(
   pull(data) %>%
   list_rbind()
 
-write_csv(res_E7, "legado/resultados/tabelas/E7_sensibilidade_tco.csv")
+write_csv(res_E7_reg, "resultados/tabelas/E7_blends_estaduais_regulatorio.csv")
+write_csv(fuel_tbl_estados, "resultados/tabelas/E7_parametros_estaduais.csv")
 
 # ============================================================
 # Gráficos principais
@@ -636,6 +673,8 @@ write_csv(res_E7, "legado/resultados/tabelas/E7_sensibilidade_tco.csv")
 # - grafico_07_fronteira_viabilidade.png -> Figura de fronteira de viabilidade da Seção 4
 # Gráficos 02, 03, 05 e 08 permanecem como apoio analítico e não aparecem
 # na versão atual do artigo.
+# - grafico_09_break_even_estados.png -> Figura adicional do E7
+# - grafico_10_fronteira_viabilidade_estados.png -> Figura adicional do E7
 # ============================================================
 
 # -----------------------------
@@ -848,6 +887,59 @@ g8 <- ggplot(heat_break_even, aes(x = alpha_f, y = rota, fill = break_even_EUR_t
 save_plot(g8, "grafico_08_heatmap_break_even.png",
           base_dir = file.path("legado", "resultados", "graficos"))
 
+# -----------------------------
+# Gráfico 9 - Break-even por blend estadual
+# -----------------------------
+cores_estados <- c(
+  "Bahia" = "#1f77b4",
+  "Goiás" = "#d62728",
+  "Mato Grosso" = "#2ca02c",
+  "Paraná" = "#ff7f0e",
+  "Rio Grande do Sul" = "#9467bd"
+)
+
+g9 <- ggplot(
+  res_E7,
+  aes(x = alpha, y = break_even_EUR_tCO2, group = rota, color = rota, linetype = rota)
+) +
+  geom_hline(data = policy_lines, aes(yintercept = y), linewidth = 0.5, alpha = 0.45, color = "grey40") +
+  geom_line(linewidth = 0.9) +
+  geom_point(size = 2) +
+  scale_color_manual(values = cores_estados) +
+  labs(
+    x = expression(alpha),
+    y = expression("Preco de carbono de equilibrio " * "(" * EUR/tCO[2] * ")"),
+    title = "Preco de carbono de equilibrio por fracao de mistura e blend estadual",
+    color = "Estado",
+    linetype = "Estado"
+  ) +
+  theme_minimal(base_size = 12)
+
+save_plot(g9, "grafico_09_break_even_estados.png")
+
+# -----------------------------
+# Gráfico 10 - Fronteira regulatória dos blends estaduais
+# -----------------------------
+frontier_E7 <- res_E7_reg %>%
+  mutate(
+    rota = factor(rota, levels = rotas_bio_estados),
+    alpha_f = factor(alpha),
+    policy_f = factor(gamma_ref_signal_eur, levels = sort(unique(gamma_ref_signal_eur)))
+  )
+
+g10 <- ggplot(frontier_E7, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
+  geom_tile(color = "white") +
+  facet_wrap(~ rota) +
+  labs(
+    x = expression(alpha),
+    y = expression("Sinal regulatorio " * "(" * gamma^{ref} * " = " * gamma^{comp} * ", " * EUR/tCO[2] * ")"),
+    fill = "Viavel",
+    title = "Fronteira de viabilidade dos blends estaduais"
+  ) +
+  theme_minimal(base_size = 12)
+
+save_plot(g10, "grafico_10_fronteira_viabilidade_estados.png")
+
 # ============================================================
 # Tabelas-resumo
 # ============================================================
@@ -882,8 +974,8 @@ resumo_break_even <- res_E1 %>%
 
 write_csv(resumo_break_even, "resultados/tabelas/resumo_break_even.csv")
 
-resumo_E7_tco <- res_E7 %>%
-  group_by(tco_fe_mult, tco_price_mult) %>%
+resumo_E7 <- res_E7 %>%
+  group_by(rota) %>%
   summarise(
     break_even_min_eur_tco2 = min(break_even_EUR_tCO2, na.rm = TRUE),
     alpha_break_even_min = alpha[which.min(break_even_EUR_tCO2)],
@@ -891,7 +983,24 @@ resumo_E7_tco <- res_E7 %>%
     .groups = "drop"
   )
 
-write_csv(resumo_E7_tco, "legado/resultados/tabelas/resumo_E7_tco.csv")
+write_csv(resumo_E7, "resultados/tabelas/resumo_E7_estados.csv")
+
+primeiros_viaveis_E7 <- res_E7_reg %>%
+  filter(V == 1) %>%
+  group_by(rota) %>%
+  arrange(gamma_ref_signal_eur, alpha, .by_group = TRUE) %>%
+  slice(1) %>%
+  ungroup() %>%
+  select(
+    rota,
+    alpha,
+    gamma_ref_signal_eur,
+    gamma_comp_signal_eur,
+    break_even_EUR_tCO2,
+    Delta_G_t
+  )
+
+write_csv(primeiros_viaveis_E7, "resultados/tabelas/E7_primeiros_viaveis.csv")
 
 # Tabela específica alpha = 0.24
 tab_B24 <- res_E1 %>%

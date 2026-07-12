@@ -17,9 +17,16 @@ Base computacional dos experimentos do artigo sobre viabilidade econômico-ambie
   - `grafico_04_tradeoff_deltaG_deltaC.png`
   - `grafico_06_decomposicao_custo.png`
   - `grafico_07_fronteira_viabilidade.png`
+  - `grafico_09_break_even_estados.png`
+  - `grafico_10_fronteira_viabilidade_estados.png`
 
 - `resultados/tabelas/`
-  Tabelas e bases intermediárias associadas aos experimentos E1--E6 do artigo.
+  Tabelas e bases intermediárias associadas aos experimentos E1--E7 do artigo, incluindo:
+  - `E7_blends_estaduais_base.csv`
+  - `E7_blends_estaduais_regulatorio.csv`
+  - `E7_parametros_estaduais.csv`
+  - `E7_primeiros_viaveis.csv`
+  - `resumo_E7_estados.csv`
 
 - `legado/`
   Materiais que não entram na versão atual do artigo, mas foram mantidos para rastreabilidade.
@@ -27,7 +34,6 @@ Base computacional dos experimentos do artigo sobre viabilidade econômico-ambie
 - `legado/resultados/`
   Gráficos e tabelas legados, incluindo:
   - gráficos analíticos não usados no artigo;
-  - saídas do experimento E7;
   - tabelas auxiliares de B24 herdadas da dissertação.
 
 - `legado/apresentacao/`
@@ -52,4 +58,5 @@ O script grava:
 ## Observações
 
 - O script está documentado com comentários indicando a origem dos parâmetros usados no artigo.
-- Os cinco gráficos em `resultados/graficos/` foram conferidos contra os arquivos do manuscrito e permanecem visualmente idênticos.
+- O experimento E7 adiciona uma verificação com blends estaduais observados da oferta brasileira de biodiesel, preservando a mesma base operacional e regulatória do artigo.
+- Em E7, as rotas tecnológicas puras de E1--E6 não são substituídas; os blends estaduais funcionam como extensão empírica complementar do argumento do artigo.
