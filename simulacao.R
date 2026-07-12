@@ -1,6 +1,9 @@
 # ============================================================
 # Planejamento experimental do modelo de biobunker
-# Dissertação de mestrado - versão inicial
+# Base computacional usada para os resultados do artigo
+# "Biobunker como Combustível de Transição no Transporte Marítimo:
+# Uma Avaliação por Simulação da Viabilidade Econômico-Ambiental
+# na Rota Santos--Roterdã"
 # ============================================================
 
 # -----------------------------
@@ -22,12 +25,21 @@ suppressPackageStartupMessages({
 dir.create("resultados", showWarnings = FALSE)
 dir.create("resultados/tabelas", recursive = TRUE, showWarnings = FALSE)
 dir.create("resultados/graficos", recursive = TRUE, showWarnings = FALSE)
+dir.create("legado", showWarnings = FALSE)
+dir.create("legado/resultados", recursive = TRUE, showWarnings = FALSE)
+dir.create("legado/resultados/tabelas", recursive = TRUE, showWarnings = FALSE)
+dir.create("legado/resultados/graficos", recursive = TRUE, showWarnings = FALSE)
 
 # -----------------------------
 # Parâmetros globais
 # -----------------------------
 
 # Rota-base: Santos -> Roterdã
+# Fontes conforme o artigo:
+# - Distância = 10.120 km: SeaRoutes (rota Santos--Roterdã), citado como searoutes2026.
+# - Velocidade média = 25,93 km/h (14 nós): Brown et al. (2019), citado como brown_power_2019.
+# - Consumo agregado = 40 t/dia: ordem de grandeza coerente com relatórios operacionais
+#   para graneleiros, citado no artigo como marineaffairs2025.
 D_base_km   <- 10120      # km
 V_base_kmh  <- 25.93      # km/h
 c_base_tday <- 40         # t/dia
@@ -36,6 +48,9 @@ c_base_tday <- 40         # t/dia
 c_base_th <- c_base_tday / 24  # t/h
 
 # Misturas avaliadas
+# Grade usada no artigo. Inclui B24 (alpha = 0.24), mantido como ponto
+# intermediário de leitura e para inspeção da região em que a classificação
+# passa a mudar nos experimentos regulatórios ampliados.
 alpha_grid <- c(0.10, 0.15, 0.20, 0.24, 0.25, 0.30)
 
 # Rotas de produção do biodiesel
@@ -44,10 +59,17 @@ alpha_grid <- c(0.10, 0.15, 0.20, 0.24, 0.25, 0.30)
 rotas_bio <- c("soja", "sebo bovino", "UCO", "TCO")
 
 # Critérios de viabilidade
+# Artigo:
+# - delta_ref = 0,15 como limiar ambiental de referência.
+# - gamma_ref_eur = 80 EUR/tCO2 como referência principal para comparação
+#   com o MAC no cenário-base.
 delta_ref <- 0.15           # referência para critério ambiental
 gamma_ref_eur <- 80         # EUR/tCO2, referência para comparar com MAC
 
 # Faixas para sensibilidade
+# Artigo:
+# - E4: delta em {0,10; 0,15; 0,20; 0,25}
+# - E4: gamma_ref em {60, 80, 100} EUR/tCO2
 delta_grid <- c(0.10, 0.15, 0.20, 0.25)
 gamma_grid_eur <- c(60, 80, 100)
 
@@ -60,9 +82,11 @@ gamma_grid <- gamma_grid_eur * eur_to_usd_ref
 
 # Componente gamma^comp associado ao custo explícito de compliance do EU ETS
 # na rota Santos -> Roterdã, em modelagem simplificada.
-# Regras-base:
-# - viagens extra-UE para UE: 50% das emissões elegíveis cobertas;
-# - phase-in: 100% para emissões de 2026 em diante;
+# Fontes e convenções do artigo:
+# - preco de referência do EU ETS: 80 EUR/tCO2 no cenário-base, com apoio em
+#   euets2023 / World Bank (2024) para a ordem de grandeza recente.
+# - cobertura regulatória de 50% para viagens extra-UE -> UE.
+# - phase-in = 100% para emissões de 2026 em diante.
 # - biomassa sustentável elegível: fator zero para surrender no EU ETS.
 gamma_comp_eur_ref <- 80
 gamma_comp_usd_ref <- gamma_comp_eur_ref * eur_to_usd_ref
@@ -100,6 +124,12 @@ eta_blend_penalty <- 0.015
 # -----------------------------
 
 # Bunker fuel
+# Fontes conforme o artigo:
+# - PCI_b = 40,2 MJ/kg: IPCC (2006), categoria Residual Fuel Oil.
+# - FE_b = 3,114 kgCO2/kg: IPCC (2006), categoria Residual Fuel Oil.
+# - p_b = 0,50 USD/kg: ordem de grandeza adotada no artigo a partir de avaliações
+#   tecnoeconômicas recentes sobre combustíveis marítimos renováveis.
+# - eta_b = 0,45: valor médio representativo de modelagem comparativa.
 PCI_b  <- 40.2             # MJ/kg
 eta_b  <- 0.45
 p_b    <- 0.50             # USD/kg
@@ -128,7 +158,15 @@ fuel_tbl <- tibble(
   rota = rotas_bio,
   PCI_bio = c(37.68, 37.68, 37.68, 36.64),      # MJ/kg
   eta_bio = c(0.43, 0.43, 0.43, 0.43),
-  p_bio   = c(1.60, 1.60, 1.60, 1.60),          # USD/kg (valor inicial; pode ser ajustado)
+  # p_bio = 1,60 USD/kg: ordem de grandeza-base usada no artigo, em linha com
+  # comparações tecnoeconômicas recentes.
+  p_bio   = c(1.60, 1.60, 1.60, 1.60),          # USD/kg
+  # PCI_bio = 37,68 MJ/kg para soja / sebo / UCO: coerente com RenovaCalc.
+  # PCI_bio = 36,64 MJ/kg para TCO: Dhinesh et al. (2019).
+  # FE_bio = 1,32 / 0,64 / 0,56 kgCO2/kg para soja / sebo / UCO:
+  #   referenciais do RenovaBio e sistematização metodológica recente
+  #   (anp_renovacalc; pereira_renovacalc_2025).
+  # FE_bio = 0,513 kgCO2/kg para TCO: convertido de Wang et al. (2015).
   FE_bio  = c(1.32, 0.64, 0.56, 0.513)          # kgCO2/kg: soja, sebo bovino, UCO, TCO
 )
 
@@ -287,9 +325,10 @@ calc_cenario <- function(alpha, rota,
   )
 }
 
-save_plot <- function(plot_obj, filename, width = 9, height = 6, dpi = 300) {
+save_plot <- function(plot_obj, filename, width = 9, height = 6, dpi = 300,
+                      base_dir = file.path("resultados", "graficos")) {
   ggsave(
-    filename = file.path("resultados/graficos", filename),
+    filename = file.path(base_dir, filename),
     plot = plot_obj,
     width = width,
     height = height,
@@ -299,7 +338,8 @@ save_plot <- function(plot_obj, filename, width = 9, height = 6, dpi = 300) {
 }
 
 # -----------------------------
-# Setup E1 - Cenário-base
+# Experimento E1 - Cenário-base
+# Corresponde à resposta-base da avaliação experimental do artigo.
 # -----------------------------
 res_E1 <- expand_grid(
   alpha = alpha_grid,
@@ -310,7 +350,9 @@ res_E1 <- expand_grid(
 write_csv(res_E1, "resultados/tabelas/E1_cenario_base.csv")
 
 # -----------------------------
-# Setup E2 - Sensibilidade econômica
+# Experimento E2 - Sensibilidade econômica
+# Artigo: multiplicadores {0,80; 1,00; 1,20} para preços do combustível
+# fóssil e do biodiesel.
 # -----------------------------
 res_E2 <- expand_grid(
   alpha = alpha_grid,
@@ -360,7 +402,8 @@ res_E2 <- expand_grid(
 write_csv(res_E2, "resultados/tabelas/E2_sensibilidade_economica.csv")
 
 # -----------------------------
-# Setup E3 - Sensibilidade ambiental
+# Experimento E3 - Sensibilidade ambiental
+# Artigo: multiplicadores {0,90; 1,00; 1,10} para fatores de emissão WTW.
 # -----------------------------
 res_E3 <- expand_grid(
   alpha = alpha_grid,
@@ -405,7 +448,8 @@ res_E3 <- expand_grid(
 write_csv(res_E3, "resultados/tabelas/E3_sensibilidade_ambiental.csv")
 
 # -----------------------------
-# Setup E4 - Sensibilidade regulatória
+# Experimento E4 - Sensibilidade regulatória
+# Artigo: combinacoes de delta e gamma_ref no dominio regulatório de referência.
 # -----------------------------
 res_E4 <- expand_grid(
   alpha = alpha_grid,
@@ -432,7 +476,8 @@ res_E4 <- expand_grid(
 write_csv(res_E4, "resultados/tabelas/E4_sensibilidade_regulatoria.csv")
 
 # -----------------------------
-# Setup E5 - Sensibilidade operacional
+# Experimento E5 - Sensibilidade operacional
+# Artigo: multiplicadores {0,90; 1,00; 1,10} para distância, velocidade e consumo.
 # -----------------------------
 res_E5 <- expand_grid(
   alpha = alpha_grid,
@@ -472,7 +517,9 @@ res_E5 <- expand_grid(
 write_csv(res_E5, "resultados/tabelas/E5_sensibilidade_operacional.csv")
 
 # -----------------------------
-# Setup E6 - Caminhos de viabilidade regulatória
+# Experimento E6 - Caminhos de viabilidade regulatória
+# Artigo: trajetórias conjuntas com gamma_ref = gamma_comp em
+# {80, 100, 150, 200, 300, 400, 500, 650, 770} EUR/tCO2.
 # -----------------------------
 policy_tbl <- tibble(
   policy_path = c(
@@ -530,7 +577,9 @@ res_E6 <- expand_grid(
 write_csv(res_E6, "resultados/tabelas/E6_caminhos_viabilidade.csv")
 
 # -----------------------------
-# Setup E7 - Sensibilidade específica para TCO
+# Experimento E7 - Sensibilidade específica para TCO
+# Mantido no código por herança da dissertação.
+# Este experimento nao integra a versão atual do artigo.
 # -----------------------------
 tco_row <- fuel_tbl %>% filter(rota == "TCO")
 
@@ -575,10 +624,18 @@ res_E7 <- expand_grid(
   pull(data) %>%
   list_rbind()
 
-write_csv(res_E7, "resultados/tabelas/E7_sensibilidade_tco.csv")
+write_csv(res_E7, "legado/resultados/tabelas/E7_sensibilidade_tco.csv")
 
 # ============================================================
-# Gráficos principais da dissertação / artigo
+# Gráficos principais
+# Mapeamento com o artigo:
+# - grafico_01_emissoes_vs_alpha.png -> Figura de emissões da Seção 4
+# - grafico_03b_break_even_vs_alpha.png -> Figura de break-even da Seção 4
+# - grafico_04_tradeoff_deltaG_deltaC.png -> Figura de trade-off da Seção 4
+# - grafico_06_decomposicao_custo.png -> Figura de decomposição de custo da Seção 4
+# - grafico_07_fronteira_viabilidade.png -> Figura de fronteira de viabilidade da Seção 4
+# Gráficos 02, 03, 05 e 08 permanecem como apoio analítico e não aparecem
+# na versão atual do artigo.
 # ============================================================
 
 # -----------------------------
@@ -611,7 +668,8 @@ g2 <- ggplot(res_E1, aes(x = alpha, y = C_USD, group = rota, linetype = rota)) +
   ) +
   theme_minimal(base_size = 12)
 
-save_plot(g2, "grafico_02_custo_vs_alpha.png")
+save_plot(g2, "grafico_02_custo_vs_alpha.png",
+          base_dir = file.path("legado", "resultados", "graficos"))
 
 # -----------------------------
 # Gráfico 3 - MAC vs alpha
@@ -628,7 +686,8 @@ g3 <- ggplot(res_E1, aes(x = alpha, y = MAC_USD_tCO2, group = rota, linetype = r
   ) +
   theme_minimal(base_size = 12)
 
-save_plot(g3, "grafico_03_mac_vs_alpha.png")
+save_plot(g3, "grafico_03_mac_vs_alpha.png",
+          base_dir = file.path("legado", "resultados", "graficos"))
 
 # -----------------------------
 # Gráfico 3B - Break-even carbon price vs alpha
@@ -695,7 +754,8 @@ g5 <- ggplot(heat_E4, aes(x = alpha_f, y = rota, fill = factor(V))) +
   ) +
   theme_minimal(base_size = 12)
 
-save_plot(g5, "grafico_05_heatmap_viabilidade.png")
+save_plot(g5, "grafico_05_heatmap_viabilidade.png",
+          base_dir = file.path("legado", "resultados", "graficos"))
 
 # -----------------------------
 # Gráfico 6 - Decomposição do custo total
@@ -785,7 +845,8 @@ g8 <- ggplot(heat_break_even, aes(x = alpha_f, y = rota, fill = break_even_EUR_t
   ) +
   theme_minimal(base_size = 12)
 
-save_plot(g8, "grafico_08_heatmap_break_even.png")
+save_plot(g8, "grafico_08_heatmap_break_even.png",
+          base_dir = file.path("legado", "resultados", "graficos"))
 
 # ============================================================
 # Tabelas-resumo
@@ -830,7 +891,7 @@ resumo_E7_tco <- res_E7 %>%
     .groups = "drop"
   )
 
-write_csv(resumo_E7_tco, "resultados/tabelas/resumo_E7_tco.csv")
+write_csv(resumo_E7_tco, "legado/resultados/tabelas/resumo_E7_tco.csv")
 
 # Tabela específica alpha = 0.24
 tab_B24 <- res_E1 %>%
@@ -839,7 +900,7 @@ tab_B24 <- res_E1 %>%
     rota, alpha, E_util_GJ, C_USD, G_t, Delta_G_t, Delta_C_USD, MAC_USD_tCO2, V
   )
 
-write_csv(tab_B24, "resultados/tabelas/tabela_B24.csv")
+write_csv(tab_B24, "legado/resultados/tabelas/tabela_B24.csv")
 
 # Reprodução do exemplo numérico da Seção III.9 segundo o modelo executado
 calc_exemplo_capitulo3 <- function() {
@@ -901,7 +962,7 @@ calc_exemplo_capitulo3 <- function() {
 
 tab_capitulo3_B24 <- calc_exemplo_capitulo3()
 
-write_csv(tab_capitulo3_B24, "resultados/tabelas/tabela_capitulo3_B24.csv")
+write_csv(tab_capitulo3_B24, "legado/resultados/tabelas/tabela_capitulo3_B24.csv")
 
 # ============================================================
 # Mensagem final
