@@ -103,18 +103,6 @@ fe_mult_grid <- c(0.90, 1.00, 1.10)
 # Sensibilidade operacional
 op_mult_grid <- c(0.90, 1.00, 1.10)
 
-# Penalidade de interação da mistura na eficiência do motor.
-# Valor pequeno e configurável para evitar comportamento idealizado demais do blend.
-# Base empírica para modelar efeito do teor de biodiesel sobre consumo/eficiência:
-# - Gokalp, Buyukkaya, Soyhan (2011), Biomass and Bioenergy 35(8):3575-3583,
-#   doi:10.1016/j.biombioe.2011.05.015. Em misturas com marine fuel e SME,
-#   o BSFC aumenta e os blends de menor teor preservam melhor o desempenho.
-# - Lujan et al. (2020), Applied Sciences 10(3):907, doi:10.3390/app10030907.
-#   O aumento do teor de biodiesel eleva o consumo específico e reduz a BTE.
-# - Zhu et al. (2012), Applied Energy 99:363-371, doi:10.1016/j.apenergy.2012.05.049.
-#   BSFC e BTE variam com o blend e com a carga, indicando resposta não linear.
-eta_blend_penalty <- 0.015
-
 # -----------------------------
 # Propriedades dos combustíveis
 # -----------------------------
@@ -236,7 +224,6 @@ calc_cenario <- function(alpha, rota,
                          ets_phase_in_val = ets_phase_in_ref,
                          FE_b_ttw_ets_val = FE_b_ttw_ets,
                          FE_bio_ttw_ets_val = FE_bio_ttw_ets,
-                         eta_blend_penalty_val = eta_blend_penalty,
                          fuel_data = fuel_tbl) {
 
   op <- calc_operacao(D_km, V_kmh, c_tday)
@@ -260,10 +247,7 @@ calc_cenario <- function(alpha, rota,
   FE_mix_ets_ttw <- (1 - alpha) * FE_b_ttw_ets_val + alpha * FE_bio_ttw_ets_val
   eta_mix_ideal <- (((1 - alpha) * PCI_b_val * eta_b_val) +
     (alpha * bio$PCI_bio * bio$eta_bio)) / PCI_mix
-  # A penalidade alpha*(1-alpha) representa desvio moderado do caso ideal de mistura.
-  # Ela evita MAC constante em alpha e reflete o fato de que o desempenho do motor
-  # com blends reais depende do teor de biodiesel, da atomização e da combustão.
-  eta_mix <- pmax(eta_mix_ideal - eta_blend_penalty_val * alpha * (1 - alpha), 1e-9)
+  eta_mix <- eta_mix_ideal
   e_mix_util_MJ_kg <- PCI_mix * eta_mix
   F_mix_kg <- E_req_MJ / e_mix_util_MJ_kg
 
