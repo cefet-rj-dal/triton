@@ -15,6 +15,7 @@ suppressPackageStartupMessages({
   library(purrr)
   library(ggplot2)
   library(readr)
+  library(readxl)
   library(stringr)
   library(forcats)
 })
@@ -29,6 +30,19 @@ dir.create("legado", showWarnings = FALSE)
 dir.create("legado/resultados", recursive = TRUE, showWarnings = FALSE)
 dir.create("legado/resultados/tabelas", recursive = TRUE, showWarnings = FALSE)
 dir.create("legado/resultados/graficos", recursive = TRUE, showWarnings = FALSE)
+
+# -----------------------------
+# Dados oficiais de apoio
+# -----------------------------
+
+anp_preco_b100_path <- "dados/anp/anp-precos-medios-ponderados-semanais-2013-em-diante.xls"
+anp_materia_prima_path <- "dados/anp/anp-biodiesel-materia-prima.csv"
+
+# Fontes:
+# - Precos B100:
+#   https://www.gov.br/anp/pt-br/assuntos/precos-e-defesa-da-concorrencia/precos/precos-de-produtores-e-importadores-de-derivados-de-petroleo-e-biodiesel
+# - Materia-prima/producao:
+#   https://www.gov.br/anp/pt-br/centrais-de-conteudo/paineis-dinamicos-da-anp/paineis-e-mapa-dinamicos-de-produtores-de-combustiveis-e-derivados/painel-dinamico-de-produtores-de-biodiesel
 
 # -----------------------------
 # Parâmetros globais
@@ -79,6 +93,13 @@ gamma_grid_eur <- c(60, 80, 100)
 eur_to_usd_ref <- 1.1581
 gamma_ref <- gamma_ref_eur * eur_to_usd_ref
 gamma_grid <- gamma_grid_eur * eur_to_usd_ref
+
+# Recorte empirico do E7: marco de 2026
+e7_mes_anp <- "03/2026"
+e7_mes_inicio <- as.Date("2026-03-01")
+e7_mes_fim <- as.Date("2026-03-31")
+rho_bio_kg_l <- 0.88
+usd_brl_mar2026 <- 5.2296
 
 # Componente gamma^comp associado ao custo explícito de compliance do EU ETS
 # na rota Santos -> Roterdã, em modelagem simplificada.
@@ -158,7 +179,7 @@ fuel_tbl <- tibble(
 # O E7 nao substitui a analise por rotas tecnologicas de E1--E6.
 # Ele testa a mesma estrutura analitica do artigo em composicoes agregadas
 # de oferta observada no Brasil, representadas pelos cinco maiores estados
-# produtores de biodiesel no levantamento auxiliar dos estados.
+# produtores de biodiesel no recorte ANP de marco de 2026.
 #
 # Convencoes:
 # - O perfil operacional e regulatorio permanece o mesmo do artigo.
@@ -166,21 +187,96 @@ fuel_tbl <- tibble(
 #   rotas puras isoladas.
 # - PCI_bio e eta_bio permanecem alinhados ao biodiesel FAME convencional,
 #   preservando comparabilidade com a base do artigo.
-# - p_bio e FE_bio sao os valores efetivamente usados no estudo adicional
-#   dos estados, construidos a partir de medias ponderadas por composicao
-#   produtiva e medias regionais de preco do B100.
-# - p_bio foi obtido no estudo auxiliar a partir de medias regionais da ANP
-#   para o B100, convertidas de R$/L para USD/kg com densidade de referencia
-#   rho_bio = 0,88 kg/L.
+# - p_bio e calculado a partir das medias regionais da ANP para B100 em
+#   marco de 2026, convertidas de R$/L para USD/kg com rho_bio = 0,88 kg/L
+#   e cambio medio mensal USD/BRL = 5,2296.
 # - FE_bio representa o fator WTW agregado do blend estadual, obtido no
 #   estudo auxiliar por media ponderada das materias-primas predominantes.
-fuel_tbl_estados <- tibble(
+anp_preco_b100_raw <- read_excel(anp_preco_b100_path, skip = 9, col_names = FALSE)
+names(anp_preco_b100_raw) <- c(
+  "produto", "inicio", "fim", "Norte", "Nordeste", "Centro_Oeste",
+  "Sul", "Sudeste", "Brasil", "extra"
+)
+
+to_num <- function(x) {
+  suppressWarnings(as.numeric(str_replace(as.character(x), ",", ".")))
+}
+
+anp_preco_b100_mar2026 <- anp_preco_b100_raw %>%
+  filter(
+    str_detect(str_to_lower(produto), "biodiesel"),
+    as.Date(inicio) >= e7_mes_inicio,
+    as.Date(inicio) <= e7_mes_fim
+  ) %>%
+  mutate(across(c(Norte, Nordeste, Centro_Oeste, Sul, Sudeste, Brasil), to_num))
+
+e7_precos_regionais_b100 <- anp_preco_b100_mar2026 %>%
+  summarise(
+    Norte = mean(Norte, na.rm = TRUE),
+    Nordeste = mean(Nordeste, na.rm = TRUE),
+    Centro_Oeste = mean(Centro_Oeste, na.rm = TRUE),
+    Sul = mean(Sul, na.rm = TRUE),
+    Sudeste = mean(Sudeste, na.rm = TRUE),
+    Brasil = mean(Brasil, na.rm = TRUE)
+  ) %>%
+  pivot_longer(everything(), names_to = "regiao_preco", values_to = "preco_brl_l") %>%
+  mutate(
+    rho_bio_kg_l = rho_bio_kg_l,
+    usd_brl = usd_brl_mar2026,
+    preco_usd_kg = preco_brl_l / rho_bio_kg_l / usd_brl
+  )
+
+anp_materia_prima_mar2026 <- read_csv(
+  anp_materia_prima_path,
+  locale = locale(decimal_mark = ",", grouping_mark = "."),
+  show_col_types = FALSE
+) %>%
+  rename(
+    mes = `Mês/Ano`,
+    regiao = Região,
+    estado = Estado,
+    materia_prima = Produto,
+    quantidade_m3 = `Quantidade (m³)`
+  ) %>%
+  filter(mes == e7_mes_anp)
+
+e7_top_estados_anp <- anp_materia_prima_mar2026 %>%
+  group_by(estado) %>%
+  summarise(producao_m3 = sum(quantidade_m3, na.rm = TRUE), .groups = "drop") %>%
+  arrange(desc(producao_m3)) %>%
+  slice_head(n = 5)
+
+e7_materias_primas_estaduais <- anp_materia_prima_mar2026 %>%
+  semi_join(e7_top_estados_anp, by = "estado") %>%
+  group_by(estado) %>%
+  mutate(
+    producao_estado_m3 = sum(quantidade_m3, na.rm = TRUE),
+    participacao = quantidade_m3 / producao_estado_m3
+  ) %>%
+  ungroup() %>%
+  arrange(estado, desc(quantidade_m3))
+
+fuel_tbl_estados_base <- tibble(
   rota = c("Bahia", "Goiás", "Mato Grosso", "Paraná", "Rio Grande do Sul"),
+  regiao_preco = c("Nordeste", "Centro_Oeste", "Centro_Oeste", "Sul", "Sul"),
   PCI_bio = c(37.68, 37.68, 37.68, 37.68, 37.68),
   eta_bio = c(0.43, 0.43, 0.43, 0.43, 0.43),
-  p_bio = c(1.31, 1.28, 1.28, 1.24, 1.24),
   FE_bio = c(1.14, 1.21, 1.18, 1.17, 1.24)
 )
+
+fuel_tbl_estados <- fuel_tbl_estados_base %>%
+  left_join(e7_precos_regionais_b100, by = "regiao_preco") %>%
+  transmute(
+    rota,
+    PCI_bio,
+    eta_bio,
+    p_bio = preco_usd_kg,
+    FE_bio,
+    regiao_preco,
+    preco_brl_l,
+    rho_bio_kg_l,
+    usd_brl
+  )
 
 rotas_bio_estados <- fuel_tbl_estados$rota
 
@@ -646,6 +742,9 @@ res_E7_reg <- expand_grid(
 
 write_csv(res_E7_reg, "resultados/tabelas/E7_blends_estaduais_regulatorio.csv")
 write_csv(fuel_tbl_estados, "resultados/tabelas/E7_parametros_estaduais.csv")
+write_csv(e7_precos_regionais_b100, "resultados/tabelas/E7_precos_regionais_b100_anp_mar2026.csv")
+write_csv(e7_top_estados_anp, "resultados/tabelas/E7_top_estados_anp_mar2026.csv")
+write_csv(e7_materias_primas_estaduais, "resultados/tabelas/E7_materias_primas_estaduais_anp_mar2026.csv")
 
 # ============================================================
 # Gráficos principais

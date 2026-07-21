@@ -1,6 +1,6 @@
-rota,PCI_bio,eta_bio,p_bio,FE_bio
-Bahia,37.68,0.43,1.31,1.14
-Goiás,37.68,0.43,1.28,1.21
-Mato Grosso,37.68,0.43,1.28,1.18
-Paraná,37.68,0.43,1.24,1.17
-Rio Grande do Sul,37.68,0.43,1.24,1.24
+rota,PCI_bio,eta_bio,p_bio,FE_bio,regiao_preco,preco_brl_l,rho_bio_kg_l,usd_brl
+Bahia,37.68,0.43,1.1452544606227488,1.14,Nordeste,5.270516,0.88,5.2296
+Goiás,37.68,0.43,1.1061392666916992,1.21,Centro_Oeste,5.090506,0.88,5.2296
+Mato Grosso,37.68,0.43,1.1061392666916992,1.18,Centro_Oeste,5.090506,0.88,5.2296
+Paraná,37.68,0.43,1.0736785013976387,1.17,Sul,4.94112,0.88,5.2296
+Rio Grande do Sul,37.68,0.43,1.0736785013976387,1.24,Sul,4.94112,0.88,5.2296
