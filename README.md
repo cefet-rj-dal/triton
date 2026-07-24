@@ -22,6 +22,7 @@ Base computacional dos experimentos do artigo sobre viabilidade econômico-ambie
 
 - `resultados/tabelas/`
   Tabelas e bases intermediárias associadas aos experimentos E1--E7 do artigo, incluindo:
+  - `resumo_sensibilidade_E2_E5.csv`
   - `E7_blends_estaduais_base.csv`
   - `E7_blends_estaduais_regulatorio.csv`
   - `E7_parametros_estaduais.csv`

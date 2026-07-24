@@ -1057,6 +1057,25 @@ resumo_break_even <- res_E1 %>%
 
 write_csv(resumo_break_even, "resultados/tabelas/resumo_break_even.csv")
 
+resumo_sensibilidade_E2_E5 <- bind_rows(
+  res_E2 %>% mutate(experimento = "E2"),
+  res_E3 %>% mutate(experimento = "E3"),
+  res_E4 %>% mutate(experimento = "E4"),
+  res_E5 %>% mutate(experimento = "E5")
+) %>%
+  group_by(experimento, rota) %>%
+  summarise(
+    cenarios_avaliados = n(),
+    break_even_min_eur_tco2 = min(break_even_EUR_tCO2, na.rm = TRUE),
+    break_even_max_eur_tco2 = max(break_even_EUR_tCO2, na.rm = TRUE),
+    break_even_media_eur_tco2 = mean(break_even_EUR_tCO2, na.rm = TRUE),
+    break_even_dp_eur_tco2 = sd(break_even_EUR_tCO2, na.rm = TRUE),
+    cenarios_viaveis = sum(V, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+write_csv(resumo_sensibilidade_E2_E5, "resultados/tabelas/resumo_sensibilidade_E2_E5.csv")
+
 resumo_E7 <- res_E7 %>%
   group_by(rota) %>%
   summarise(
