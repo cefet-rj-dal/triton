@@ -59,5 +59,6 @@ O script grava:
 ## Observações
 
 - O script está documentado com comentários indicando a origem dos parâmetros usados no artigo.
+- A regra de viabilidade separa o custo explícito de `compliance` (`gamma_comp`) do preço de referência do carbono (`gamma_ref`) e registra o sinal efetivo `gamma_eff = gamma_ref + lambda_gamma * gamma_comp`; nos experimentos atuais, `lambda_gamma = 1`.
 - O experimento E7 adiciona uma verificação com blends estaduais observados da oferta brasileira de biodiesel, preservando a mesma base operacional e regulatória do artigo.
 - Em E7, as rotas tecnológicas puras de E1--E6 não são substituídas; os blends estaduais funcionam como extensão empírica complementar do argumento do artigo.

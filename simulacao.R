@@ -75,10 +75,12 @@ rotas_bio <- c("soja", "sebo bovino", "UCO", "TCO")
 # Critérios de viabilidade
 # Artigo:
 # - delta_ref = 0,15 como limiar ambiental de referência.
-# - gamma_ref_eur = 80 EUR/tCO2 como referência principal para comparação
-#   com o MAC no cenário-base.
+# - gamma_ref_eur = 80 EUR/tCO2 como referência de mercado/regulatória.
+# - gamma_eff_eur = gamma_ref_eur + lambda_gamma * gamma_comp_eur como
+#   sinal efetivo de decisão usado para comparação com o MAC.
 delta_ref <- 0.15           # referência para critério ambiental
-gamma_ref_eur <- 80         # EUR/tCO2, referência para comparar com MAC
+gamma_ref_eur <- 80         # EUR/tCO2, referência de mercado/regulatória
+lambda_gamma_ref <- 1       # ponderação do componente de compliance no sinal efetivo
 
 # Faixas para sensibilidade
 # Artigo:
@@ -111,6 +113,8 @@ usd_brl_mar2026 <- 5.2296
 # - biomassa sustentável elegível: fator zero para surrender no EU ETS.
 gamma_comp_eur_ref <- 80
 gamma_comp_usd_ref <- gamma_comp_eur_ref * eur_to_usd_ref
+gamma_eff_eur_ref <- gamma_ref_eur + lambda_gamma_ref * gamma_comp_eur_ref
+gamma_eff_usd_ref <- gamma_eff_eur_ref * eur_to_usd_ref
 ets_coverage_ref <- 0.50
 ets_phase_in_ref <- 1.00
 
@@ -316,6 +320,7 @@ calc_cenario <- function(alpha, rota,
                          gamma_ref_val_eur = gamma_ref_eur,
                          eur_to_usd_val = eur_to_usd_ref,
                          gamma_comp_val_eur = gamma_comp_eur_ref,
+                         lambda_gamma_val = lambda_gamma_ref,
                          ets_coverage_val = ets_coverage_ref,
                          ets_phase_in_val = ets_phase_in_ref,
                          FE_b_ttw_ets_val = FE_b_ttw_ets,
@@ -330,6 +335,8 @@ calc_cenario <- function(alpha, rota,
 
   gamma_ref_val_usd <- gamma_ref_val_eur * eur_to_usd_val
   gamma_comp_val_usd <- gamma_comp_val_eur * eur_to_usd_val
+  gamma_eff_val_eur <- gamma_ref_val_eur + lambda_gamma_val * gamma_comp_val_eur
+  gamma_eff_val_usd <- gamma_eff_val_eur * eur_to_usd_val
 
   # Mantém o mesmo serviço energético útil da viagem em todos os cenários.
   # Essa é a comparação operacionalmente mais consistente: mesma rota, mesma carga,
@@ -381,7 +388,7 @@ calc_cenario <- function(alpha, rota,
   eta_mix_eff <- ifelse(E_quim_GJ > 0, E_util_GJ / E_quim_GJ, NA_real_)
 
   # Critério de viabilidade
-  V <- ifelse((G_t <= (1 - delta_val) * G0_t) & (!is.na(MAC)) & (MAC <= gamma_ref_val_usd), 1, 0)
+  V <- ifelse((G_t <= (1 - delta_val) * G0_t) & (!is.na(MAC)) & (MAC <= gamma_eff_val_usd), 1, 0)
 
   tibble(
     rota = rota,
@@ -424,6 +431,9 @@ calc_cenario <- function(alpha, rota,
     gamma_ref_usd = gamma_ref_val_usd,
     gamma_comp_eur = gamma_comp_val_eur,
     gamma_comp_usd = gamma_comp_val_usd,
+    lambda_gamma = lambda_gamma_val,
+    gamma_eff_eur = gamma_eff_val_eur,
+    gamma_eff_usd = gamma_eff_val_usd,
     ets_coverage = ets_coverage_val,
     ets_phase_in = ets_phase_in_val,
     eur_to_usd = eur_to_usd_val,
@@ -624,8 +634,9 @@ write_csv(res_E5, "resultados/tabelas/E5_sensibilidade_operacional.csv")
 
 # -----------------------------
 # Experimento E6 - Caminhos de viabilidade regulatória
-# Artigo: trajetórias conjuntas com gamma_ref = gamma_comp em
-# {80, 100, 150, 200, 300, 400, 500, 650, 770} EUR/tCO2.
+# Artigo: trajetórias de indução regulatória efetiva, com gamma_eff =
+# gamma_ref + lambda_gamma * gamma_comp. Nos experimentos, lambda_gamma = 1
+# para facilitar a interpretação.
 # -----------------------------
 policy_tbl <- tibble(
   policy_path = c(
@@ -641,6 +652,10 @@ policy_tbl <- tibble(
   ),
   gamma_ref_signal_eur = c(80, 100, 150, 200, 300, 400, 500, 650, 770),
   gamma_comp_signal_eur = c(80, 100, 150, 200, 300, 400, 500, 650, 770)
+) %>%
+  mutate(
+    lambda_gamma = lambda_gamma_ref,
+    gamma_eff_signal_eur = gamma_ref_signal_eur + lambda_gamma * gamma_comp_signal_eur
 )
 
 res_E6 <- expand_grid(
@@ -657,20 +672,22 @@ res_E6 <- expand_grid(
           alpha = alpha,
           rota = rota,
           gamma_ref_val_eur = gamma_ref_signal_eur,
-          gamma_comp_val_eur = gamma_comp_signal_eur
+          gamma_comp_val_eur = gamma_comp_signal_eur,
+          lambda_gamma_val = lambda_gamma_ref
         )
       }
     )
   ) %>%
   mutate(
     data = pmap(
-      list(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur),
-      \(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur) {
+      list(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur, gamma_eff_signal_eur),
+      \(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur, gamma_eff_signal_eur) {
         bind_cols(
           tibble(
             policy_path = policy_path,
             gamma_ref_signal_eur = gamma_ref_signal_eur,
-            gamma_comp_signal_eur = gamma_comp_signal_eur
+            gamma_comp_signal_eur = gamma_comp_signal_eur,
+            gamma_eff_signal_eur = gamma_eff_signal_eur
           ),
           data
         )
@@ -717,6 +734,7 @@ res_E7_reg <- expand_grid(
           rota = rota,
           gamma_ref_val_eur = gamma_ref_signal_eur,
           gamma_comp_val_eur = gamma_comp_signal_eur,
+          lambda_gamma_val = lambda_gamma_ref,
           fuel_data = fuel_tbl_estados
         )
       }
@@ -724,13 +742,14 @@ res_E7_reg <- expand_grid(
   ) %>%
   mutate(
     data = pmap(
-      list(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur),
-      \(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur) {
+      list(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur, gamma_eff_signal_eur),
+      \(data, policy_path, gamma_ref_signal_eur, gamma_comp_signal_eur, gamma_eff_signal_eur) {
         bind_cols(
           tibble(
             policy_path = policy_path,
             gamma_ref_signal_eur = gamma_ref_signal_eur,
-            gamma_comp_signal_eur = gamma_comp_signal_eur
+            gamma_comp_signal_eur = gamma_comp_signal_eur,
+            gamma_eff_signal_eur = gamma_eff_signal_eur
           ),
           data
         )
@@ -799,7 +818,7 @@ save_plot(g2, "grafico_02_custo_vs_alpha.png",
 g3 <- ggplot(res_E1, aes(x = alpha, y = MAC_USD_tCO2, group = rota, linetype = rota)) +
   geom_line(linewidth = 0.9) +
   geom_point(size = 2) +
-  geom_hline(yintercept = gamma_ref, linewidth = 0.8) +
+  geom_hline(yintercept = gamma_eff_usd_ref, linewidth = 0.8) +
   labs(
     x = expression(alpha),
     y = expression("MAC " * "(" * USD/tCO[2] * ")"),
@@ -815,13 +834,12 @@ save_plot(g3, "grafico_03_mac_vs_alpha.png",
 # Gráfico 3B - Break-even carbon price vs alpha
 # -----------------------------
 policy_lines <- tibble(
-  y = c(80, 100, 300, 650, 770),
+  y = c(160, 300, 400, 600),
   label = c(
-    "EU ETS ref. 80",
-    "EU ETS teto 100",
-    "Inducao forte 300",
-    "FuelEU impl. 650",
-    "FuelEU impl. 770"
+    "gamma_eff ref. 160",
+    "gamma_eff 300",
+    "gamma_eff 400",
+    "gamma_eff 600"
   )
 )
 
@@ -932,7 +950,7 @@ frontier_E6 <- res_E6 %>%
   mutate(
     rota = factor(rota, levels = c("soja", "sebo bovino", "UCO", "TCO")),
     alpha_f = factor(alpha),
-    policy_f = factor(gamma_ref_signal_eur, levels = sort(unique(gamma_ref_signal_eur)))
+    policy_f = factor(gamma_eff_signal_eur, levels = sort(unique(gamma_eff_signal_eur)))
   )
 
 g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
@@ -940,9 +958,9 @@ g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
   facet_wrap(~ rota) +
   labs(
     x = expression(alpha),
-    y = expression("Sinal regulatorio " * "(" * gamma^{ref} * " = " * gamma^{comp} * ", " * EUR/tCO[2] * ")"),
+    y = expression("Sinal efetivo " * gamma^{eff} * " (" * EUR/tCO[2] * ")"),
     fill = "Viavel",
-    title = "Fronteira de viabilidade por fracao de mistura e trajetoria regulatoria conjunta"
+    title = "Fronteira de viabilidade por fracao de mistura e sinal regulatorio efetivo"
   ) +
   theme_minimal(base_size = 12)
 
@@ -1007,7 +1025,7 @@ frontier_E7 <- res_E7_reg %>%
   mutate(
     rota = factor(rota, levels = rotas_bio_estados),
     alpha_f = factor(alpha),
-    policy_f = factor(gamma_ref_signal_eur, levels = sort(unique(gamma_ref_signal_eur)))
+    policy_f = factor(gamma_eff_signal_eur, levels = sort(unique(gamma_eff_signal_eur)))
   )
 
 g10 <- ggplot(frontier_E7, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
@@ -1015,7 +1033,7 @@ g10 <- ggplot(frontier_E7, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
   facet_wrap(~ rota) +
   labs(
     x = expression(alpha),
-    y = expression("Sinal regulatorio " * "(" * gamma^{ref} * " = " * gamma^{comp} * ", " * EUR/tCO[2] * ")"),
+    y = expression("Sinal efetivo " * gamma^{eff} * " (" * EUR/tCO[2] * ")"),
     fill = "Viavel",
     title = "Fronteira de viabilidade dos blends estaduais"
   ) +
@@ -1090,7 +1108,7 @@ write_csv(resumo_E7, "resultados/tabelas/resumo_E7_estados.csv")
 primeiros_viaveis_E7 <- res_E7_reg %>%
   filter(V == 1) %>%
   group_by(rota) %>%
-  arrange(gamma_ref_signal_eur, alpha, .by_group = TRUE) %>%
+  arrange(gamma_eff_signal_eur, alpha, .by_group = TRUE) %>%
   slice(1) %>%
   ungroup() %>%
   select(
@@ -1098,6 +1116,7 @@ primeiros_viaveis_E7 <- res_E7_reg %>%
     alpha,
     gamma_ref_signal_eur,
     gamma_comp_signal_eur,
+    gamma_eff_signal_eur,
     break_even_EUR_tCO2,
     Delta_G_t
   )
