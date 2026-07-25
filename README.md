@@ -23,6 +23,8 @@ Base computacional dos experimentos do artigo sobre viabilidade econômico-ambie
 - `resultados/tabelas/`
   Tabelas e bases intermediárias associadas aos experimentos E1--E7 do artigo, incluindo:
   - `resumo_sensibilidade_E2_E5.csv`
+  - `E6_interacao_gamma_ref_gamma_comp.csv`
+  - `resumo_E6_interacao_gamma_ref_gamma_comp.csv`
   - `E7_blends_estaduais_base.csv`
   - `E7_blends_estaduais_regulatorio.csv`
   - `E7_parametros_estaduais.csv`
@@ -60,5 +62,6 @@ O script grava:
 
 - O script está documentado com comentários indicando a origem dos parâmetros usados no artigo.
 - A regra de viabilidade separa o custo explícito de `compliance` (`gamma_comp`) do preço de referência do carbono (`gamma_ref`): `gamma_comp` entra no custo total e altera o `MAC`, enquanto `gamma_ref` é o limiar usado para classificar a viabilidade. Nos experimentos E1--E5, `gamma_comp = 0`; em E6--E7, `gamma_ref` permanece em 80 EUR/tCO2 e a ativação de `gamma_comp` é explorada separadamente.
+- A leitura complementar de E6 cruza diferentes valores de `gamma_ref` com a mesma grade de `gamma_comp` para mostrar como uma referência de carbono mais alta reduz o menor custo explícito de `compliance` necessário para a primeira classificação viável.
 - O experimento E7 adiciona uma verificação com blends estaduais observados da oferta brasileira de biodiesel, preservando a mesma base operacional e regulatória do artigo.
 - Em E7, as rotas tecnológicas puras de E1--E6 não são substituídas; os blends estaduais funcionam como extensão empírica complementar do argumento do artigo.

@@ -683,6 +683,97 @@ res_E6 <- expand_grid(
 
 write_csv(res_E6, "resultados/tabelas/E6_caminhos_viabilidade.csv")
 
+# Leitura complementar de E6: efeito da referência de carbono sobre o menor
+# custo explícito de compliance necessário para alcançar viabilidade.
+gamma_ref_comp_grid_eur <- c(80, 100, 150, 200, 300)
+gamma_comp_comp_grid_eur <- policy_tbl$gamma_comp_signal_eur
+
+res_E6_interacao_ref_comp <- expand_grid(
+  alpha = alpha_grid,
+  rota = rotas_bio,
+  gamma_ref_signal_eur = gamma_ref_comp_grid_eur,
+  gamma_comp_signal_eur = gamma_comp_comp_grid_eur
+) %>%
+  mutate(
+    data = pmap(
+      list(alpha, rota, gamma_ref_signal_eur, gamma_comp_signal_eur),
+      \(alpha, rota, gamma_ref_signal_eur, gamma_comp_signal_eur) {
+        calc_cenario(
+          alpha = alpha,
+          rota = rota,
+          gamma_ref_val_eur = gamma_ref_signal_eur,
+          gamma_comp_val_eur = gamma_comp_signal_eur
+        )
+      }
+    )
+  ) %>%
+  mutate(
+    data = pmap(
+      list(data, gamma_ref_signal_eur, gamma_comp_signal_eur),
+      \(data, gamma_ref_signal_eur, gamma_comp_signal_eur) {
+        bind_cols(
+          tibble(
+            gamma_ref_signal_eur = gamma_ref_signal_eur,
+            gamma_comp_signal_eur = gamma_comp_signal_eur
+          ),
+          data
+        )
+      }
+    )
+  ) %>%
+  pull(data) %>%
+  list_rbind()
+
+write_csv(
+  res_E6_interacao_ref_comp,
+  "resultados/tabelas/E6_interacao_gamma_ref_gamma_comp.csv"
+)
+
+resumo_E6_interacao_ref_comp_viaveis <- res_E6_interacao_ref_comp %>%
+  filter(V == 1) %>%
+  group_by(rota, gamma_ref_signal_eur) %>%
+  arrange(gamma_comp_signal_eur, alpha, .by_group = TRUE) %>%
+  slice(1) %>%
+  ungroup() %>%
+  transmute(
+    rota,
+    gamma_ref_signal_eur,
+    gamma_comp_min_viavel_eur = gamma_comp_signal_eur,
+    alpha_primeiro_viavel = alpha,
+    mac_primeiro_viavel_eur_tco2 = break_even_EUR_tCO2,
+    delta_g_primeiro_viavel_tco2 = Delta_G_t
+  )
+
+resumo_E6_interacao_ref_comp <- expand_grid(
+  rota = rotas_bio,
+  gamma_ref_signal_eur = gamma_ref_comp_grid_eur
+) %>%
+  left_join(
+    resumo_E6_interacao_ref_comp_viaveis,
+    by = c("rota", "gamma_ref_signal_eur")
+  ) %>%
+  mutate(
+    status_viabilidade = if_else(
+      is.na(gamma_comp_min_viavel_eur),
+      "Nao observado na grade",
+      "Viavel"
+    )
+  ) %>%
+  select(
+    rota,
+    gamma_ref_signal_eur,
+    gamma_comp_min_viavel_eur,
+    alpha_primeiro_viavel,
+    mac_primeiro_viavel_eur_tco2,
+    delta_g_primeiro_viavel_tco2,
+    status_viabilidade
+  )
+
+write_csv(
+  resumo_E6_interacao_ref_comp,
+  "resultados/tabelas/resumo_E6_interacao_gamma_ref_gamma_comp.csv"
+)
+
 # -----------------------------
 # Experimento E7 - Blends estaduais observados
 # Verifica se a fronteira de viabilidade obtida para rotas tecnologicas
