@@ -1119,17 +1119,35 @@ frontier_E6 <- res_E6 %>%
   mutate(
     rota = factor(rota, levels = c("soja", "sebo bovino", "UCO", "TCO")),
     alpha_f = factor(alpha),
-    policy_f = factor(gamma_comp_signal_eur, levels = sort(unique(gamma_comp_signal_eur)))
+    policy_f = factor(gamma_comp_signal_eur, levels = sort(unique(gamma_comp_signal_eur))),
+    economic_ok = !is.na(MAC_EUR_tCO2) & MAC_EUR_tCO2 <= gamma_ref_signal_eur,
+    env_ok = G_t <= (1 - delta_ref) * G0_t,
+    status_viabilidade = case_when(
+      V == 1 ~ "Viavel",
+      economic_ok & !env_ok ~ "Apenas criterio economico",
+      TRUE ~ "Nao viavel"
+    ),
+    status_viabilidade = factor(
+      status_viabilidade,
+      levels = c("Nao viavel", "Apenas criterio economico", "Viavel")
+    )
   )
 
-g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
+g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = policy_f, fill = status_viabilidade)) +
   geom_tile(color = "white") +
   facet_wrap(~ rota) +
+  scale_fill_manual(
+    values = c(
+      "Nao viavel" = "#F8766D",
+      "Apenas criterio economico" = "#F2C94C",
+      "Viavel" = "#00BFC4"
+    )
+  ) +
   labs(
     x = expression(alpha),
     y = expression("Compliance " * gamma^{comp} * " (" * EUR/tCO[2] * ")"),
-    fill = "Viavel",
-    title = "Fronteira de viabilidade por fracao de mistura e custo de compliance"
+    fill = "Classificacao",
+    title = "Condicoes economica e economico-ambiental por fracao de mistura"
   ) +
   theme_minimal(base_size = 12)
 
