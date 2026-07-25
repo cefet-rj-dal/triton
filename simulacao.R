@@ -986,9 +986,72 @@ save_plot(g5, "grafico_05_heatmap_viabilidade.png",
           base_dir = file.path("legado", "resultados", "graficos"))
 
 # -----------------------------
-# Gráfico 6 - Decomposição do custo total
+# Gráfico 6 - Decomposição do custo total no B24
 # -----------------------------
 cost_compare <- res_E6 %>%
+  filter(gamma_comp_signal_eur == 650, abs(alpha - 0.24) < 1e-9) %>%
+  transmute(
+    rota,
+    status = if_else(V == 1, "viavel", "nao viavel"),
+    `Bunker fuel` = C0_fuel_USD,
+    `Compliance bunker fuel` = C0_comp_USD,
+    `Biobunker` = C_fuel_USD,
+    `Compliance biobunker` = C_comp_USD
+  ) %>%
+  pivot_longer(
+    cols = c(`Bunker fuel`, `Compliance bunker fuel`, `Biobunker`, `Compliance biobunker`),
+    names_to = "componente_bruto",
+    values_to = "custo_usd"
+  ) %>%
+  mutate(
+    cenario = if_else(
+      componente_bruto %in% c("Bunker fuel", "Compliance bunker fuel"),
+      "Bunker fuel",
+      "Biobunker B24"
+    ),
+    componente = if_else(
+      componente_bruto %in% c("Bunker fuel", "Biobunker"),
+      "Combustivel",
+      "Compliance"
+    )
+  )
+
+total_labels_g6 <- cost_compare %>%
+  group_by(rota, cenario, status) %>%
+  summarise(custo_total = sum(custo_usd), .groups = "drop") %>%
+  mutate(
+    label = paste0(format(round(custo_total / 1000, 0), big.mark = ".", decimal.mark = ","), " mil")
+  )
+
+g6 <- ggplot(cost_compare, aes(x = cenario, y = custo_usd, fill = componente)) +
+  geom_col(width = 0.62) +
+  geom_text(
+    data = total_labels_g6,
+    aes(x = cenario, y = custo_total, label = label),
+    inherit.aes = FALSE,
+    vjust = -0.35,
+    size = 3.2
+  ) +
+  facet_wrap(~ rota, nrow = 2) +
+  scale_fill_manual(
+    values = c(
+      "Combustivel" = "grey45",
+      "Compliance" = "#C43C39"
+    )
+  ) +
+  labs(
+    x = NULL,
+    y = "Custo total (USD/viagem)",
+    fill = "Componente",
+    title = "Decomposicao do custo total no B24 com compliance ativado"
+  ) +
+  coord_cartesian(ylim = c(0, max(total_labels_g6$custo_total) * 1.08)) +
+  theme_minimal(base_size = 12) +
+  theme(axis.text.x = element_text(angle = 18, hjust = 1))
+
+save_plot(g6, "grafico_06_decomposicao_custo.png")
+
+cost_compare_legacy <- res_E6 %>%
   filter(gamma_comp_signal_eur == 650) %>%
   transmute(
     rota,
@@ -1005,7 +1068,7 @@ cost_compare <- res_E6 %>%
     cenario = factor(cenario, levels = c("Biobunker", "Bunker fuel com compliance"))
   )
 
-g6 <- ggplot(cost_compare, aes(x = alpha, y = custo_usd, color = cenario, linetype = cenario)) +
+g6_legacy <- ggplot(cost_compare_legacy, aes(x = alpha, y = custo_usd, color = cenario, linetype = cenario)) +
   geom_line(linewidth = 1.0) +
   geom_point(size = 2.0) +
   facet_wrap(~ rota, scales = "free_y") +
@@ -1030,7 +1093,8 @@ g6 <- ggplot(cost_compare, aes(x = alpha, y = custo_usd, color = cenario, linety
   ) +
   theme_minimal(base_size = 12)
 
-save_plot(g6, "grafico_06_decomposicao_custo.png")
+save_plot(g6_legacy, "grafico_06_comparacao_custo_total_legacy.png",
+          base_dir = file.path("legado", "resultados", "graficos"))
 
 # -----------------------------
 # Gráfico 7 - Fronteira de viabilidade regulatória
