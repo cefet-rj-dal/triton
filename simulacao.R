@@ -917,16 +917,30 @@ policy_lines <- tibble(
   )
 )
 
-g3b <- ggplot(res_E1, aes(x = alpha, y = break_even_EUR_tCO2, group = rota, linetype = rota)) +
+break_even_E1_rota <- res_E1 %>%
+  group_by(rota) %>%
+  summarise(
+    break_even_EUR_tCO2 = first(break_even_EUR_tCO2),
+    .groups = "drop"
+  )
+
+g3b <- ggplot(
+  break_even_E1_rota,
+  aes(x = reorder(rota, break_even_EUR_tCO2), y = break_even_EUR_tCO2)
+) +
   geom_hline(data = policy_lines, aes(yintercept = y), linewidth = 0.5, alpha = 0.45) +
-  geom_line(linewidth = 0.9) +
-  geom_point(size = 2) +
-  labs(
-    x = expression(alpha),
-    y = expression("Preco de carbono de equilibrio " * "(" * EUR/tCO[2] * ")"),
-    title = "Preco de carbono de equilibrio por fracao de mistura e rota",
-    linetype = "Rota do biodiesel"
+  geom_col(width = 0.65, fill = "grey35") +
+  geom_text(
+    aes(label = format(round(break_even_EUR_tCO2, 1), decimal.mark = ",")),
+    vjust = -0.4,
+    size = 3.8
   ) +
+  labs(
+    x = "Rota do biodiesel",
+    y = expression("Preco de carbono de equilibrio " * "(" * EUR/tCO[2] * ")"),
+    title = "Preco de carbono de equilibrio por rota no cenario-base"
+  ) +
+  coord_cartesian(ylim = c(0, 740)) +
   theme_minimal(base_size = 12)
 
 save_plot(g3b, "grafico_03b_break_even_vs_alpha.png")
