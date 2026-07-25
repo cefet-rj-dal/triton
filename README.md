@@ -59,6 +59,6 @@ O script grava:
 ## Observações
 
 - O script está documentado com comentários indicando a origem dos parâmetros usados no artigo.
-- A regra de viabilidade separa o custo explícito de `compliance` (`gamma_comp`) do preço de referência do carbono (`gamma_ref`): `gamma_comp` entra no custo total e altera o `MAC`, enquanto `gamma_ref` é o limiar usado para classificar a viabilidade. Nos experimentos E1--E5, `gamma_comp = 0`; a ativação desse componente é explorada em E6--E7.
+- A regra de viabilidade separa o custo explícito de `compliance` (`gamma_comp`) do preço de referência do carbono (`gamma_ref`): `gamma_comp` entra no custo total e altera o `MAC`, enquanto `gamma_ref` é o limiar usado para classificar a viabilidade. Nos experimentos E1--E5, `gamma_comp = 0`; em E6--E7, `gamma_ref` permanece em 80 EUR/tCO2 e a ativação de `gamma_comp` é explorada separadamente.
 - O experimento E7 adiciona uma verificação com blends estaduais observados da oferta brasileira de biodiesel, preservando a mesma base operacional e regulatória do artigo.
 - Em E7, as rotas tecnológicas puras de E1--E6 não são substituídas; os blends estaduais funcionam como extensão empírica complementar do argumento do artigo.

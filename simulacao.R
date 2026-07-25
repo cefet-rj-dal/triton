@@ -625,8 +625,8 @@ write_csv(res_E5, "resultados/tabelas/E5_sensibilidade_operacional.csv")
 
 # -----------------------------
 # Experimento E6 - Caminhos de viabilidade regulatória
-# Artigo: trajetórias regulatórias que variam separadamente o preço de
-# referência do carbono e o custo explícito de compliance.
+# Artigo: trajetórias regulatórias que mantêm a referência de carbono no valor
+# de E1--E5 e variam apenas o custo explícito de compliance.
 # -----------------------------
 policy_tbl <- tibble(
   policy_path = c(
@@ -640,7 +640,7 @@ policy_tbl <- tibble(
     "FuelEU implicito - baixo",
     "FuelEU implicito - alto"
   ),
-  gamma_ref_signal_eur = c(80, 100, 150, 200, 300, 400, 500, 650, 770),
+  gamma_ref_signal_eur = rep(gamma_ref_eur, 9),
   gamma_comp_signal_eur = c(80, 100, 150, 200, 300, 400, 500, 650, 770)
 )
 
@@ -884,7 +884,7 @@ save_plot(g5, "grafico_05_heatmap_viabilidade.png",
 # Gráfico 6 - Decomposição do custo total
 # -----------------------------
 cost_compare <- res_E6 %>%
-  filter(gamma_ref_signal_eur == 400) %>%
+  filter(gamma_comp_signal_eur == 650) %>%
   transmute(
     rota,
     alpha,
@@ -934,7 +934,7 @@ frontier_E6 <- res_E6 %>%
   mutate(
     rota = factor(rota, levels = c("soja", "sebo bovino", "UCO", "TCO")),
     alpha_f = factor(alpha),
-    policy_f = factor(gamma_ref_signal_eur, levels = sort(unique(gamma_ref_signal_eur)))
+    policy_f = factor(gamma_comp_signal_eur, levels = sort(unique(gamma_comp_signal_eur)))
   )
 
 g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
@@ -942,9 +942,9 @@ g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
   facet_wrap(~ rota) +
   labs(
     x = expression(alpha),
-    y = expression("Referencia " * gamma^{ref} * " (" * EUR/tCO[2] * ")"),
+    y = expression("Compliance " * gamma^{comp} * " (" * EUR/tCO[2] * ")"),
     fill = "Viavel",
-    title = "Fronteira de viabilidade por fracao de mistura e referencia regulatoria"
+    title = "Fronteira de viabilidade por fracao de mistura e custo de compliance"
   ) +
   theme_minimal(base_size = 12)
 
@@ -1009,7 +1009,7 @@ frontier_E7 <- res_E7_reg %>%
   mutate(
     rota = factor(rota, levels = rotas_bio_estados),
     alpha_f = factor(alpha),
-    policy_f = factor(gamma_ref_signal_eur, levels = sort(unique(gamma_ref_signal_eur)))
+    policy_f = factor(gamma_comp_signal_eur, levels = sort(unique(gamma_comp_signal_eur)))
   )
 
 g10 <- ggplot(frontier_E7, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
@@ -1017,7 +1017,7 @@ g10 <- ggplot(frontier_E7, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
   facet_wrap(~ rota) +
   labs(
     x = expression(alpha),
-    y = expression("Referencia " * gamma^{ref} * " (" * EUR/tCO[2] * ")"),
+    y = expression("Compliance " * gamma^{comp} * " (" * EUR/tCO[2] * ")"),
     fill = "Viavel",
     title = "Fronteira de viabilidade dos blends estaduais"
   ) +
@@ -1092,7 +1092,7 @@ write_csv(resumo_E7, "resultados/tabelas/resumo_E7_estados.csv")
 primeiros_viaveis_E7 <- res_E7_reg %>%
   filter(V == 1) %>%
   group_by(rota) %>%
-  arrange(gamma_ref_signal_eur, alpha, .by_group = TRUE) %>%
+  arrange(gamma_comp_signal_eur, alpha, .by_group = TRUE) %>%
   slice(1) %>%
   ungroup() %>%
   select(
