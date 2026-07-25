@@ -729,45 +729,61 @@ write_csv(
   "resultados/tabelas/E6_interacao_gamma_ref_gamma_comp.csv"
 )
 
-resumo_E6_interacao_ref_comp_viaveis <- res_E6_interacao_ref_comp %>%
+gamma_comp_min_por_ref <- res_E6_interacao_ref_comp %>%
   filter(V == 1) %>%
-  group_by(rota, gamma_ref_signal_eur) %>%
+  group_by(gamma_ref_signal_eur) %>%
   arrange(gamma_comp_signal_eur, alpha, .by_group = TRUE) %>%
   slice(1) %>%
   ungroup() %>%
-  transmute(
-    rota,
-    gamma_ref_signal_eur,
-    gamma_comp_min_viavel_eur = gamma_comp_signal_eur,
-    alpha_primeiro_viavel = alpha,
-    mac_primeiro_viavel_eur_tco2 = break_even_EUR_tCO2,
-    delta_g_primeiro_viavel_tco2 = Delta_G_t
-  )
+  select(gamma_ref_signal_eur, gamma_comp_signal_eur)
 
-resumo_E6_interacao_ref_comp <- expand_grid(
+resumo_E6_interacao_mac <- expand_grid(
   rota = rotas_bio,
   gamma_ref_signal_eur = gamma_ref_comp_grid_eur
 ) %>%
+  left_join(gamma_comp_min_por_ref, by = "gamma_ref_signal_eur") %>%
   left_join(
-    resumo_E6_interacao_ref_comp_viaveis,
-    by = c("rota", "gamma_ref_signal_eur")
-  ) %>%
+    res_E6_interacao_ref_comp %>%
+      filter(abs(alpha - 0.24) < 1e-9) %>%
+      select(
+        rota,
+        gamma_ref_signal_eur,
+        gamma_comp_signal_eur,
+        mac_eur_tco2 = break_even_EUR_tCO2,
+        V
+      ),
+    by = c("rota", "gamma_ref_signal_eur", "gamma_comp_signal_eur")
+  )
+
+linha_gamma_comp <- gamma_comp_min_por_ref %>%
+  transmute(
+    item = "gamma_comp",
+    gamma_ref_signal_eur,
+    valor = gamma_comp_signal_eur
+  )
+
+linhas_mac <- resumo_E6_interacao_mac %>%
+  transmute(
+    item = rota,
+    gamma_ref_signal_eur,
+    valor = mac_eur_tco2
+  )
+
+resumo_E6_interacao_ref_comp <- bind_rows(
+  linha_gamma_comp,
+  linhas_mac
+) %>%
   mutate(
-    status_viabilidade = if_else(
-      is.na(gamma_comp_min_viavel_eur),
-      "Nao observado na grade",
-      "Viavel"
+    item = factor(
+      item,
+      levels = c("gamma_comp", "UCO", "TCO", "sebo bovino", "soja")
     )
   ) %>%
-  select(
-    rota,
-    gamma_ref_signal_eur,
-    gamma_comp_min_viavel_eur,
-    alpha_primeiro_viavel,
-    mac_primeiro_viavel_eur_tco2,
-    delta_g_primeiro_viavel_tco2,
-    status_viabilidade
-  )
+  arrange(item, gamma_ref_signal_eur) %>%
+  mutate(
+    gamma_ref_signal_eur = paste0("gamma_ref_", gamma_ref_signal_eur)
+  ) %>%
+  pivot_wider(names_from = gamma_ref_signal_eur, values_from = valor)
 
 write_csv(
   resumo_E6_interacao_ref_comp,
