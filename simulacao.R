@@ -877,10 +877,10 @@ g1 <- ggplot(res_E1, aes(x = alpha, y = G_t, group = rota, linetype = rota)) +
   labs(
     x = expression(alpha),
     y = expression("Emissões totais " * "(" * t * CO[2] * "/" * "viagem" * ")"),
-    title = "Emissões totais por fração de mistura",
     linetype = "Rota do biodiesel"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g1, "grafico_01_emissoes_vs_alpha.png")
 
@@ -893,10 +893,10 @@ g2 <- ggplot(res_E1, aes(x = alpha, y = C_USD, group = rota, linetype = rota)) +
   labs(
     x = expression(alpha),
     y = "Custo total (USD/viagem)",
-    title = "Custo total por fração de mistura",
     linetype = "Rota do biodiesel"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g2, "grafico_02_custo_vs_alpha.png",
           base_dir = file.path("legado", "resultados", "graficos"))
@@ -911,10 +911,10 @@ g3 <- ggplot(res_E1, aes(x = alpha, y = MAC_USD_tCO2, group = rota, linetype = r
   labs(
     x = expression(alpha),
     y = expression("MAC " * "(" * USD/tCO[2] * ")"),
-    title = "Custo marginal de abatimento por fração de mistura",
     linetype = "Rota do biodiesel"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g3, "grafico_03_mac_vs_alpha.png",
           base_dir = file.path("legado", "resultados", "graficos"))
@@ -953,11 +953,11 @@ g3b <- ggplot(
   ) +
   labs(
     x = "Rota do biodiesel",
-    y = expression("Preco de carbono de equilibrio " * "(" * EUR/tCO[2] * ")"),
-    title = "Preco de carbono de equilibrio por rota no cenario-base"
+    y = expression("Preco de carbono de equilibrio " * "(" * EUR/tCO[2] * ")")
   ) +
   coord_cartesian(ylim = c(0, 740)) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g3b, "grafico_03b_break_even_vs_alpha.png")
 
@@ -970,10 +970,10 @@ g4 <- ggplot(res_E1, aes(x = Delta_G_t, y = Delta_C_USD, linetype = rota)) +
   labs(
     x = expression(Delta * "Emissões " * "(" * t * CO[2] * "/" * "viagem" * ")"),
     y = expression(Delta * "Custo " * "(" * USD/viagem * ")"),
-    title = "Trade-off entre redução de emissões e custo incremental",
     linetype = "Rota do biodiesel"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g4, "grafico_04_tradeoff_deltaG_deltaC.png")
 
@@ -993,10 +993,10 @@ g5 <- ggplot(heat_E4, aes(x = alpha_f, y = rota, fill = factor(V))) +
   labs(
     x = expression(alpha),
     y = "Rota do biodiesel",
-    fill = "Viável",
-    title = "Mapa de viabilidade econômico-ambiental"
+    fill = "Viável"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g5, "grafico_05_heatmap_viabilidade.png",
           base_dir = file.path("legado", "resultados", "graficos"))
@@ -1058,12 +1058,14 @@ g6 <- ggplot(cost_compare, aes(x = cenario, y = custo_usd, fill = componente)) +
   labs(
     x = NULL,
     y = "Custo total (USD/viagem)",
-    fill = "Componente",
-    title = "Decomposicao do custo total no B24 com compliance ativado"
+    fill = "Componente"
   ) +
   coord_cartesian(ylim = c(0, max(total_labels_g6$custo_total) * 1.08)) +
   theme_minimal(base_size = 12) +
-  theme(axis.text.x = element_text(angle = 18, hjust = 1))
+  theme(
+    axis.text.x = element_text(angle = 18, hjust = 1),
+    legend.position = "bottom"
+  )
 
 save_plot(g6, "grafico_06_decomposicao_custo.png")
 
@@ -1104,10 +1106,10 @@ g6_legacy <- ggplot(cost_compare_legacy, aes(x = alpha, y = custo_usd, color = c
     x = expression(alpha),
     y = "Custo total (USD/viagem)",
     color = "Cenario",
-    linetype = "Cenario",
-    title = "Comparacao de custo total com compliance ativado"
+    linetype = "Cenario"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g6_legacy, "grafico_06_comparacao_custo_total_legacy.png",
           base_dir = file.path("legado", "resultados", "graficos"))
@@ -1146,10 +1148,10 @@ g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = policy_f, fill = status_viabilida
   labs(
     x = expression(alpha),
     y = expression("Compliance " * gamma^{comp} * " (" * EUR/tCO[2] * ")"),
-    fill = "Classificacao",
-    title = "Condicoes economica e economico-ambiental por fracao de mistura"
+    fill = "Classificacao"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g7, "grafico_07_fronteira_viabilidade.png")
 
@@ -1167,10 +1169,10 @@ g8 <- ggplot(heat_break_even, aes(x = alpha_f, y = rota, fill = break_even_EUR_t
   labs(
     x = expression(alpha),
     y = "Rota do biodiesel",
-    fill = expression("Break-even" ~ "(" * EUR/tCO[2] * ")"),
-    title = "Preco de carbono de equilibrio por rota e fracao de mistura"
+    fill = expression("Break-even" ~ "(" * EUR/tCO[2] * ")")
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g8, "grafico_08_heatmap_break_even.png",
           base_dir = file.path("legado", "resultados", "graficos"))
@@ -1197,11 +1199,11 @@ g9 <- ggplot(
   labs(
     x = expression(alpha),
     y = expression("Preco de carbono de equilibrio " * "(" * EUR/tCO[2] * ")"),
-    title = "Preco de carbono de equilibrio por fracao de mistura e blend estadual",
     color = "Estado",
     linetype = "Estado"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g9, "grafico_09_break_even_estados.png")
 
@@ -1221,10 +1223,10 @@ g10 <- ggplot(frontier_E7, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
   labs(
     x = expression(alpha),
     y = expression("Compliance " * gamma^{comp} * " (" * EUR/tCO[2] * ")"),
-    fill = "Viavel",
-    title = "Fronteira de viabilidade dos blends estaduais"
+    fill = "Viavel"
   ) +
-  theme_minimal(base_size = 12)
+  theme_minimal(base_size = 12) +
+  theme(legend.position = "bottom")
 
 save_plot(g10, "grafico_10_fronteira_viabilidade_estados.png")
 
