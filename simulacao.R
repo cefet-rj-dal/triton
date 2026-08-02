@@ -83,10 +83,10 @@ gamma_ref_eur <- 80         # EUR/tCO2, referência de mercado/regulatória
 
 # Faixas para sensibilidade
 # Artigo:
-# - E4: delta em {0,10; 0,15; 0,20; 0,25}
-# - E4: gamma_ref em {60, 80, 100} EUR/tCO2
-delta_grid <- c(0.10, 0.15, 0.20, 0.25)
-gamma_grid_eur <- c(60, 80, 100)
+# - E4: delta de 0,10 a 0,25 com passo 0,01
+# - E4: gamma_ref de 60 a 120 EUR/tCO2 com passo 10
+delta_grid <- seq(0.10, 0.25, by = 0.01)
+gamma_grid_eur <- seq(60, 120, by = 10)
 
 # Câmbio de referência para comparar MAC (USD/tCO2) com gamma de referência (EUR/tCO2).
 # Fonte: ECB euro foreign exchange reference rates, USD = 1.1581 em 11/03/2026.
@@ -116,14 +116,14 @@ ets_coverage_ref <- 0.50
 ets_phase_in_ref <- 1.00
 
 # Sensibilidade econômica
-pb_mult_grid    <- c(0.80, 1.00, 1.20)
-pbio_mult_grid  <- c(0.80, 1.00, 1.20)
+pb_mult_grid    <- seq(0.75, 1.25, by = 0.05)
+pbio_mult_grid  <- seq(0.75, 1.25, by = 0.05)
 
 # Sensibilidade ambiental
-fe_mult_grid <- c(0.90, 1.00, 1.10)
+fe_mult_grid <- seq(0.75, 1.25, by = 0.05)
 
 # Sensibilidade operacional
-op_mult_grid <- c(0.90, 1.00, 1.10)
+op_mult_grid <- seq(0.85, 1.15, by = 0.05)
 
 # -----------------------------
 # Propriedades dos combustíveis
@@ -629,19 +629,9 @@ write_csv(res_E5, "resultados/tabelas/E5_sensibilidade_operacional.csv")
 # de E1--E5 e variam apenas o custo explícito de compliance.
 # -----------------------------
 policy_tbl <- tibble(
-  policy_path = c(
-    "EU ETS - referencia",
-    "EU ETS - teto recente",
-    "Carbono reforcado I",
-    "Carbono reforcado II",
-    "Inducao forte I",
-    "Inducao forte II",
-    "Inducao forte III",
-    "FuelEU implicito - baixo",
-    "FuelEU implicito - alto"
-  ),
-  gamma_ref_signal_eur = rep(gamma_ref_eur, 9),
-  gamma_comp_signal_eur = c(80, 100, 150, 200, 300, 400, 500, 650, 770)
+  policy_path = sprintf("gamma_comp_%03d", seq(0, 700, by = 10)),
+  gamma_ref_signal_eur = rep(gamma_ref_eur, length(seq(0, 700, by = 10))),
+  gamma_comp_signal_eur = seq(0, 700, by = 10)
 )
 
 res_E6 <- expand_grid(
@@ -685,8 +675,8 @@ write_csv(res_E6, "resultados/tabelas/E6_caminhos_viabilidade.csv")
 
 # Leitura complementar de E6: efeito da referência de carbono sobre o menor
 # custo explícito de compliance necessário para alcançar viabilidade.
-gamma_ref_comp_grid_eur <- c(80, 100, 150, 200, 300)
-gamma_comp_comp_grid_eur <- policy_tbl$gamma_comp_signal_eur
+gamma_ref_comp_grid_eur <- seq(80, 350, by = 10)
+gamma_comp_comp_grid_eur <- seq(80, 700, by = 10)
 
 res_E6_interacao_ref_comp <- expand_grid(
   alpha = alpha_grid,
@@ -1121,7 +1111,6 @@ frontier_E6 <- res_E6 %>%
   mutate(
     rota = factor(rota, levels = c("soja", "sebo bovino", "UCO", "TCO")),
     alpha_f = factor(alpha),
-    policy_f = factor(gamma_comp_signal_eur, levels = sort(unique(gamma_comp_signal_eur))),
     economic_ok = !is.na(MAC_EUR_tCO2) & MAC_EUR_tCO2 <= gamma_ref_signal_eur,
     env_ok = G_t <= (1 - delta_ref) * G0_t,
     status_viabilidade = case_when(
@@ -1135,9 +1124,10 @@ frontier_E6 <- res_E6 %>%
     )
   )
 
-g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = policy_f, fill = status_viabilidade)) +
+g7 <- ggplot(frontier_E6, aes(x = alpha_f, y = gamma_comp_signal_eur, fill = status_viabilidade)) +
   geom_tile(color = "white") +
   facet_wrap(~ rota) +
+  scale_y_continuous(breaks = seq(0, 700, by = 100)) +
   scale_fill_manual(
     values = c(
       "Nao viavel" = "#F8766D",
@@ -1213,13 +1203,17 @@ save_plot(g9, "grafico_09_break_even_estados.png")
 frontier_E7 <- res_E7_reg %>%
   mutate(
     rota = factor(rota, levels = rotas_bio_estados),
-    alpha_f = factor(alpha),
-    policy_f = factor(gamma_comp_signal_eur, levels = sort(unique(gamma_comp_signal_eur)))
+    alpha_f = factor(alpha)
   )
 
-g10 <- ggplot(frontier_E7, aes(x = alpha_f, y = policy_f, fill = factor(V))) +
+g10 <- ggplot(frontier_E7, aes(x = alpha_f, y = gamma_comp_signal_eur, fill = factor(V))) +
   geom_tile(color = "white") +
   facet_wrap(~ rota) +
+  scale_y_continuous(breaks = seq(0, 700, by = 100)) +
+  scale_fill_manual(
+    values = c("0" = "#F8766D", "1" = "#00BFC4"),
+    labels = c("0" = "Nao viavel", "1" = "Viavel")
+  ) +
   labs(
     x = expression(alpha),
     y = expression("Compliance " * gamma^{comp} * " (" * EUR/tCO[2] * ")"),
