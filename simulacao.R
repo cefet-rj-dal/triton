@@ -151,7 +151,8 @@ FE_b   <- 3.114            # kgCO2/kg
 # Referências:
 # - Wang et al. (2015), Biotechnol Biofuels 8:178, doi:10.1186/s13068-015-0350-8.
 #   No método marginal, o biodiesel de technical corn oil apresentou 14 gCO2e/MJ.
-# - Dhinesh et al. (2019), Data in Brief 25:104308, PMCID: PMC6838419.
+# - Balaji et al. (2019), Data in Brief 27:104683,
+#   doi:10.1016/j.dib.2019.104683, PMCID: PMC6838419.
 #   O biodiesel B100 de corn oil methyl ester reportou calorific value de 36.64 MJ/kg.
 # - Washington Administrative Code 173-424-110(137): define technical corn oil
 #   como óleo não alimentar recuperado de thin stillage/DDGS.
@@ -168,7 +169,7 @@ fuel_tbl <- tibble(
   # comparações tecnoeconômicas recentes.
   p_bio   = c(1.60, 1.60, 1.60, 1.60),          # USD/kg
   # PCI_bio = 37,68 MJ/kg para soja / sebo / UCO: coerente com RenovaCalc.
-  # PCI_bio = 36,64 MJ/kg para TCO: Dhinesh et al. (2019).
+  # PCI_bio = 36,64 MJ/kg para TCO: Balaji et al. (2019).
   # FE_bio = 1,32 / 0,64 / 0,56 kgCO2/kg para soja / sebo / UCO:
   #   referenciais do RenovaBio e sistematização metodológica recente
   #   (anp_renovacalc; pereira_renovacalc_2025).

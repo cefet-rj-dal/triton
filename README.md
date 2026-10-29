@@ -49,9 +49,9 @@ E6 introduces an explicit compliance cost while keeping the reference carbon cos
 
 E7 varies the explicit compliance cost and the reference cost jointly. This separates two mechanisms that are often conflated: the compliance cost changes total scenario cost, whereas the reference cost defines the threshold used to classify the remaining abatement cost.
 
-E8 replaces isolated biodiesel pathways with observed aggregate blends from Brazilian states. This tests whether the central interpretation persists when biodiesel is represented by empirical supply compositions and regional B100 prices.
+E8 replaces isolated biodiesel pathways with aggregate state-level supply compositions. This tests whether the central interpretation persists when biodiesel is represented by compositions approximated from observed feedstock shares and regional B100 prices.
 
-The simulator output file names still use `E7` for the state-level experiment because that branch was created before the article narrative was expanded. In the article text, the corresponding state-level experiment is described as E8.
+The simulator output file names follow an earlier numbering, created before the article narrative was expanded. The mapping between the manuscript labels and the file names is given below, under Experiment Labels and File Names.
 
 ## Figures
 
@@ -95,6 +95,28 @@ The simulator output file names still use `E7` for the state-level experiment be
 - `grafico_08_heatmap_break_even.png`
   Stored under `legado/resultados/graficos/`. It gives a heatmap view of break-even values by blend fraction and pathway. The current article uses the more compact pathway-level break-even figure.
 
+## Experiment Labels and File Names
+
+The file name prefixes follow an earlier numbering and are shifted by one for the last two
+experiments. The code does not use the label `E8`. Use this mapping to match the manuscript to the
+output files:
+
+| Manuscript | What it does | Files |
+| --- | --- | --- |
+| E1 | Baseline configuration | `E1_cenario_base.csv`, `resumo_E1.csv` |
+| E2 | Price sensitivity | `E2_sensibilidade_economica.csv` |
+| E3 | Emission-factor sensitivity | `E3_sensibilidade_ambiental.csv` |
+| E4 | Regulatory sensitivity (`delta`, `gamma_ref`) | `E4_sensibilidade_regulatoria.csv` |
+| E5 | Operational sensitivity | `E5_sensibilidade_operacional.csv` |
+| E2-E5 | Combined summary | `resumo_sensibilidade_E2_E5.csv` |
+| E6 | Compliance-cost grid | `E6_caminhos_viabilidade.csv` |
+| **E7** | Interaction `gamma_comp` x `gamma_ref` | `E6_interacao_gamma_ref_gamma_comp.csv`, `resumo_E6_interacao_gamma_ref_gamma_comp.csv` |
+| **E8** | State-level supply compositions | `E7_blends_estaduais_base.csv`, `E7_blends_estaduais_regulatorio.csv`, `E7_primeiros_viaveis.csv`, `resumo_E7_estados.csv` |
+| E8 inputs | Feedstock shares, prices, and parameters derived from ANP data | `E7_materias_primas_estaduais_anp_mar2026.csv`, `E7_precos_regionais_b100_anp_mar2026.csv`, `E7_parametros_estaduais.csv`, `E7_top_estados_anp_mar2026.csv` |
+
+The break-even carbon price of each scenario is the marginal abatement cost expressed in the
+comparison currency, not a separate metric. It is reported in `resumo_break_even.csv`.
+
 ## Main Outputs
 
 The most relevant tables in `resultados/tabelas/` are:
@@ -110,10 +132,104 @@ The most relevant tables in `resultados/tabelas/` are:
 - `E7_primeiros_viaveis.csv`: first viable state-level combinations.
 - `resumo_E7_estados.csv`: summarized state-level results.
 
+## Parameter Elicitation
+
+All parameters are declared at the top of `simulacao.R`. The manuscript reports the energy,
+environmental, and economic parameters of the fuels in a dedicated table; this section records the
+full set, including the values that the manuscript states in prose or varies through grids.
+
+### Operational conditions
+
+| Parameter | Value | Source |
+| --- | --- | --- |
+| Route distance `D` | 10,120 km (Santos-Rotterdam) | SeaRoutes maritime routing platform |
+| Average speed `v` | 25.93 km/h (14 knots) | Representative of Panamax vessels |
+| Aggregate consumption `c` | 40 t/day | Order of magnitude for the Panamax dry-bulk market |
+
+The conventional scenario derives from these three values: voyage time `T = D / v`, fuel mass
+`F_kg(0) = c * T`, and the useful voyage demand that is held constant across scenarios.
+
+### Fossil reference
+
+| Parameter | Value | Source |
+| --- | --- | --- |
+| `PCI_b` | 40.2 MJ/kg | IPCC (2006), Residual Fuel Oil category |
+| `FE_b` | 3.114 kgCO2/kg | IPCC (2006), Residual Fuel Oil category |
+| `eta_b` | 0.45 | Representative value for comparative modeling |
+| `p_b` | 0.50 USD/kg | Order of magnitude from recent techno-economic assessments |
+
+### Biodiesel pathways
+
+| Pathway | `PCI_bio` (MJ/kg) | `eta_bio` | `FE_bio` (kgCO2/kg) | `p_bio` (USD/kg) |
+| --- | --- | --- | --- | --- |
+| Soybean | 37.68 | 0.43 | 1.320 | 1.60 |
+| Beef tallow | 37.68 | 0.43 | 0.640 | 1.60 |
+| UCO | 37.68 | 0.43 | 0.560 | 1.60 |
+| TCO | 36.64 | 0.43 | 0.513 | 1.60 |
+
+- Lower heating values for soybean, beef tallow, and UCO are consistent with RenovaCalc.
+- The TCO lower heating value is the calorific value of corn oil methyl ester measured under ASTM
+  standards by Balaji et al. (2019), Data in Brief 27:104683.
+- Emission factors for soybean, beef tallow, and UCO follow RenovaBio references and their recent
+  methodological systematization.
+- The TCO emission factor is converted from Wang et al. (2015), Biotechnology for Biofuels 8:178,
+  under the marginal co-product treatment method, since TCO is recovered as a co-product of corn
+  ethanol production. This factor is more sensitive to the co-product allocation method than the
+  factors of the consolidated residue pathways, which is why the model includes a specific
+  sensitivity analysis for emission factors and prices.
+- The unit price is the same for the four pathways. In E1-E7 the ordering among them therefore
+  follows from emission factors, lower heating values, and efficiencies alone. Differentiated prices
+  enter only with the state-level supply compositions.
+
+### Environmental and regulatory parameters
+
+| Parameter | Value | Note |
+| --- | --- | --- |
+| `delta` | 0.15 | Minimum emission reduction; E4 varies it from 0.10 to 0.25, step 0.01 |
+| `gamma_ref` | 80 EUR/tCO2 | E4 varies it from 60 to 120; E7 from 80 to 350, step 10 |
+| `gamma_comp` | 0 EUR/tCO2 in the baseline | E6 and E8 vary it from 0 to 700, step 10; E7 from 80 to 700 |
+| `ets_coverage` (`lambda`) | 0.50 | Share of voyage emissions covered on voyages arriving from a port outside the European Union |
+| `ets_phase_in` (`rho`) | 1.00 | Phase-in of the allowance-surrender obligation in force from 2026 onward |
+| TTW factor of the renewable fraction | 0 | Sustainable biomass eligible for a zero surrender factor under the EU ETS |
+
+### Currency conversion
+
+| Parameter | Value | Source |
+| --- | --- | --- |
+| EUR to USD | 1.1581 | European Central Bank euro foreign exchange reference rate, 11 March 2026 |
+| BRL to USD | 5.2296 | Average rate for the observation period |
+| Biodiesel density | 0.88 kg/L | Used to convert ANP prices from BRL/L to USD/kg |
+
+The marginal abatement cost is computed in USD/tCO2, so the comparison with `gamma_ref` is made
+after converting the reference cost from EUR/tCO2 to USD/tCO2.
+
+### State-level supply compositions
+
+Feedstock shares and regional B100 prices refer to March 2026. The five states are those with the
+highest biodiesel production in that month, according to the ANP dynamic panel of biodiesel
+producers. Emission factors are averages weighted by the volumetric share of each feedstock in
+state production. These compositions are model representations approximated from observed feedstock
+shares and regional prices; they are not observed marine-fuel batches.
+
+### Blend composition
+
+The lower heating value of a blend is a mass-weighted average of its components. The effective
+efficiency is computed from the efficiencies of the components weighted by their energy
+contribution, so that the required fuel mass varies with composition while the useful voyage demand
+stays constant.
+
 ## Notes
 
 - `gamma_comp` changes total scenario cost by adding an explicit compliance component.
 - `gamma_ref` is the reference threshold used to classify whether the remaining marginal abatement cost is acceptable.
 - E1-E5 keep `gamma_comp = 0`.
 - E6-E8 activate the compliance-cost mechanism.
-- State-level blends do not replace the representative pathways. They provide an empirical extension using observed Brazilian biodiesel supply data.
+- The marginal abatement cost does not depend on `delta` or `gamma_ref`, which appear only in the
+  classification rule, so the interval reported for E4 is invariant by construction. The three
+  parameters varied in E5 scale the size of the voyage, so incremental cost and avoided emissions
+  change in the same proportion and their ratio is preserved.
+- The state-level compositions do not replace the representative pathways. They extend the
+  assessment to an aggregate representation of Brazilian supply, approximated from observed
+  feedstock shares and regional prices for March 2026. They are model representations, not
+  observed marine-fuel batches, and they carry differentiated regional prices, which the four
+  representative pathways do not.
